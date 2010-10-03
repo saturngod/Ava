@@ -1,10 +1,13 @@
 Nifty is a very sample framework for education purpose. It also opensource and using MIT license. If you want to make your own framework, you can learn basic structure from nifty framework. It's using MVC strcuture and OOP. Written by PHP 5.3. There is a just design for MVC. No extra library , no database class. Very very sample MVC design.
 
-*Checking URL ::*
+**Checking URL ::**
 
 http://localhost/nifty/
+
 http://localhost/nifty/index.php
+
 http://localhost/nifty/index.php/index/sample
+
 
 **Config File ::** 
 /system/config/config.php
