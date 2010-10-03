@@ -19,13 +19,18 @@ http://localhost/nifty/index.php/index/sample
 /system/app/view
 
 
+
 **Configure**
 
 $config['start_page'] is a start controller file. no need to add .php. Just need to add file name.
 
+
+
 **Creating Controller**
 
 You need to extends controller class and call parent::Controller(). You can check example from system/app/controller/index.php
+
+
 
 **Creating Model**
 
@@ -36,11 +41,14 @@ You need to extends model class and call parent::Model(). You can check example 
 $this->load->model('modelname');
 $this->modelname->model_function();
 
+
+
 **View**
 
 View is a sample php file. If you want to parse data with array. It will extract variable when arrive view.
 
 *example::*
+
 
 ***index controller***
 
