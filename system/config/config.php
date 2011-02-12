@@ -1,5 +1,5 @@
 <?php
-Class AWConfig
+Class AwConfig
 {
 	//for baseurl, current runing link
 	const base_url="http://localhost/nifty";
