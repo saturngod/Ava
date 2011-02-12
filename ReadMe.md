@@ -1,0 +1,1 @@
+Nifty php framework for web api. It also opensource and using MIT license. It's using MVC strcuture and OOP. Written by PHP 5.3. There is a just design for MVC. It still alpha version and http://user.mysteryzillion.org is using Nifty.
