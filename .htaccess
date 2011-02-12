@@ -1,0 +1,17 @@
+# compress javascript, css , php:
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+
+<Files *.php>
+SetOutputFilter DEFLATE
+</Files>
+
+#rewrite engine for apiwork:
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ index.php?rt=$1 [L,QSA]
+
