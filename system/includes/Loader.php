@@ -47,7 +47,8 @@ class Loader {
 
 	private function notfound_err($type)
 	{
-		echo "<div style='background-color:#FF9BA2;border:1px solid #FF4745;width:90%;margin:0px auto;padding:8px;color:#555'>$type not found</div>";
+		die("<div style='background-color:#FF9BA2;border:1px solid #FF4745;width:90%;margin:0px auto;padding:8px;color:#555'>$type not found</div>");
+		
 	}
 	
 	public function model($modelname,$name='')
@@ -102,6 +103,18 @@ class Loader {
 			echo "<script src='".AWConfig::public_url."/js/".$javascript.".js"."'></script>";
 		}
 		
+	}
+	
+	public function css($cssfile)
+	{
+		if(!is_file(SITE_PATH."/public/".$cssfile))
+		{
+			$this->notfound_err("css file");
+		}
+		else
+		{
+			echo "<link rel='stylesheet' href='".AWConfig::public_url."/".$cssfile."' type='text/css' />";
+		}
 	}
 	
 	public function redirect($string)
