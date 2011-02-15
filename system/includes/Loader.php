@@ -94,26 +94,26 @@ class Loader {
 	
 	public function js($javascript)
 	{
-		if(!is_file(SITE_PATH."/public/js/".$javascript.".js"))
+		if(!is_file(SITE_PATH."/public/".$javascript.".js"))
 		{
 			$this->notfound_err("Javascript");
 		}
 		else
 		{
-			echo "<script src='".AWConfig::public_url."/js/".$javascript.".js"."'></script>";
+			echo "<script src='".AWConfig::public_url."/".$javascript.".js'></script>";
 		}
 		
 	}
 	
 	public function css($cssfile)
 	{
-		if(!is_file(SITE_PATH."/public/".$cssfile))
+		if(!is_file(SITE_PATH."/public/".$cssfile.".css"))
 		{
 			$this->notfound_err("css file");
 		}
 		else
 		{
-			echo "<link rel='stylesheet' href='".AWConfig::public_url."/".$cssfile."' type='text/css' />";
+			echo "<link rel='stylesheet' href='".AWConfig::public_url."/".$cssfile.".css' type='text/css' />";
 		}
 	}
 	
