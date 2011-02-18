@@ -7,7 +7,7 @@ include SITE_PATH.'/includes/Controller.php';
 include SITE_PATH.'/includes/RESTController.php';
 include SITE_PATH.'/includes/Model.php';
 include SITE_PATH.'/library/class/segment.php';
-include SITE_PATH.'/library/class/output.php';
+include SITE_PATH.'/library/class/io.php';
 
 //Load Custom Class
 

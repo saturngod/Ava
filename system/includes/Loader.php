@@ -23,7 +23,7 @@ class Loader {
 	public function Loader()
 	{
 		$this->load=$this;
-        $this->output=new output();
+        $this->io=new io();
 		$this->jq=new jquery();
 		$this->segment=new segment();
 		//Auto Load
@@ -46,12 +46,22 @@ class Loader {
 
 	}
 
+    /**
+     * @param  string $type
+     * @return void
+     */
 	private function notfound_err($type)
 	{
 		die("<div style='background-color:#FF9BA2;border:1px solid #FF4745;width:90%;margin:0px auto;padding:8px;color:#555'>$type not found</div>");
 		
 	}
-	
+
+    /**
+     * load model
+     * @param string $modelname
+     * @param string $name
+     * @return void
+     */
 	public function model($modelname,$name='')
 	{	
 		//Model name require Model
@@ -76,7 +86,13 @@ class Loader {
 		}
 		
 	}
-	
+
+    /**
+     * load view
+     * @param  string $view
+     * @param string $data_array
+     * @return void
+     */
 	public function view($view,$data_array='')
 	{
 		//extract for $data['variable']=value to variable=value
@@ -92,7 +108,12 @@ class Loader {
 			require SITE_PATH."/application/View/".$view.".php";
 		}
 	}
-	
+
+    /**
+     * Load javascript file from public folder
+     * @param  string $javascript
+     * @return void
+     */
 	public function js($javascript)
 	{
 		if(!is_file(SITE_PATH."/public/".$javascript.".js"))
@@ -105,7 +126,12 @@ class Loader {
 		}
 		
 	}
-	
+
+    /**
+     * Load CSS file from public folder
+     * @param  string $cssfile
+     * @return void
+     */
 	public function css($cssfile)
 	{
 		if(!is_file(SITE_PATH."/public/".$cssfile.".css"))
@@ -117,12 +143,21 @@ class Loader {
 			echo "<link rel='stylesheet' href='".AWConfig::public_url."/".$cssfile.".css' type='text/css' />";
 		}
 	}
-	
+
+    /**
+     * redirect website using javascript
+     * @param  string $string
+     * @return void
+     */
 	public function redirect($string)
 	{
 		echo "<script>window.location='".$string."'</script>";
 	}
-	
+
+    /**
+     * load database
+     * @return void
+     */
 	public function database()
 	{
 		if(!is_file(SITE_PATH.'/library/class/db.php'))
@@ -135,17 +170,34 @@ class Loader {
 			$this->db=new db();
 		}
 	}
-	
+
+    /**
+     * load library
+     * @param  string $library
+     * @return void
+     */
 	public function library($library)
 	{
 		$this->$library=new $library();
 	}
-	
+
+    /**
+     * load helper
+     * @package loader
+     * @param  string $helper
+     * @return void
+     */
 	public function helper($helper)
 	{
 		require SITE_PATH."/library/helper/".$helper.".php";
 	}
-	
+
+    /**
+     * load plugin
+     * @package Loader
+     * @param  string $name
+     * @return void
+     */
 	public function plugin($name)
 	{
 		if(!is_file(SITE_PATH.'/library/class/Facebook.php'))
@@ -167,6 +219,7 @@ class Loader {
 	 * @author saturngod
 	 * @package Loader
 	 * @category library
+     * @return void
 	 */
 	public function facebook()
 	{
@@ -184,7 +237,11 @@ class Loader {
 			));
 		}
 	}
-	
+
+    /**
+     * initalize session
+     * @return void
+     */
 	private function session()
 	{
 		$this->session=new session();
@@ -195,7 +252,11 @@ class Loader {
 
 }
 
-
+/**
+ * auto load class
+ * @param  string $class
+ * @return void
+ */
 function __autoload($class)
 {
 	$modelname=substr($class,0,-5);

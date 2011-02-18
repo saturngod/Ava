@@ -62,6 +62,7 @@
  	 * get number of segment from uri
  	 *
  	 * @author saturngod
+     * @param int $room
  	 * @return string 
  	 */
  	 

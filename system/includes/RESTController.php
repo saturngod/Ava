@@ -65,7 +65,7 @@ Abstract class RESTController extends Loader {
     {
         if(empty($data))
     	{
-    		$this->output->set_status_header(404);
+    		$this->io->set_status_header(404);
     		return;
     	}
 
@@ -74,7 +74,7 @@ Abstract class RESTController extends Loader {
         if(method_exists($this, '_REST_'.$this->_format))
         {
 	    	// Set the correct format header
-	    	$this->output->set_status_header($http_code);
+	    	$this->io->set_status_header($http_code);
             header('Content-type: '.$this->_supported_formats[$this->_format]);
             echo $this->{'_REST_'.$this->_format}($data);
 
@@ -306,6 +306,34 @@ Abstract class RESTController extends Loader {
     {
     	return var_export($data, TRUE);
     }
+
+ // INPUT FUNCTION --------------------------------------------------------------
+
+    public function get($key, $xss_clean = TRUE)
+    {
+    	return array_key_exists($key, $this->_get_args) ? $this->_xss_clean( $this->_get_args[$key], $xss_clean ) : $this->io->get($key, $xss_clean) ;
+    }
+
+    public function post($key, $xss_clean = TRUE)
+    {
+    	return $this->io->post($key, $xss_clean);
+    }
+
+    public function put($key, $xss_clean = TRUE)
+    {
+    	return array_key_exists($key, $this->_put_args) ? $this->_xss_clean( $this->_put_args[$key], $xss_clean ) : FALSE ;
+    }
+
+    public function delete($key, $xss_clean = TRUE)
+    {
+    	return array_key_exists($key, $this->_delete_args) ? $this->_xss_clean( $this->_delete_args[$key], $xss_clean ) : FALSE ;
+    }
+
+    private function _xss_clean($val, $bool)
+    {
+    	return $bool ? $this->io->xss_clean($val) : $val;
+    }
+        
    
 }
 
