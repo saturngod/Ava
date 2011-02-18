@@ -6,7 +6,7 @@
  * gravatar plugin
  *
  * @author saturngod
- * @package Nifty
+ * @package Ava
  * @category plugin
  */
  
