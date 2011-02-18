@@ -22,18 +22,23 @@
  	 */
  	public function __construct()
  	{
- 	
- 		$tmp_arr=preg_split('/\//',AWConfig::base_url);	
- 		$count=count($tmp_arr)-2; // http:// include // 2. So substract 2
- 		 	
- 		$this->list=preg_split('/\//',$_SERVER['REQUEST_URI']);
- 		
- 		for($i=0;$i<=$count-1;$i++)
- 		{
+         $tmp_arr=preg_split('/\//',AWConfig::base_url);
+         $count=count($tmp_arr)-2; // http:// include // 2. So substract 2
+         $this->list=preg_split('/\//',$_SERVER['REQUEST_URI']);
+
+         for($i=0;$i<=$count-1;$i++)
+          {
  			//shifting the uncessary array
- 			array_shift($this->list);
- 		}
- 		
+            array_shift($this->list);
+          }
+
+
+         $arr_count=count($this->list);
+
+         if($this->list[$arr_count-1]=="")
+         {
+            array_pop($this->list);
+         }
  		
  	}
  	

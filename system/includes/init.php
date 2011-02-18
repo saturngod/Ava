@@ -4,8 +4,10 @@ include SITE_PATH.'/config/config.php';
 include SITE_PATH.'/includes/router.php';
 include SITE_PATH.'/includes/Loader.php';
 include SITE_PATH.'/includes/Controller.php';
+include SITE_PATH.'/includes/RESTController.php';
 include SITE_PATH.'/includes/Model.php';
 include SITE_PATH.'/library/class/segment.php';
+include SITE_PATH.'/library/class/output.php';
 
 //Load Custom Class
 

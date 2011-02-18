@@ -23,6 +23,7 @@ class Loader {
 	public function Loader()
 	{
 		$this->load=$this;
+        $this->output=new output();
 		$this->jq=new jquery();
 		$this->segment=new segment();
 		//Auto Load

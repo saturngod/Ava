@@ -15,6 +15,12 @@ class IndexController extends Controller {
 		$data['txt']=$this->helloworld->get_txt();
 
 		$this->load->view('home',$data);
+
+
 	}
+    function word()
+    {
+        var_dump($this->segment->get_list());
+    }
 }
 ?>
