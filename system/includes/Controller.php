@@ -6,7 +6,7 @@ public $load;
 //For Constructor
 function Controller()
 {
-	self::Loader();
+	$this->load= new Loader();
 }
 
 abstract function index();

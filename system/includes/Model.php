@@ -5,7 +5,7 @@ Abstract class Model extends Loader{
 	
 	function Model()
 	{
-		self::Loader();
+		$this->load = new Loader();
 	}
 
 }

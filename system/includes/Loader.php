@@ -22,7 +22,7 @@ class Loader {
 	 */
 	public function Loader()
 	{
-		$this->load=$this;
+		
         $this->io=new io();
 		$this->jq=new jquery();
 		$this->segment=new segment();
@@ -105,6 +105,7 @@ class Loader {
 		}
 		else
 		{
+			$this->load = new Loader();
 			require SITE_PATH."/application/View/".$view.".php";
 		}
 	}
