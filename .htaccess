@@ -1,13 +1,4 @@
-# compress javascript, css , php:
-AddOutputFilterByType DEFLATE text/css
-AddOutputFilterByType DEFLATE application/javascript
-AddOutputFilterByType DEFLATE application/x-javascript
-
-<Files *.php>
-SetOutputFilter DEFLATE
-</Files>
-
-#rewrite engine for apiwork:
+#rewrite engine for ava framework
 RewriteEngine on
 
 RewriteCond %{REQUEST_FILENAME} !-f

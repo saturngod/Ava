@@ -8,12 +8,8 @@ class SimpleController extends Controller {
     
 	function index()
 	{
-		echo "Test";
+		echo "Test Controller";
 	}
-	
-	function test()
-	{
-		echo "HI";
-	}
+
 }
 ?>

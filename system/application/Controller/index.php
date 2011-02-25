@@ -10,7 +10,8 @@ class IndexController extends Controller {
 	{
 		echo "HI";
 	}
-    function word()
+	
+    function helloworld()
     {
         $this->load->model('helloworld');
         echo $this->helloworld->get_txt();
