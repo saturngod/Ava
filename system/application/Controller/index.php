@@ -20,7 +20,7 @@ class IndexController extends Controller {
     function myview()
     {
     	$data['base']='HI';
-    	$data['public']=AWConfig::public_url;
+    	$data['public']=AvaConfig::public_url;
     	$data['txt']='This is testing';
     	$this->load->view('home',$data);
     }

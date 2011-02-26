@@ -1,5 +1,5 @@
 <?php
-Class AwConfig
+Class AvaConfig
 {
 	//for baseurl, current runing link
 	const base_url="http://localhost/avalight";

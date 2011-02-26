@@ -2,12 +2,13 @@
 function &load_class($class)
 {
 	static $objects = array();
-	// Does the class exist?  If so, we're done...
+	
 	
 	if($class=='Loader')
 	{
 		$name="Ava_Loader";
 	}
+	// Does the class exist?  If so, we're done...
 	if (isset($objects[$name]))
 	{
 		return $objects[$name];

@@ -16,7 +16,7 @@ class Model {
 	}
 	
 	function _assign_libraries($use_reference = TRUE)
-		{
+	{
 			$Ava =& get_instance();				
 			foreach (array_keys(get_object_vars($Ava)) as $key)
 			{
@@ -35,6 +35,6 @@ class Model {
 					}
 				}
 			}		
-		}
+	}
 }
 ?>

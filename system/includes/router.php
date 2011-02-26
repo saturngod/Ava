@@ -28,7 +28,7 @@ class router {
  	private function getController()
  	{
  		/*** get the route from the url ***/
- 		if(AWConfig::htaccess)
+ 		if(AvaConfig::htaccess)
  		{
 			$route = (empty($_GET['rt'])) ? '' : $_GET['rt'];
 		}
