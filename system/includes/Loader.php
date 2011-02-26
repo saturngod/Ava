@@ -106,14 +106,55 @@ class Ava_Loader {
 		{
 			return;
 		}
-
+		;
 		$Ava =& get_instance();
 		foreach ($this->_ava_models as $model)
 		{			
-			$CI->$model->_assign_libraries();
+			if($model!="")
+			{
+				$Ava->$model->_assign_libraries();
+			}
 		}
 		
-	} 
+	}
+	
+	public function redirect($string)
+	{
+		echo "<script>window.location='".$string."'</script>";
+	}
+	
+	public function helper($helper)
+	{
+		if(!file_exists(SITE_PATH."/helper/".$helper.".php")) {
+			$this->notfound_err("HELPER::". $helper);
+		}
+		else {
+			require SITE_PATH."/helper/".$helper.".php";
+		}
+	}
+	
+	public function js($javascript)
+	{
+		echo "<script src='".AvaConfig::public_url."/js/".$javascript.".js'></script>";
+	}
+	
+	public function css($cssfile)
+	{
+		echo "<link rel='stylesheet' href='".AvaConfig::public_url."/".$cssfile.".css' type='text/css' />";
+	}
+	
+	public function plugin($name)
+	{
+		if(!file_exists(SITE_PATH.'/plugin/'.$name.'.php'))
+		{
+			$this->notfound_err("Plugin::".$name);
+		}
+		else
+		{
+			require SITE_PATH.'/plugin/'.$name.'.php';
+		}
+		
+	}
 	
 	private function notfound_err($type)
 	{

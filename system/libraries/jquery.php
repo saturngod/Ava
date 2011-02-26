@@ -25,14 +25,8 @@ class Ava_Jquery
 	//use local jquery script
 	public function get_script()
 	{
-		if(file_exists(SITE_PATH.'/'.AvaConfig::public_path."/js/jquery.js"))
-		{
-			echo "<script src='".AvaConfig::public_url."/js/jquery.js"."'></script>";
-		}
-		else
-		{
-			die('There is no jquery file in public folder');
-		}
+		
+		echo "<script src='".AvaConfig::public_url."/js/jquery.js"."'></script>";		
 
 	}
 	

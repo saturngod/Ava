@@ -30,8 +30,18 @@ function &load_class($class)
 	{
 		return $objects[$name];
 	}
-	
-	$objects[$class] =& instantiate_class(new $name());
+	if($class="facebook")
+	{
+		$objects[$class] =& instantiate_class(new $name(array(
+			  'appId'  => AvaConfig::fbappid,
+			  'secret' => AvaConfig::fbapisecret,
+			  'cookie' => AvaConfig::fbcookie,
+			)));
+	}
+	else
+	{
+		$objects[$class] =& instantiate_class(new $name());
+	}
 	return $objects[$class];
 }
 

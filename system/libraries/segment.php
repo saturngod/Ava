@@ -71,5 +71,12 @@
  	 	if(isset($this->list[$room])) return urldecode($this->list[$room]);
  	 	else return "";
  	 }
+ 	 
+ 	 /**
+ 	 */
+ 	 public function redirect($url)
+ 	 {
+ 	 	echo "<script>window.location='".$url."'</script>";
+ 	 }
  }
 ?>

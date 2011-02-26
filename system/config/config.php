@@ -4,7 +4,6 @@ Class AvaConfig
 	//for baseurl, current runing link
 	const base_url="http://localhost/avalight";
 	const public_url= "http://localhost/avalight/system/public";
-	const public_path= "/public";
 	
 	const htaccess = true;
 	
@@ -15,10 +14,24 @@ Class AvaConfig
 	const db_user="root";
 	const db_password="root";
 	
+	
+	//Facebook API Setup
+	const fbappid="";
+	const fbapisecret="";
+	const fbcookie=true;
+	
 	//autoloading library
 	// database class is db
-	public static $autoload=array("jquery","db");
+	public static $autoload=array("jquery","db","facebook");
 	
+	
+	//recaptcha plugin
+	const recaptcha_publickey = "";
+	const recaptcha_privatekey = "";
+	
+	//gmail sending
+	const gmail_username="";
+	const gmail_password="";
 	
 }
 

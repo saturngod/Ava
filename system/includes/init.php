@@ -5,6 +5,7 @@ include SITE_PATH.'/includes/common.php';
 include SITE_PATH.'/includes/router.php';
 include SITE_PATH.'/includes/Base.php';
 include SITE_PATH.'/libraries/controller.php';
+include SITE_PATH.'/libraries/RESTcontroller.php';
 include SITE_PATH.'/libraries/model.php';
 
 
