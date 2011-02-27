@@ -1,13 +1,31 @@
 <?php
+/**
+ * Ava_Loader
+ * Loader class
+ * @package Ava_Loader
+ * @since version 1.0
+ * @author saturngod
+ */
 class Ava_Loader {
 
 	var $_ava_models			= array();
 	var $_ava_loaded_libraries	= array();
-	
+
+    /**
+     * constructor
+     * @return void
+     */
 	function Ava_Loader()
 	{
 		
 	}
+
+    /**
+     * load model with custom model or not
+     * @param string $modelname
+     * @param string $name
+     * @return void
+     */
 	public function model($modelname,$name='')
 	{
 		$Ava =& get_instance();
@@ -21,14 +39,28 @@ class Ava_Loader {
 		}
 		else
 		{
-			require(SITE_PATH."/application/Model/".$modelname.".php");
-			$modelclassname = ucfirst($modelclassname);
-			$Ava->$modelname=new $modelclassname();
-			$Ava->$modelname->_assign_libraries();
-			$this->_ava_models[] = $name;
+			//check alery exist or not
+			if(!in_array($name,$this->_ava_models))
+			{
+				if($name=="")
+				{
+					$name=$modelname;
+				}
+				require(SITE_PATH."/application/Model/".$modelname.".php");
+				$modelclassname = ucfirst($modelclassname);
+				$Ava->$name=new $modelclassname();
+				$Ava->$name->_assign_libraries();
+				$this->_ava_models[] = $name;
+			}
 		}
 	}
-	
+
+    /**
+     * load view
+     * @param  $view
+     * @param string $data_array
+     * @return void
+     */
 	public function view($view,$data_array='')
 	{
 		if(!file_exists(SITE_PATH."/application/View/".$view.".php"))
@@ -54,10 +86,15 @@ class Ava_Loader {
 		}
 			
 	}
-	
-	function library($library = '')
+
+    /**
+     * load library class. After loaded, you can call $this->$library
+     * @param string $library
+     * @return bool
+     */
+	function library($library = null)
 	{
-		if ($library == '')
+		if ($library == null)
 		{
 			return FALSE;
 		}
@@ -66,7 +103,7 @@ class Ava_Loader {
 		{
 			foreach ($library as $class)
 			{
-				$this->_load_class($class, $params, $object_name);
+				$this->_load_class($class);
 			}
 		}
 		else
@@ -76,7 +113,11 @@ class Ava_Loader {
 		
 		$this->_assign_to_models();
 	}
-	
+
+    /**
+     * load auto class
+     * @return void
+     */
 	function _auto_load()
 	{
 		foreach(AvaConfig::$autoload as $library)
@@ -84,7 +125,12 @@ class Ava_Loader {
 			$this->_load_class($library);
 		}
 	}
-	
+
+    /**
+     * load class
+     * @param  $library
+     * @return
+     */
 	function _load_class($library)
 	{
 		//check duplicate
@@ -99,14 +145,18 @@ class Ava_Loader {
 		
 		
 	}
-	
+
+    /**
+     * assign all the class models
+     * @return
+     */
 	function _assign_to_models()
 	{
 		if (count($this->_ava_models) == 0)
 		{
 			return;
 		}
-		;
+		
 		$Ava =& get_instance();
 		foreach ($this->_ava_models as $model)
 		{			
@@ -117,12 +167,12 @@ class Ava_Loader {
 		}
 		
 	}
-	
-	public function redirect($string)
-	{
-		echo "<script>window.location='".$string."'</script>";
-	}
-	
+
+    /**
+     * helper is just function
+     * @param  $helper
+     * @return void
+     */
 	public function helper($helper)
 	{
 		if(!file_exists(SITE_PATH."/helper/".$helper.".php")) {
@@ -132,17 +182,32 @@ class Ava_Loader {
 			require SITE_PATH."/helper/".$helper.".php";
 		}
 	}
-	
+
+    /**
+     * add script src from js folder
+     * @param  $javascript
+     * @return void
+     */
 	public function js($javascript)
 	{
 		echo "<script src='".AvaConfig::public_url."/js/".$javascript.".js'></script>";
 	}
-	
+
+    /**
+     * add css file path
+     * @param  $cssfile
+     * @return void
+     */
 	public function css($cssfile)
 	{
 		echo "<link rel='stylesheet' href='".AvaConfig::public_url."/".$cssfile.".css' type='text/css' />";
 	}
-	
+
+    /**
+     * plugin is other extra class
+     * @param  $name
+     * @return void
+     */
 	public function plugin($name)
 	{
 		if(!file_exists(SITE_PATH.'/plugin/'.$name.'.php'))
@@ -155,9 +220,15 @@ class Ava_Loader {
 		}
 		
 	}
-	
+
+    /**
+     * 404 ERROR
+     * @param  $type
+     * @return void
+     */
 	private function notfound_err($type)
 	{
+        header("Status: 404 Not Found");
 		die("<div style='background-color:#FF9BA2;border:1px solid #FF4745;width:90%;margin:0px auto;padding:8px;color:#555'>$type not found</div>");
 		
 	}

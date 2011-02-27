@@ -1,4 +1,7 @@
 <?php
+/**
+ * Router class for separate controller and action from URI
+ */
 class router {
 	
 	private $controller_path;

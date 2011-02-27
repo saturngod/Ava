@@ -1,4 +1,8 @@
 <?php
+/**
+ * @param  string $class
+ * @return class
+ */
 function &load_class($class)
 {
 	static $objects = array();
@@ -45,6 +49,10 @@ function &load_class($class)
 	return $objects[$class];
 }
 
+/**
+ * @param  $class_object
+ * @return $class_object
+ */
 function &instantiate_class(&$class_object)
 {
 	return $class_object;

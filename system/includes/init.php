@@ -1,4 +1,5 @@
 <?php
+//require files
 include SITE_PATH.'/config/config.php';
 include SITE_PATH.'/includes/Loader.php';
 include SITE_PATH.'/includes/common.php';
@@ -9,7 +10,7 @@ include SITE_PATH.'/libraries/RESTcontroller.php';
 include SITE_PATH.'/libraries/model.php';
 
 
-
+//start router for controller/action
 $router = new router(SITE_PATH);
 $router->load();
 
