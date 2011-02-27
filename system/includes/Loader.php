@@ -228,7 +228,6 @@ class Ava_Loader {
      */
 	private function notfound_err($type)
 	{
-        header("Status: 404 Not Found");
 		die("<div style='background-color:#FF9BA2;border:1px solid #FF4745;width:90%;margin:0px auto;padding:8px;color:#555'>$type not found</div>");
 		
 	}
