@@ -2,7 +2,7 @@
 /**
  * Ava_Loader
  * Loader class
- * @package Ava_Loader
+ * @package Ava
  * @since version 1.0
  * @author saturngod
  */

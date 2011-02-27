@@ -1,4 +1,9 @@
 <?php
+/**
+ * calculate time ago
+ * @param  string $date
+ * @return string
+ */
 function timeago($date)
 {
     if(empty($date)) {

@@ -1,33 +1,54 @@
 <?php
 /**
  * Router class for separate controller and action from URI
+ * @author saturngod
+ * @since version 1.0
+ * @package Ava
  */
 class router {
-	
-	private $controller_path;
+
+    /**
+     * @access private
+     * @var string $controller_path
+     * @var array $args
+     */
+
+   	private $controller_path;
 
 	private $args = array();
 
+    /**
+     * @access public
+     * @var string $file
+     * @var string $controller
+     * @var string $action
+     */
 	public $file;
 
  	public $controller;
 
  	public $action;
  	
- 	
+ 	/** constructor
+      * @param  string $site_path
+      */
  	public function __construct($site_path)
  	{
  		$this->controller_path=$site_path."/application/Controller/";
  	}
- 	/***
- 	Loading the Site
- 	***/
+ 	/**
+      * loading the site
+      * @return void
+      */
  	public function load()
  	{
  		$this->getController();
  	}
  	
- 	
+ 	/**
+      * split controller from URI
+      * @return void
+      */
  	private function getController()
  	{
  		/*** get the route from the url ***/

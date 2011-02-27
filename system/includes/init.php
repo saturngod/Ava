@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author saturngod
+ * @since version 1.0
+ * @package Ava
+ */
 //require files
 include SITE_PATH.'/config/config.php';
 include SITE_PATH.'/includes/Loader.php';

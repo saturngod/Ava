@@ -1,5 +1,8 @@
 <?php
 /**
+ * @author saturngod
+ * @since version 1.0
+ * @package Ava
  * @param  string $class
  * @return class
  */

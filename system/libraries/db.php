@@ -1,19 +1,14 @@
 <?php
 /**
- * Nifty
- * @package Nifty
- * @author saturngod
- * @since version 1.0
- */
-//-------------------------------
-
-/**
  * Database Class
- * @category Database
+ * @package Ava
+ * @since version 1.0
  * @author saturngod
+ * @category Library
  */
 class Ava_db
 {
+
 	private $dbh;
 	private $where;
 	private $limit;
