@@ -8,6 +8,7 @@
  * @since version 1.0
  * @author saturngod
  * @category Plugin
+ * @package Ava
  */
  
 class gravatar

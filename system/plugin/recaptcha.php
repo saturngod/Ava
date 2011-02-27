@@ -8,7 +8,7 @@ include 'recaptchalib.php';
  * recaptcha plugin
  *
  * @author saturngod
- * @package Nifty
+ * @package Ava
  * @category plugin
  */
 class recaptcha
