@@ -5,9 +5,9 @@
  * 
  * gravatar plugin
  *
+ * @since version 1.0
  * @author saturngod
- * @package Ava
- * @category plugin
+ * @category Plugin
  */
  
 class gravatar
@@ -21,23 +21,37 @@ class gravatar
 	        "s"            => 80,        // The default value
 	        "r"        => NULL,
 	);
-	
+
+    /**
+     * @param null $email
+     * @param null $default
+     */
 	public function __construct($email=NULL, $default=NULL)
 	{
 		$this->email=$email;
 		$this->properties['d']=$default;
 	}
-	
+
+    /**
+     * set email for avatar
+     * @param  $email
+     * @return void
+     */
 	public function setEmail($email)
 	{
 		$this->email=$email;
 	}
-	
+
+    /**
+     * rating for avatar
+     * @param  $rate
+     * @return void
+     */
 	public function setRating($rate)
 	{
 		if(in_array($rate, $this->GRAVATAR_RATING))
 		{
-			$this->properties['r'] = $rating;
+			$this->properties['r'] = $rate;
 			
 		}
 		else
@@ -45,17 +59,31 @@ class gravatar
 			$this->properties['r'] ="G";
 		}
 	}
-	
+
+    /**
+     * set image size
+     * @param  $size
+     * @return void
+     */
 	public function setSize($size)
 	{
 		$this->properties['s']=(int)$size;
 	}
-	
+
+    /**
+     * set default
+     * @param  $default
+     * @return void
+     */
 	public function setDefault($default)
 	{
 		$this->properties['d']=$default;
 	}
-	
+
+    /**
+     * return URL
+     * @return string
+     */
 	public function get()
 	{
 		$url=$this->GRAVATAR_PATH.MD5($this->email);

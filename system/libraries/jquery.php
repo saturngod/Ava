@@ -9,27 +9,40 @@
 
 /**
  * jQuery Class
- * @category javascript
+ * @package Ava
+ * @since version 1.0
  * @author saturngod
+ * @category Library
  */
 class Ava_Jquery 
 {
 	public $no_conflit= false;
 	
-	//use latest jquery script
+	
+    /**
+     * use the latest jquery script
+     * @return void
+     */
 	public function get_latest()
 	{
 		echo " <script src='http://code.jquery.com/jquery-latest.js'></script>";
 	}
 	
-	//use local jquery script
+    /**
+     * use the javascript from js folder
+     * @return void
+     */
 	public function get_script()
 	{
 		
 		echo "<script src='".AvaConfig::public_url."/js/jquery.js"."'></script>";		
 
 	}
-	
+
+    /**
+     * using jquery document start
+     * @return void
+     */
 	public function start_jq()
 	{
 		if($this->no_conflit)
@@ -43,7 +56,11 @@ class Ava_Jquery
 			";
 		}
 	}
-	
+
+    /**
+     * end jquery
+     * @return void
+     */
 	public function end_jq()
 	{
 		echo "});";

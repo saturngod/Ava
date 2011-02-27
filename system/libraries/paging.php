@@ -1,8 +1,23 @@
 <?php
+/**
+ * paging for page paging
+ * @package Ava
+ * @since version 1.0
+ * @author saturngod 
+ * @category Library
+ */
 class Ava_paging
 {
+    /**
+     * initialize the paging. $rp is a break
+     * @param  $page
+     * @param  int $rp
+     * @param  int $total
+     * @param  int $limit
+     * @return array
+     */
     function init($page,$rp,$total,$limit)
-{
+    {
         $limit -= 1;
 
         $mid = floor($limit/2);

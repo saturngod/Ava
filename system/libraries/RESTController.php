@@ -1,10 +1,10 @@
 <?php
-
+/**
+ * RESTController for RESTFul API
+ */
 Abstract class RESTController extends Controller {
 
-    /**
-     * RESTController
-     */
+    
     private $_method;
     private $_format;
 
@@ -24,7 +24,11 @@ Abstract class RESTController extends Controller {
 		'php' 		=> 'text/plain',
 		'csv' 		=> 'application/csv'
 	);
-     // Constructor function
+     
+    /**
+     * Constructor function
+     * @return void
+     */
     function RESTController()
     {
 		parent::Controller();
@@ -80,6 +84,10 @@ Abstract class RESTController extends Controller {
         }
         
     }
+    /**
+     * detect xml or json or other supported format
+     * @return mixed
+     */
     private function _detect_format()
     {
         $pattern = '/(' . implode( '|', array_keys($this->_supported_formats) ) . ')$/';
@@ -154,7 +162,14 @@ Abstract class RESTController extends Controller {
 
 		return $data;
     }
-    // Format XML for output
+
+    /**
+     * format XML for output
+     * @param array $data
+     * @param null $structure
+     * @param string $basenode
+     * @return string
+     */
     private function _REST_xml($data = array(), $structure = NULL, $basenode = 'xml')
     {
     	// turn off compatibility mode as simple xml throws a wobbly if you don't.
@@ -208,7 +223,13 @@ Abstract class RESTController extends Controller {
     }
 
 
-    // Format Raw XML for output
+    /**
+     * Format Raw XML for output
+     * @param array $data
+     * @param null $structure
+     * @param string $basenode
+     * @return
+     */
     private function _REST_rawxml($data = array(), $structure = NULL, $basenode = 'xml')
     {
     	// turn off compatibility mode as simple xml throws a wobbly if you don't.
@@ -263,7 +284,11 @@ Abstract class RESTController extends Controller {
 
     
 
-    // Format HTML for output
+    /**
+     * Format HTML for output
+     * @param array $data
+     * @return string
+     */
     private function _REST_csv($data = array())
     {
     	// Multi-dimentional array
@@ -288,46 +313,89 @@ Abstract class RESTController extends Controller {
 		return $output;
     }
 
-    // Encode as JSON
+    /**
+     * Encode as JSON
+     * @param array $data
+     * @return string
+     */
     private function _REST_json($data = array())
     {
     	return json_encode($data);
     }
 
-    // Encode as Serialized array
+    /**
+     * Encode as Serialized array
+     * @param array $data
+     * @return string
+     */
     private function _REST_serialize($data = array())
     {
     	return serialize($data);
     }
 
-    // Encode raw PHP
+    /**
+     * Encode raw PHP
+     * @param array $data
+     * @return mixed
+     */
     private function _REST_php($data = array())
     {
     	return var_export($data, TRUE);
     }
 
- // INPUT FUNCTION --------------------------------------------------------------
+    // INPUT FUNCTION
+    // --------------------------------------------------------------
 
+    /**
+     * REST get with key from GET METHOD
+     * @param  $key
+     * @param bool $xss_clean
+     * @return
+     */
     public function get($key, $xss_clean = TRUE)
     {
     	return array_key_exists($key, $this->_get_args) ? $this->_xss_clean( $this->_get_args[$key], $xss_clean ) : $this->io->get($key, $xss_clean) ;
     }
 
+    /**
+     * REST GET with key from POST METHOD
+     * @param  $key
+     * @param bool $xss_clean
+     * @return
+     */
     public function post($key, $xss_clean = TRUE)
     {
     	return $this->io->post($key, $xss_clean);
     }
 
+    /**
+     * REST GET with key from PUT METHOD
+     * @param  $key
+     * @param bool $xss_clean
+     * @return bool
+     */
     public function put($key, $xss_clean = TRUE)
     {
     	return array_key_exists($key, $this->_put_args) ? $this->_xss_clean( $this->_put_args[$key], $xss_clean ) : FALSE ;
     }
 
+    /**
+     * REST GET with key from DELETE METHOD
+     * @param  $key
+     * @param bool $xss_clean
+     * @return bool
+     */
     public function delete($key, $xss_clean = TRUE)
     {
     	return array_key_exists($key, $this->_delete_args) ? $this->_xss_clean( $this->_delete_args[$key], $xss_clean ) : FALSE ;
     }
 
+    /**
+     * XSS clean
+     * @param  $val
+     * @param  $bool
+     * @return
+     */
     private function _xss_clean($val, $bool)
     {
     	return $bool ? $this->io->xss_clean($val) : $val;

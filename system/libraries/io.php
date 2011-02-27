@@ -3,8 +3,6 @@
  * io class is base on CodeIgniter
  * 90% copy from CodeIgniter for XSS clean
  */
-
-
 class Ava_io {
 
     /**
@@ -13,8 +11,8 @@ class Ava_io {
 	 * Loader Constructor
 	 *
 	 * @author codeIgniter Team
-	 * @package io
-	 * @category core
+	 * @package Ava
+	 * @category Library
 	 */
 
     var $xss_hash			= '';

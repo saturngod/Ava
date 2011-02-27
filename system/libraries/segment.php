@@ -4,9 +4,9 @@
  * 
  * segment from website URI
  *
+ * @since version 1.0
  * @author saturngod
- * @package Ava
- * @category URI
+ * @category Library
  */
  
  class Ava_segment

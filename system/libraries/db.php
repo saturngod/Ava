@@ -21,6 +21,7 @@ class Ava_db
 		$this->err=false;
 		$this->where="";
 		try {
+            //setup database
    	 		$this->dbh = new PDO("mysql:host=".AvaConfig::db_host.";dbname=".AvaConfig::db_name, AvaConfig::db_user, AvaConfig::db_password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
    	 		$this->dbh->query("SET NAMES UTF8");
    	 		$this->err=false;
@@ -31,6 +32,11 @@ class Ava_db
 	    }
 	}
 
+    /**
+     * normal query
+     * @param  string $sql
+     * @return array
+     */
 	public function query($sql)
 	{
 
@@ -60,6 +66,14 @@ class Ava_db
 	    }
 	}
 
+    /**
+     * Where like in sql
+     * @access private
+     * @param string  $field
+     * @param $value
+     * @param string $do
+     * @return string
+     */
 	private function wherelike($field,$value,$do="both")
 	{
 		if($do=="both")
@@ -76,6 +90,15 @@ class Ava_db
 		}
 		return $like;
 	}
+
+    /**
+     * where like in sql. Check current where and combie with new
+     * @access public
+     * @param  $field
+     * @param  $value
+     * @param string $do
+     * @return void
+     */
 	public function where_like($field,$value,$do="both")
 	{
 
@@ -156,8 +179,6 @@ class Ava_db
 		$this->select=$select;
 	}
 	/**
-	 * get
-	 *
 	 * get result from table
 	 *
 	 * @author saturngod
@@ -195,6 +216,12 @@ class Ava_db
 
 	}
 
+    /**
+     * insert into database
+     * @param  $data
+     * @param  string $table
+     * @return int $count
+     */
 	public function insert($data,$table)
 	{
 		$i=0;
@@ -205,12 +232,12 @@ class Ava_db
 			if($i==0)
 			{
 				$field="`".$key."`";
-				$field_value="'".mysql_escape_string($value)."'";
+				$field_value="'".mysql_real_escape_string($value)."'";
 			}
 			else
 			{
 				$field=$field.",`".$key."` ";
-				$field_value=$field_value.",'".mysql_escape_string($value)."' ";
+				$field_value=$field_value.",'".mysql_real_escape_string($value)."' ";
 			}
 			$i++;
 		}
@@ -222,6 +249,12 @@ class Ava_db
 		return $count;
 	}
 
+    /**
+     * update database
+     * @param  $data
+     * @param  $table
+     * @return int
+     */
 	public function update($data,$table)
 	{
 		//$dbh->exec("UPDATE animals SET animal_name='bruce' WHERE animal_name='troy'");
@@ -231,11 +264,11 @@ class Ava_db
 			//(animal_type, animal_name) VALUES ('kiwi', 'troy')
 			if($i==0)
 			{
-				$update_value=$key."='".mysql_escape_string($value)."'";
+				$update_value=$key."='".mysql_real_escape_string($value)."'";
 			}
 			else
 			{
-				$update_value=$update_value." , ".$key."='".mysql_escape_string($value)."'";
+				$update_value=$update_value." , ".$key."='".mysql_real_escape_string($value)."'";
 			}
                         $i++;
 		}
@@ -255,9 +288,13 @@ class Ava_db
 
 	}
 
+    /**
+     * delete from database
+     * @param  $table
+     * @return int
+     */
 	public function delete($table)
 	{
-		//DELETE FROM `dictionary`.`user` WHERE `user`.`usrid` = 5
 		$sql="DELETE FROM ".$table." WHERE ";
 		$sql=$sql.$this->where;
 		$count=$this->dbh->exec($sql);

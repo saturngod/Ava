@@ -1,8 +1,20 @@
 <?php
+/**
+ * Model class
+ * this class also base on CodeIgniter 1.7
+ * @package Ava
+ * @since version 1.0
+ * @author saturngod , ExpressionEngine Dev Team
+ * @category Library
+ */
 class Model {
 	
 	var $_parent_name = '';
 
+    /**
+     * constructor
+     * @return void
+     */
 	function Model()
 	{
 		// If the magic __get() or __set() methods are used in a Model references can't be used.
@@ -14,7 +26,12 @@ class Model {
 		
 		
 	}
-	
+
+    /**
+     * copy all of the controller object to model
+     * @param bool $use_reference
+     * @return void
+     */
 	function _assign_libraries($use_reference = TRUE)
 	{
 			$Ava =& get_instance();				
