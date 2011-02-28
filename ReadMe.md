@@ -1,4 +1,4 @@
-Ava light is a light weight MVC framework. No Database , No Library , No Plugin. Just only MVC Design Pattern.
+Ava lite is a light weight MVC framework. No Database , No Library , No Plugin. Just only MVC Design Pattern.
 
 How to Test
 ------------
