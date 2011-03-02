@@ -31,7 +31,7 @@ class Controller extends Ava_Base {
 	{
 
 		//initalize Loader
-		$auto_load=array("io","segment");
+		$auto_load=array("io","segment","router");
 		
 		foreach($auto_load as $library)
 		{

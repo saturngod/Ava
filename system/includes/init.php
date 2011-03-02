@@ -8,15 +8,15 @@
 include SITE_PATH.'/config/config.php';
 include SITE_PATH.'/includes/Loader.php';
 include SITE_PATH.'/includes/common.php';
-include SITE_PATH.'/includes/router.php';
 include SITE_PATH.'/includes/Base.php';
+include SITE_PATH.'/libraries/router.php';
 include SITE_PATH.'/libraries/controller.php';
 include SITE_PATH.'/libraries/RESTController.php';
 include SITE_PATH.'/libraries/model.php';
 
 
 //start router for controller/action
-$router = new router(SITE_PATH);
+$router = & load_class("router");
 $router->load();
 
 if(!is_file($router->file))

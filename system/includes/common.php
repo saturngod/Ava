@@ -9,22 +9,23 @@
 function &load_class($class)
 {
 	static $objects = array();
-	
-	
-	if($class=='Loader')
+
+    $name="Ava_".ucfirst($class);
+
+    // Does the class exist?  If so, we're done...
+	if (isset($objects[$name]))
 	{
-		$name="Ava_Loader";
+		return $objects[$name];
 	}
-	
-	
-	if($class!='Loader')
+    
+	if($class!='Loader' && $class!="router")
 	{
 
 		if(file_exists(SITE_PATH.'/libraries/'.$class.'.php'))
 		{
 			require(SITE_PATH.'/libraries/'.$class.'.php');
 			
-			$name="Ava_".ucfirst($class);
+
 		}
 		else
 		{
@@ -32,12 +33,9 @@ function &load_class($class)
 		}
 	}
 
-	// Does the class exist?  If so, we're done...
-	if (isset($objects[$name]))
-	{
-		return $objects[$name];
-	}
-	if($class="facebook")
+    
+
+	if($class=="facebook")
 	{
 		$objects[$class] =& instantiate_class(new $name(array(
 			  'appId'  => AvaConfig::fbappid,
@@ -47,7 +45,15 @@ function &load_class($class)
 	}
 	else
 	{
-		$objects[$class] =& instantiate_class(new $name());
+        
+        if($class=="router"){
+            $objects[$class] =& instantiate_class(new $name(SITE_PATH));
+            $objects[$class]->load();
+        }
+        else{
+            $objects[$class] =& instantiate_class(new $name());
+        }
+
 	}
 	return $objects[$class];
 }

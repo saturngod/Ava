@@ -5,7 +5,7 @@
  * @since version 1.0
  * @package Ava
  */
-class router {
+class Ava_router {
 
     /**
      * @access private
@@ -34,7 +34,7 @@ class router {
       */
  	public function __construct($site_path)
  	{
- 		$this->controller_path=$site_path."/application/Controller/";
+ 		$this->controller_path=$site_path."/application/Controller";
  	}
  	/**
       * loading the site

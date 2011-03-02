@@ -57,6 +57,9 @@ Abstract class RESTController extends Controller {
 
     	// Which format should the data be returned in?
 	    $this->_format = $this->_detect_format();
+
+        $action=$this->router->action."_".$this->_method;
+        $this->$action();
     }
 
      /*
@@ -102,6 +105,8 @@ Abstract class RESTController extends Controller {
             return $last_key;
 
         }
+
+        return "json";
 
 
     }
