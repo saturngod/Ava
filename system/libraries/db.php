@@ -225,19 +225,19 @@ class Ava_db
 	public function insert($data,$table)
 	{
 		$i=0;
-
+		$Ava_Load=& get_instance();
 		foreach($data as $key => $value)
 		{
 			//(animal_type, animal_name) VALUES ('kiwi', 'troy')
 			if($i==0)
 			{
 				$field="`".$key."`";
-				$field_value="'".mysql_real_escape_string($value)."'";
+				$field_value="'".$Ava_Load->io->xss_clean($value)."'";
 			}
 			else
 			{
 				$field=$field.",`".$key."` ";
-				$field_value=$field_value.",'".mysql_real_escape_string($value)."' ";
+				$field_value=$field_value.",'".$Ava_Load->io->xss_clean($value)."' ";
 			}
 			$i++;
 		}
@@ -259,16 +259,17 @@ class Ava_db
 	{
 		//$dbh->exec("UPDATE animals SET animal_name='bruce' WHERE animal_name='troy'");
 		$i=0;
+		$Ava_Load=& get_instance();
 		foreach($data as $key => $value)
 		{
 			//(animal_type, animal_name) VALUES ('kiwi', 'troy')
 			if($i==0)
 			{
-				$update_value=$key."='".mysql_real_escape_string($value)."'";
+				$update_value=$key."='".$Ava_Load->io->xss_clean($value)."'";
 			}
 			else
 			{
-				$update_value=$update_value." , ".$key."='".mysql_real_escape_string($value)."'";
+				$update_value=$update_value." , ".$key."='".$Ava_Load->io->xss_clean($value)."'";
 			}
                         $i++;
 		}
