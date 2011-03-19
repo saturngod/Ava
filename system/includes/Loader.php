@@ -190,7 +190,18 @@ class Ava_Loader {
      */
 	public function js($javascript)
 	{
-		echo "<script src='".AvaConfig::public_url."/js/".$javascript.".js'></script>";
+		if(is_array($javascript))
+		{
+			foreach($javascript as $js)
+			{
+				echo "<script src='".AvaConfig::public_url."/".$js.".js'></script>";
+			}
+			
+		}
+		else
+		{
+			echo "<script src='".AvaConfig::public_url."/".$javascript.".js'></script>";
+		}
 	}
 
     /**
@@ -200,7 +211,17 @@ class Ava_Loader {
      */
 	public function css($cssfile)
 	{
-		echo "<link rel='stylesheet' href='".AvaConfig::public_url."/".$cssfile.".css' type='text/css' />";
+		if(is_array($cssfile)
+		{
+			foreach($cssfile as $css)
+			{
+				echo "<link rel='stylesheet' href='".AvaConfig::public_url."/".$css.".css' type='text/css' />";
+			}
+		}
+		else
+		{
+			echo "<link rel='stylesheet' href='".AvaConfig::public_url."/".$cssfile.".css' type='text/css' />";
+		}
 	}
 
     /**
