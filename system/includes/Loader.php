@@ -211,7 +211,7 @@ class Ava_Loader {
      */
 	public function css($cssfile)
 	{
-		if(is_array($cssfile)
+		if(is_array($cssfile))
 		{
 			foreach($cssfile as $css)
 			{

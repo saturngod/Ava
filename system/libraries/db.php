@@ -130,15 +130,29 @@ class Ava_db
 	}
 
 
-	public function where($field,$value)
+	public function where($field,$value,$equal=true)
 	{
 		if($this->where!="")
 		{
-			$this->where=$this->where.' AND `'.$field."` = '".$value."'";
+			if($equal)
+			{
+				$this->where=$this->where.' AND `'.$field."` = '".$value."'";
+			}
+			else
+			{
+				$this->where=$this->where.' AND `'.$field."` != '".$value."'";
+			}
 		}
 		else
 		{
-			$this->where=' `'.$field."` = '".$value."'";
+			if($equal)
+			{
+				$this->where=' `'.$field."` = '".$value."'";
+			}
+			else
+			{
+				$this->where=' `'.$field."` != '".$value."'";
+			}
 		}
 	}
 
