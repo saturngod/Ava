@@ -11,6 +11,7 @@ class Ava_db
 
 	private $dbh;
 	private $where;
+    private $where_array;
 	private $limit;
 	private $select;
 	private $order;
@@ -20,10 +21,11 @@ class Ava_db
 	{
 		$this->err=false;
 		$this->where="";
+        $this->where_array=array();
 		try {
             //setup database
    	 		$this->dbh = new PDO("mysql:host=".AvaConfig::db_host.";dbname=".AvaConfig::db_name, AvaConfig::db_user, AvaConfig::db_password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-   	 		$this->dbh->query("SET NAMES UTF8");
+   	 		
    	 		$this->err=false;
 	    }
 		catch(PDOException $e)
@@ -43,8 +45,13 @@ class Ava_db
 		$this->err=false;
 		try
 		{
-			$this->dbh->query("SET NAMES UTF8");
-			$result=$this->dbh->query($sql);
+			//$result=$this->dbh->query($sql);
+            //fixed SQL Injection
+            $result=$this->dbh->prepare($sql);
+
+            //loop array for replace sql
+            $result->execute($this->where_array);
+
             if(is_object($result))
             {
                 $result->setFetchMode(PDO::FETCH_OBJ);
@@ -52,6 +59,7 @@ class Ava_db
                 $this->limit="";
                 $this->select="";
                 $this->order="";
+                $this->where_array=array();
                 return $result->fetchAll();
             }
             else
@@ -78,15 +86,18 @@ class Ava_db
 	{
 		if($do=="both")
 		{
-			$like=$field." like '%".$value."%'";
+			$like=$field." like :".$field."%";
+            $this->where_array[":".$field]="%".$value."%";
 		}
 		else if($do=="before")
 		{
-			$like=$field." like '%".$value."'";
+			$like=$field." like '%:".$field."'";
+            $this->where_array[":".$field]="%".$value;
 		}
 		else if($do=="after")
 		{
-			$like=$field." like '".$value."%'";
+			$like=$field." like :".$field;
+            $this->where_array[":".$field]=$value."%";
 		}
 		return $like;
 	}
@@ -101,7 +112,6 @@ class Ava_db
      */
 	public function where_like($field,$value,$do="both")
 	{
-
 		$like=$this->wherelike($field,$value,$do);
 
 		if($this->where!="")
@@ -132,35 +142,44 @@ class Ava_db
 
 	public function where($field,$value,$equal=true)
 	{
+        if($field!="")
+        {
+            $this->where_array[":".$field]=$value;
+        }
 		if($this->where!="")
 		{
 			if($equal)
 			{
-				$this->where=$this->where.' AND `'.$field."` = '".$value."'";
+				$this->where=$this->where.' AND `'.$field."` = :".$field;
 			}
 			else
 			{
-				$this->where=$this->where.' AND `'.$field."` != '".$value."'";
+				$this->where=$this->where.' AND `'.$field."` != :".$field;
 			}
 		}
 		else
 		{
 			if($equal)
 			{
-				$this->where=' `'.$field."` = '".$value."'";
+				$this->where=' `'.$field."` = :".$field;
 			}
 			else
 			{
-				$this->where=' `'.$field."` != '".$value."'";
+				$this->where=' `'.$field."` != :".$field;
 			}
 		}
 	}
 
 	public function where_or($field,$value)
 	{
+        if($field!="")
+        {
+            $this->where_array[":".$field]=$value;
+        }
+        
 		if($this->where!="")
 		{
-			$this->where=$this->where.' OR `'.$field."` = '".$value."'";
+			$this->where=$this->where.' OR `'.$field."` = :".$field;
 		}
 	}
 
@@ -239,19 +258,20 @@ class Ava_db
 	public function insert($data,$table)
 	{
 		$i=0;
-		$Ava_Load=& get_instance();
+        $field_value="";
+        $field="";
 		foreach($data as $key => $value)
 		{
 			//(animal_type, animal_name) VALUES ('kiwi', 'troy')
 			if($i==0)
 			{
 				$field="`".$key."`";
-				$field_value="'".$Ava_Load->io->xss_clean($value)."'";
+				$field_value="'".$value."'";
 			}
 			else
 			{
 				$field=$field.",`".$key."` ";
-				$field_value=$field_value.",'".$Ava_Load->io->xss_clean($value)."' ";
+				$field_value=$field_value.",'".$value."' ";
 			}
 			$i++;
 		}
@@ -273,17 +293,17 @@ class Ava_db
 	{
 		//$dbh->exec("UPDATE animals SET animal_name='bruce' WHERE animal_name='troy'");
 		$i=0;
-		$Ava_Load=& get_instance();
+		$update_value="";
 		foreach($data as $key => $value)
 		{
 			//(animal_type, animal_name) VALUES ('kiwi', 'troy')
 			if($i==0)
 			{
-				$update_value=$key."='".$Ava_Load->io->xss_clean($value)."'";
+				$update_value=$key."='".$value."'";
 			}
 			else
 			{
-				$update_value=$update_value." , ".$key."='".$Ava_Load->io->xss_clean($value)."'";
+				$update_value=$update_value." , ".$key."='".$value."'";
 			}
                         $i++;
 		}
