@@ -331,15 +331,20 @@ class Ava_db
 			$sql="UPDATE ".$table." SET ".$update_value." WHERE ".$this->where;
 		}
 
-        $result=$this->dbh->prepare($sql);
+        try {
+            $result=$this->dbh->prepare($sql);
 
-       //loop array for replace sql
-        $count=$result->execute($this->where_array);
-		
-		$this->where="";
-        $this->where_array=array();
-		return $count;
+           //loop array for replace sql
+            $count=$result->execute($this->where_array);
 
+            $this->where="";
+            $this->where_array=array();
+            return $count;
+        }
+        catch(PDOException $e)
+        {
+            die($e->getMessage());
+        }
 	}
 
     /**
