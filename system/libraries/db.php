@@ -51,7 +51,6 @@ class Ava_db
 
             //loop array for replace sql
             $result->execute($this->where_array);
-
             if(is_object($result))
             {
                 $result->setFetchMode(PDO::FETCH_OBJ);
@@ -262,25 +261,39 @@ class Ava_db
         $field="";
 		foreach($data as $key => $value)
 		{
+            $this->where_array[":".$key."Insert"]=$value;
 			//(animal_type, animal_name) VALUES ('kiwi', 'troy')
 			if($i==0)
 			{
 				$field="`".$key."`";
-				$field_value="'".$value."'";
+				$field_value=":".$key."Insert";
 			}
 			else
 			{
 				$field=$field.",`".$key."` ";
-				$field_value=$field_value.",'".$value."' ";
+				$field_value=$field_value.",:".$key."Insert ";
 			}
 			$i++;
 		}
 		//"INSERT INTO animals(animal_type, animal_name) VALUES ('kiwi', 'troy')"
 		$sql="INSERT INTO ".$table." (".$field.") VALUES (".$field_value.")";
 
-		$count=$this->dbh->exec($sql);
-		$this->where="";
-		return $count;
+        try
+        {
+            $result=$this->dbh->prepare($sql);
+
+           //loop array for replace sql
+            $count=$result->execute($this->where_array);
+
+            $this->where="";
+            $this->where_array=array();
+
+            return $count;
+        }
+        catch(PDOException $e)
+        {
+            die($e->getMessage());
+        }
 	}
 
     /**
@@ -296,18 +309,19 @@ class Ava_db
 		$update_value="";
 		foreach($data as $key => $value)
 		{
+            $this->where_array[":".$key."Update"]=$value;
 			//(animal_type, animal_name) VALUES ('kiwi', 'troy')
 			if($i==0)
 			{
-				$update_value=$key."='".$value."'";
+				$update_value=$key."=:".$key."Update";
 			}
 			else
 			{
-				$update_value=$update_value." , ".$key."='".$value."'";
+				$update_value=$update_value." , ".$key."=:".$key."Update";
 			}
                         $i++;
 		}
-		//"INSERT INTO animals(animal_type, animal_name) VALUES ('kiwi', 'troy')"
+		
 		if($this->where=="")
 		{
 			$sql="UPDATE ".$table." SET ".$update_value;
@@ -316,9 +330,14 @@ class Ava_db
 		{
 			$sql="UPDATE ".$table." SET ".$update_value." WHERE ".$this->where;
 		}
+
+        $result=$this->dbh->prepare($sql);
+
+       //loop array for replace sql
+        $count=$result->execute($this->where_array);
 		
-		$count=$this->dbh->exec($sql);
 		$this->where="";
+        $this->where_array=array();
 		return $count;
 
 	}
@@ -332,8 +351,12 @@ class Ava_db
 	{
 		$sql="DELETE FROM ".$table." WHERE ";
 		$sql=$sql.$this->where;
-		$count=$this->dbh->exec($sql);
+		$result=$this->dbh->prepare($sql);
+       //loop array for replace sql
+        $count=$result->execute($this->where_array);
+
 		$this->where="";
+        $this->where_array=array();
 		return $count;
 
 	}
