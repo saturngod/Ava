@@ -169,7 +169,7 @@ class Ava_db
 		}
 	}
 
-	public function where_or($field,$value)
+	public function where_or($field,$value,$equal=true)
 	{
         if($field!="")
         {
@@ -178,7 +178,14 @@ class Ava_db
         
 		if($this->where!="")
 		{
-			$this->where=$this->where.' OR `'.$field."` = :".$field;
+            if($equal)
+            {
+			    $this->where=$this->where.' OR `'.$field."` = :".$field;
+            }
+            else
+            {
+                $this->where=$this->where.' OR `'.$field."` != :".$field;
+            }
 		}
 	}
 
