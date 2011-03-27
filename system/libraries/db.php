@@ -48,7 +48,8 @@ class Ava_db
 			//$result=$this->dbh->query($sql);
             //fixed SQL Injection
             $result=$this->dbh->prepare($sql);
-
+echo $sql;
+print_r($this->where_array);
             //loop array for replace sql
             $result->execute($this->where_array);
             if(is_object($result))
@@ -85,12 +86,12 @@ class Ava_db
 	{
 		if($do=="both")
 		{
-			$like=$field." like :".$field."%";
+			$like=$field." like :".$field;
             $this->where_array[":".$field]="%".$value."%";
 		}
 		else if($do=="before")
 		{
-			$like=$field." like '%:".$field."'";
+			$like=$field." like :".$field;
             $this->where_array[":".$field]="%".$value;
 		}
 		else if($do=="after")
@@ -121,6 +122,7 @@ class Ava_db
 		{
 			$this->where=$like;
 		}
+		return $this;
 	}
 
 	public function where_or_like($field,$value,$do="both")
@@ -136,6 +138,7 @@ class Ava_db
 		{
 			$this->where=$like;
 		}
+		return $this;
 	}
 
 
@@ -167,6 +170,7 @@ class Ava_db
 				$this->where=' `'.$field."` != :".$field;
 			}
 		}
+		return $this;
 	}
 
 	public function where_or($field,$value,$equal=true)
@@ -187,6 +191,7 @@ class Ava_db
                 $this->where=$this->where.' OR `'.$field."` != :".$field;
             }
 		}
+		return $this;
 	}
 
 	/**
@@ -207,15 +212,18 @@ class Ava_db
 			$this->order.=" , ";
 		}
 		$this->order=substr($this->order,0,-2);
+		return $this;
 	}
 	public function limit($total='',$start=0)
 	{
 		$this->limit="limit ".$start.",".$total;
+		return $this;
 	}
 
 	public function select($select)
 	{
 		$this->select=$select;
+		return $this;
 	}
 	/**
 	 * get result from table

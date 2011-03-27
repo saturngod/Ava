@@ -10,7 +10,7 @@ Class AvaConfig
 	
 	//Database Setup
 	const db_host="localhost";
-	const db_name="";
+	const db_name="ornagai-test";
 	const db_user="root";
 	const db_password="root";
 	
@@ -22,7 +22,7 @@ Class AvaConfig
 	
 	//autoloading library
 	// database class is db
-	public static $autoload=array("jquery","db","facebook");
+	public static $autoload=array("jquery","db");
 	
 	
 	//recaptcha plugin

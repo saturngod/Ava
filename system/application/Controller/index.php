@@ -64,5 +64,11 @@ class IndexController extends Controller {
     	$data['txt']='This is testing';
     	$this->load->view('home',$data);
     }
+
+	function db()
+	{
+							print_r($this->db->select("id")->where_like("Word","tes")->limit(5)->get("dblist"));
+
+	}
 }
 ?>
