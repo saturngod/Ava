@@ -21,7 +21,13 @@ function &load_class($class)
 	if($class!='Loader' && $class!="router")
 	{
 
-		if(file_exists(SITE_PATH.'/libraries/'.$class.'.php'))
+		if(file_exists(SITE_PATH.'/user/libraries/'.$class.'.php'))
+		{
+			require(SITE_PATH.'/user/libraries/'.$class.'.php');
+			
+
+		}
+		else if(file_exists(SITE_PATH.'/libraries/'.$class.'.php'))
 		{
 			require(SITE_PATH.'/libraries/'.$class.'.php');
 			

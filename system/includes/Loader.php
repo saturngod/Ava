@@ -175,11 +175,14 @@ class Ava_Loader {
      */
 	public function helper($helper)
 	{
-		if(!file_exists(SITE_PATH."/helper/".$helper.".php")) {
-			$this->notfound_err("HELPER::". $helper);
+		if(file_exists(SITE_PATH."/user/helper/".$helper.".php")) {
+			require SITE_PATH."/user/helper/".$helper.".php";
+		}
+		else if(file_exists(SITE_PATH."/helper/".$helper.".php")) {
+			require SITE_PATH."/helper/".$helper.".php";
 		}
 		else {
-			require SITE_PATH."/helper/".$helper.".php";
+			$this->notfound_err("HELPER::". $helper);
 		}
 	}
 
@@ -231,13 +234,14 @@ class Ava_Loader {
      */
 	public function plugin($name)
 	{
-		if(!file_exists(SITE_PATH.'/plugin/'.$name.'.php'))
-		{
-			$this->notfound_err("Plugin::".$name);
+		if(file_exists(SITE_PATH."/user/plugin/".$name.".php")) {
+			require SITE_PATH."/user/plugin/".$name.".php";
 		}
-		else
-		{
-			require SITE_PATH.'/plugin/'.$name.'.php';
+		else if(file_exists(SITE_PATH."/plugin/".$name.".php")) {
+			require SITE_PATH."/plugin/".$name.".php";
+		}
+		else {
+			$this->notfound_err("PLUGIN::". $name);
 		}
 		
 	}
