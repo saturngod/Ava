@@ -14,24 +14,10 @@ Class AvaConfig
 	const db_user="root";
 	const db_password="root";
 	
-	
-	//Facebook API Setup
-	const fbappid="";
-	const fbapisecret="";
-	const fbcookie=true;
-	
 	//autoloading library
 	// database class is db
 	public static $autoload=array("jquery","db");
-	
-	
-	//recaptcha plugin
-	const recaptcha_publickey = "";
-	const recaptcha_privatekey = "";
-	
-	//gmail sending
-	const gmail_username="";
-	const gmail_password="";
+
 	
 }
 
