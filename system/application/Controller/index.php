@@ -1,4 +1,5 @@
 <?php
+
 class IndexController extends Controller {
 	
     function IndexController()
@@ -8,6 +9,17 @@ class IndexController extends Controller {
     
 	function index()
 	{
+        $this->load->library("cache");
+        if($this->cache->exist("foo"))
+        {
+            //echo $this->cache->fetch("foo");
+            $this->cache->delete("foo");
+        }
+//        else
+//        {
+//            $this->cache->store("foo","bar",3600);
+//        }
+
 		$count = 1000000;
 		$phrase = 'Foo!';
 		
