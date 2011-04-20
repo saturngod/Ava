@@ -87,10 +87,8 @@ class Ava_cache {
         if(!file_exists($file) || !is_readable($file)) {
             return false;
         }
-
         $data=file_get_contents($file);
         $data=@unserialize($data);
-
         if(!$data)
         {
             //can't unserialize , delete file
@@ -105,6 +103,8 @@ class Ava_cache {
             unlink($file);
             return false;
         }
+
+        return $data[1];
         
     }
 
