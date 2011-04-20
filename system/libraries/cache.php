@@ -65,13 +65,11 @@ class Ava_cache {
      */
     function exist($key)
     {
-        $file=$this->getFile($key);
-
-        //check cache exist or readable
-        if(!file_exists($file) || !is_readable($file)) {
-            return false;
+        if($this->fetch($key)!=false)
+        {
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**
