@@ -72,7 +72,7 @@ class IndexController extends Controller {
     function myview()
     {
     	$data['base']='HI';
-    	$data['public']=AvaConfig::public_url;
+    	$data['public']=AvaConfig::base_url;
     	$data['txt']='This is testing';
     	$this->load->view('home',$data);
     }
