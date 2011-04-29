@@ -197,13 +197,13 @@ class Ava_Loader {
 		{
 			foreach($javascript as $js)
 			{
-				echo "<script src='".AvaConfig::public_url."/".$js.".js'></script>";
+				echo "<script src='".AvaConfig::base_url."/".$js.".js'></script>";
 			}
 			
 		}
 		else
 		{
-			echo "<script src='".AvaConfig::public_url."/".$javascript.".js'></script>";
+			echo "<script src='".AvaConfig::base_url."/".$javascript.".js'></script>";
 		}
 	}
 
@@ -218,12 +218,12 @@ class Ava_Loader {
 		{
 			foreach($cssfile as $css)
 			{
-				echo "<link rel='stylesheet' href='".AvaConfig::public_url."/".$css.".css' type='text/css' />";
+				echo "<link rel='stylesheet' href='".AvaConfig::base_url."/".$css.".css' type='text/css' />";
 			}
 		}
 		else
 		{
-			echo "<link rel='stylesheet' href='".AvaConfig::public_url."/".$cssfile.".css' type='text/css' />";
+			echo "<link rel='stylesheet' href='".AvaConfig::base_url."/".$cssfile.".css' type='text/css' />";
 		}
 	}
 
