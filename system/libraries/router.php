@@ -23,6 +23,7 @@ class Ava_router {
      * @var string $controller
      * @var string $action
      */
+     
 	public $file;
 
  	public $controller;

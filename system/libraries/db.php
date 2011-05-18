@@ -45,11 +45,9 @@ class Ava_db
 		$this->err=false;
 		try
 		{
-			//$result=$this->dbh->query($sql);
+			
             //fixed SQL Injection
             $result=$this->dbh->prepare($sql);
-echo $sql;
-print_r($this->where_array);
             //loop array for replace sql
             $result->execute($this->where_array);
             if(is_object($result))
