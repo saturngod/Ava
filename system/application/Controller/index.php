@@ -60,6 +60,9 @@ class IndexController extends Controller {
 		
 		echo 'Interpolation Total Time: '.$interpol_total.' seconds<br />';
 		echo 'Interpolation Avg Time: '.($interpol_total / $count).' seconds<br /><br />';
+		
+		echo 'start sessio';
+		$this->session->set(array('same'=>5));
 	}
 	
     function helloworld()
@@ -69,6 +72,19 @@ class IndexController extends Controller {
         print_r($this->helloworld->form_db());
         
     }
+
+	function test_session()
+	{
+		echo "SESSION :";
+		if($this->session->get('same'))
+		{
+			echo $this->session->get('same');
+		}
+		else
+		{
+			echo "TIME OUT";
+		}
+	}
     function myview()
     {
     	$data['base']='HI';

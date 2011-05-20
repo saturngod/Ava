@@ -1,12 +1,8 @@
 <IfModule mod_rewrite.c>
+
 RewriteEngine on
 
-RewriteBase /Ava/www
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)?$ /ava/www/$1 [L]
 
-
-RewriteRule ^(.*)$ index.php?rt=$1 [L]
-RewriteRule ^(/)?$ index.php?rt=$1 [L]
 </IfModule>
