@@ -1,0 +1,128 @@
+/*
+Doc CSS
+*/
+body{
+    background:#E9E8E3 url('../images/bg.png');
+    color:#33322E;
+	font-family:'Helvetica Neue',sans-serif;
+}
+
+a,a:link,a:visited {
+	color:#ea6500;
+	text-shadow: 0 1px rgba(255, 255, 255, .6);
+    text-decoration:none;
+    
+
+}
+
+h1,h2,h3,h4,h5,h6
+{
+    margin:0px;
+    padding:0px;
+    text-shadow: 0 1px rgba(255, 255, 255, .7);
+    
+}
+
+h1.title {
+    font-family: 'Lobster', arial, serif;
+}
+header h1 {
+	color:#7B799C;
+	padding-left:10px;
+}
+
+footer
+{
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    background-color:rgba(208,207,202,0.5);
+    color:rgba(10, 10, 10, 0.597656);
+    font-family:'Helvetica Neue';
+    text-shadow: 0 1px rgba(255, 255, 255, .6);
+    font-size: 10px;
+    margin-top:20px;
+    margin-bottom:10px;
+}
+
+#contents .contents {
+    padding:5px;
+}
+
+#contents , #detail{
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    background-color:rgba(208,207,202,0.5);
+    font-size: 14px;
+    color:rgba(10, 10, 10, 0.797656);
+
+    text-shadow: 0 1px rgba(255, 255, 255, .6);
+    
+}
+
+#detail {
+	line-height:30px;
+    font-family: 'Yanone Kaffeesatz', arial, serif; 
+    font-size:18px;
+}
+
+#detail .detail, footer .footer{
+    padding:10px;
+}
+
+#detail h2 {
+    padding-bottom:5px;
+    color:rgba(105,105,103,0.894);
+    font-family: 'Lobster', arial, serif;
+
+}
+
+#detail h3 {
+    padding-top: 15px;
+    padding-bottom:2px;
+}
+
+#detail code.variable {
+    color:blue;
+    font-family:'Yanone Kaffeesatz', arial, serif;
+}
+
+#detail code.comment {
+    font-family:'Yanone Kaffeesatz', arial, serif;
+    color:#008200 !important;
+}
+.contents ul {
+	margin:0px;
+	padding:0px;
+	list-style:none;
+	padding:5px;
+    font-family: 'PT Sans', arial, serif;
+}
+
+.contents ul li:first-child {
+	border-top:none;
+}
+
+.contents ul li a.active {
+    font-weight:900;
+    color:rgba(10, 10, 10, 0.797656);
+}
+.contents ul li:last-child {
+	border-bottom:none;
+}
+
+.contents ul li {
+	border-top:1px solid #DDDCD6;
+	border-bottom:1px solid #D0CFCA;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+.contents ul li ul {
+	text-indent:20px;
+}
+
+.contents ul li ul li:first-child {
+	border-top:1px solid #DDDCD6;
+}

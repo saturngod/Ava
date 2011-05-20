@@ -10,10 +10,5 @@ class helloworldModel extends Model {
 	{
 		return "Hello World";
 	}
-	
-	function form_db()
-	{
-		return $this->db->get('user');
-	}
 }
 ?>
