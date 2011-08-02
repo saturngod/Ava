@@ -4,3 +4,12 @@ Ava Framework is an open source web application framework. It will help you deve
 
  1. PHP 5.3
  2. PHP Pdo
+
+
+== Installtion ==
+
+The public folder is www folder. You need to make document root is www folder. If you don't have a permission to change document root, you can change htaccess file to the .htaccess for rewrite rule.
+
+== Doc ==
+
+You can read documentation on http://doc.avaframework.com. If you have a question , you can send mail to the saturngod at gmail dot com.
