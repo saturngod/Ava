@@ -36,7 +36,6 @@
             array_shift($this->list);
           }
 
-         print_r($this->list);
          $arr_count=count($this->list);
 
          if($this->list[$arr_count-1]=="")
