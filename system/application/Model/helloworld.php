@@ -1,19 +1,15 @@
 <?php
-class helloworldModel extends Model {
+class helloworldModel extends Ava_Model {
 
 
-	function helloworldModel()
-	{
-		parent::Model();
-	}
 	function get_txt()
 	{
-		return "Hello World";
+		return "<p>Hello World</p>";
 	}
 	
 	function form_db()
 	{
-		return $this->db->get('user');
+		return $this->db->get('CHARACTER_SETS');
 	}
 }
 ?>

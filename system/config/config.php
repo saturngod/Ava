@@ -9,7 +9,7 @@ Class AvaConfig
 	
 	//Database Setup
 	const db_host="localhost";
-	const db_name="ornagai";
+	const db_name="information_schema";
 	const db_user="root";
 	const db_password="root";
 	

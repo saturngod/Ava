@@ -90,7 +90,7 @@ class IndexController extends Ava_Controller {
 
 	function db()
 	{
-							print_r($this->db->select("id")->where_like("Word","tes")->limit(5)->get("dblist"));
+		print_r($this->db->select("CHARACTER_SET_NAME")->where_like("DEFAULT_COLLATE_NAME","latin")->limit(5)->get("CHARACTER_SETS"));
 
 	}
 }
