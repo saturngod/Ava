@@ -1,10 +1,6 @@
 <?php
-class SimpleController extends Controller {
+class SimpleController extends Ava_Controller {
 	
-    function SimpleController()
-    {
-        parent::Controller();
-    }
     
 	function index()
 	{

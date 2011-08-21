@@ -1,12 +1,7 @@
 <?php
 
-class IndexController extends Controller {
+class IndexController extends Ava_Controller {
 	
-    function IndexController()
-    {
-        parent::Controller();
-    }
-    
 	function index()
 	{
         $this->load->library("cache");
