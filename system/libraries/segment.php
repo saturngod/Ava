@@ -25,7 +25,11 @@
          $tmp_arr=preg_split('/\//',AvaConfig::base_url);
          $count=count($tmp_arr)-2; // http:// include // 2. So substract 2
          $this->list=preg_split('/\//',$_SERVER['REQUEST_URI']);
-
+         
+         if($this->list[0]=="/") {
+             $count=$count-1;
+         }
+         
          for($i=0;$i<=$count-1;$i++)
           {
  			//shifting the uncessary array
