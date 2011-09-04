@@ -1,10 +1,5 @@
 <?php
-class LibraryController extends Controller {
-	
-    function IndexController()
-    {
-        parent::Controller();
-    }
+class LibraryController extends Ava_Controller {
     
 	function index()
 	{

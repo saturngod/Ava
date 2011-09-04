@@ -1,10 +1,6 @@
 <?php
-class MvcController extends Controller {
+class MvcController extends Ava_Controller {
 	
-    function IndexController()
-    {
-        parent::Controller();
-    }
     
 	function index()
 	{

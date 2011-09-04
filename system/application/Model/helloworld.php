@@ -1,5 +1,5 @@
 <?php
-class helloworldModel extends Model {
+class helloworldModel extends Ava_Model {
 
 
 	function helloworldModel()

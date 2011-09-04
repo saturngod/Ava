@@ -24,7 +24,7 @@ h1,h2,h3,h4,h5,h6
 }
 
 h1.title {
-    font-family: 'Lobster', arial, serif;
+    font-family: 'Lobster',Helvetica, arial, serif;
 }
 header h1 {
 	color:#7B799C;
@@ -63,7 +63,7 @@ footer
 
 #detail {
 	line-height:30px;
-    font-family: 'Yanone Kaffeesatz', arial, serif; 
+    font-family: 'Yanone Kaffeesatz',Helvetica, arial, serif; 
     font-size:18px;
 }
 
@@ -74,7 +74,7 @@ footer
 #detail h2 {
     padding-bottom:5px;
     color:rgba(105,105,103,0.894);
-    font-family: 'Lobster', arial, serif;
+    font-family: 'Lobster',Helvetica, arial, serif;
 
 }
 
@@ -85,11 +85,11 @@ footer
 
 #detail code.variable {
     color:blue;
-    font-family:'Yanone Kaffeesatz', arial, serif;
+    font-family:'Yanone Kaffeesatz',Helvetica, arial, serif;
 }
 
 #detail code.comment {
-    font-family:'Yanone Kaffeesatz', arial, serif;
+    font-family:'Yanone Kaffeesatz',Helvetica, arial, serif;
     color:#008200 !important;
 }
 .contents ul {

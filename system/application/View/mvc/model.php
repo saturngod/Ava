@@ -6,13 +6,8 @@
     <p>create php file in /system/appliction/Model/helloworld.php and write following</p>
     <pre class="brush: php">
         &lt;?php
-        class helloworldModel extends Model {
+        class helloworldModel extends Ava_Model {
 
-
-            function helloworldModel()
-            {
-                parent::Model();
-            }
             function get_txt()
             {
                 return "Hello World";
@@ -25,7 +20,7 @@
 
     <pre class="brush: php">
         &lt;?php
-        class HelloworldController extends Controller {
+        class HelloworldController extends Ava_Controller {
 
             function HelloworldController()
             {

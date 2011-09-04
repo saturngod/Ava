@@ -41,13 +41,7 @@
             <li><a href="<?php echo AvaConfig::base_url ?>/library/paging">paging</a></li>
         </ul>
     </li>
-    <li>Public Folder
-        <ul>
-            <li>CSS</li>
-            <li>Javascript</li>
-        </ul>
-    </li>
-    <li>helper</li>
+    <li><a href="<?php echo AvaConfig::base_url ?>/helper">helper</a></li>
     <li>plugin</li>
 </ul>
         </div>

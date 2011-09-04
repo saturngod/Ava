@@ -6,7 +6,7 @@
  * @author saturngod
  * @category controller
  */
-class Controller extends Ava_Base {
+class Ava_Controller extends Ava_Base {
 
     /**
      * @access public
@@ -17,7 +17,7 @@ class Controller extends Ava_Base {
      * constructor
      * @return void
      */
-	function Controller()
+	function __construct()
 	{	
 		parent::Ava_Base();
 		$this->_initialize();

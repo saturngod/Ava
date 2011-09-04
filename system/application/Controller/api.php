@@ -1,10 +1,6 @@
 <?php
 class ApiController extends RESTController {
 	
-    function ApiController()
-    {
-        parent::RESTController();
-    }
     
 	function index()
 	{

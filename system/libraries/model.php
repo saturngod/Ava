@@ -7,7 +7,7 @@
  * @author saturngod , ExpressionEngine Dev Team
  * @category Library
  */
-class Model {
+class Ava_Model {
 	
 	var $_parent_name = '';
 
@@ -15,7 +15,7 @@ class Model {
      * constructor
      * @return void
      */
-	function Model()
+	function __construct()
 	{
 		// If the magic __get() or __set() methods are used in a Model references can't be used.
 		$this->_assign_libraries( (method_exists($this, '__get') OR method_exists($this, '__set')) ? FALSE : TRUE );

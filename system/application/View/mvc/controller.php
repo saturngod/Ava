@@ -11,12 +11,7 @@
     <p>Add following code</p>
     <pre class="brush: php">
         &lt;?php
-        class HelloworldController extends Controller {
-
-            function HelloworldController()
-            {
-                parent::Controller();
-            }
+        class HelloworldController extends Ava_Controller {
 
             function index()
             {
@@ -32,12 +27,7 @@
     <p>Now, we will add function in controller.</p>
     <pre class="brush: php">
         &lt;?php
-        class HelloworldController extends Controller {
-
-            function HelloworldController()
-            {
-                parent::Controller();
-            }
+        class HelloworldController extends Ava_Controller {
 
             function index()
             {

@@ -1,8 +1,10 @@
 <?php
 /**
- * RESTController for RESTFul API
+ * RESTController for RESTFUL API
+ * This code is base on codeigniter restserver
+ * source : https://github.com/philsturgeon/codeigniter-restserver
  */
-Abstract class RESTController extends Controller {
+Abstract class RESTController extends Ava_Controller {
 
     
     private $_method;
@@ -31,7 +33,6 @@ Abstract class RESTController extends Controller {
      */
     function RESTController()
     {
-		parent::Controller();
 
         // How is this request being made? POST, DELETE, GET, PUT?
 	    $this->_method = $this->_detect_method();
