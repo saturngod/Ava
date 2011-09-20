@@ -17,6 +17,9 @@ class Ava_db
 	private $order;
 	public $err;
 
+	/**
+	 * Constructor. Can check the query error with if ($this->db->err) echo $this->db->err[2];
+	 */
 	public function __construct()
 	{
 		$this->err=false;
@@ -39,7 +42,7 @@ class Ava_db
      * @param  string $sql
      * @return array
      */
-	public function query($sql)
+	public function query($sql,$query_array="")
 	{
 
 		$this->err=false;
@@ -49,7 +52,18 @@ class Ava_db
             //fixed SQL Injection
             $result=$this->dbh->prepare($sql);
             //loop array for replace sql
-            $result->execute($this->where_array);
+            if(is_array($query_array)){
+            	$return=$result->execute($query_array);
+            }
+            else {
+            	$return=$result->execute($this->where_array);
+            }
+
+            //check error
+			if(!$return) {
+				$this->err=$result->errorInfo();
+            }
+        	
             if(is_object($result))
             {
                 $result->setFetchMode(PDO::FETCH_OBJ);
@@ -270,6 +284,7 @@ class Ava_db
 	public function insert($data,$table)
 	{
 		$i=0;
+		$this->err=false;
         $field_value="";
         $field="";
 		foreach($data as $key => $value)
@@ -290,17 +305,20 @@ class Ava_db
 		}
 		//"INSERT INTO animals(animal_type, animal_name) VALUES ('kiwi', 'troy')"
 		$sql="INSERT INTO ".$table." (".$field.") VALUES (".$field_value.")";
-
+        
         try
         {
             $result=$this->dbh->prepare($sql);
-
            //loop array for replace sql
             $count=$result->execute($this->where_array);
-
+            
             $this->where="";
             $this->where_array=array();
-
+            
+            if(!$count) {
+               $this->err=$result->errorInfo();
+            }
+            
             return $count;
         }
         catch(PDOException $e)
@@ -319,6 +337,7 @@ class Ava_db
 	{
 		//$dbh->exec("UPDATE animals SET animal_name='bruce' WHERE animal_name='troy'");
 		$i=0;
+		$this->err=false;
 		$update_value="";
 		foreach($data as $key => $value)
 		{
@@ -352,6 +371,10 @@ class Ava_db
 
             $this->where="";
             $this->where_array=array();
+
+            if(!$count) {
+           		$this->err=$result->errorInfo();
+            }
             return $count;
         }
         catch(PDOException $e)
@@ -367,12 +390,16 @@ class Ava_db
      */
 	public function delete($table)
 	{
+		$this->err=false;
 		$sql="DELETE FROM ".$table." WHERE ";
 		$sql=$sql.$this->where;
 		$result=$this->dbh->prepare($sql);
        //loop array for replace sql
         $count=$result->execute($this->where_array);
 
+        if(!$count) {
+			$this->err=$result->errorInfo();
+        }
 		$this->where="";
         $this->where_array=array();
 		return $count;
