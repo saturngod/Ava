@@ -208,3 +208,25 @@
         $this->db->where("id",4);
         $this->db->delete("table");
     </pre>
+<h3 name="query">Query</h3>
+<pre class="brush:php">
+      $sql="SELECT * FROM `player` WHERE `name`=:username and `father`=:father";
+      $arr[':username']='foo';
+      $arr[':father']='bar';
+      $result=$this->db->query($sql,$arr);
+</pre>
+<h3 name="error">Error Checking</h3>
+<pre class="brush:php">
+      $sql="SELECT * FROM `player` WHERE `name`=:username and `father`=:father";
+      $arr[':username']='foo';
+      $arr[':father']='bar';
+      $result=$this->db->query($sql,$arr);
+      if($this->db->err) {
+         
+         // return array , 
+         //index 1 is error code number
+         //index 2 is error string
+         print_r($this->db->err);
+         
+      }
+</pre>
