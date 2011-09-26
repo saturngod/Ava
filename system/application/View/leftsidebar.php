@@ -6,9 +6,6 @@
         <a href="<?php echo AvaConfig::base_url ?>/mvc">MVC</a>
         <ul class="child-1">
             <li><a href="<?php echo AvaConfig::base_url ?>/mvc/controller">Controller</a>
-                <ul>
-                    <li>REST Controller</li>
-                </ul>
             </li>
             <li><a href="<?php echo AvaConfig::base_url ?>/mvc/model">Model</a></li>
             <li><a href="<?php echo AvaConfig::base_url ?>/mvc/view">View</a></li>
