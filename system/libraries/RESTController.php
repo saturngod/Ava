@@ -1,413 +1,176 @@
 <?php
 /**
- * RESTController for RESTFUL API
- * This code is base on codeigniter restserver
- * source : https://github.com/philsturgeon/codeigniter-restserver
+ * RESTController Class
+ * @package Ava
+ * @since version 1.0
+ * @author saturngod
+ * @category controller
  */
-Abstract class RESTController extends Ava_Controller {
+class Ava_RESTController extends Ava_Base {
 
-    
-    private $_method;
-    private $_format;
-
-    private $_get_args = array();
-    private $_put_args = array();
-    private $_delete_args = array();
-    private $_args = array();
-
-    abstract function index();
-
-     // List all supported methods, the first will be the default format
-    private $_supported_formats = array(
-		'xml' 		=> 'application/xml',
-		'rawxml' 	=> 'application/xml',
-		'json' 		=> 'application/json',
-		'serialize' => 'application/vnd.php.serialized',
-		'php' 		=> 'text/plain',
-		'csv' 		=> 'application/csv'
-	);
-     
     /**
-     * Constructor function
+     * @access public
+     * @var Loader $load
+     */
+    public $load;
+
+    public $method;
+    public $get= array();
+    public $post= array();
+    public $put = array();
+    /**
+     * constructor
      * @return void
      */
-    function RESTController()
-    {
+    function __construct()
+    {   
+        parent::Ava_Base();
+        $this->_initialize();
+        $this->_processRequest();
 
-        // How is this request being made? POST, DELETE, GET, PUT?
-	    $this->_method = $this->_detect_method();
-
-        switch($this->_method)
-        {
-        	case 'put':
-		    	// Set up out PUT variables
-		    	parse_str(file_get_contents('php://input'), $this->_put_args);
-    		break;
-
-        	case 'delete':
-		    	// Set up out PUT variables
-		    	parse_str(file_get_contents('php://input'), $this->_delete_args);
-    		break;
-        }
-
-        $this->_get_args=$this->_get_args_method();
-
-       
-        // Merge both for one mega-args variable
-    	$this->_args = array_merge($this->_get_args, $this->_put_args, $this->_delete_args);
-
-    	// Which format should the data be returned in?
-	    $this->_format = $this->_detect_format();
-
-        $action=$this->router->action."_".$this->_method;
-        $this->$action();
     }
 
-     /*
-     * response
-     *
-     * Takes pure data and optionally a status code, then creates the response
-     */
-    function response($data = array(), $http_code = 200)
-    {
-        if(empty($data))
-    	{
-    		$this->io->set_status_header(404);
-    		return;
-    	}
 
-
-         // If the format method exists, call and return the output in that format
-        if(method_exists($this, '_REST_'.$this->_format))
-        {
-	    	// Set the correct format header
-	    	$this->io->set_status_header($http_code);
-            header('Content-type: '.$this->_supported_formats[$this->_format]);
-            echo $this->{'_REST_'.$this->_format}($data);
-
-        }
+    private function _processRequest() {
+        $request_method = strtolower($_SERVER['REQUEST_METHOD']);
+        $this->method=$request_method;
         
-    }
-    /**
-     * detect xml or json or other supported format
-     * @return mixed
-     */
-    private function _detect_format()
-    {
-        $pattern = '/(' . implode( '|', array_keys($this->_supported_formats) ) . ')$/';
-
-       
-		// Check if a file extension is used
-		if(preg_match($pattern, end($this->_get_args), $matches))
-        {
-
-            // The key of the last argument
-			$last_key = end($this->_get_args);
-            return $last_key;
-
+        switch ($request_method) {
+            case 'get':
+                $this->get = $this->arrayToObject($_GET);
+                break;
+            case 'post':
+                $this->post = $this->arrayToObject($_POST);
+            case 'put':
+                parse_str(file_get_contents('php://input'), $put_vars);
+                $this->put = $this->arrayToObject($put_vars);
+                break;
         }
-
-        return "json";
-
-
-    }
-    private function _get_args_method()
-    {
-        //remove controller and function
-        $slice_array= array_slice($this->segment->get_list(),2);
-        $i=0;
-        $return_array=array();
-        $last_seg="";
-        foreach($slice_array as $seg )
-        {
-            if($i%2==0)
-            {
-                $return_array[$seg]="";
-                $last_seg=$seg;
-            }
-            else
-            {
-                $return_array[$last_seg]=$seg;
-            }
-            $i++;
-        }
-
-        return $return_array;
-    }
-     /*
-     * Detect method
-     *
-     * Detect which method (POST, PUT, GET, DELETE) is being used
-     */
-    private function _detect_method()
-    {
-    	//$method = strtolower($this->input->server('REQUEST_METHOD'));
-        $method=strtolower($_SERVER['REQUEST_METHOD']);
-       	if(in_array($method, array('get', 'delete', 'post', 'put')))
-    	{
-	    	return $method;
-    	}
-    	return 'get';
-    }
-
-    /*
-     * Output format function
-     */
-
-    // Encode as JSON
-    // FORMATING FUNCTIONS ---------------------------------------------------------
-
-    // Force it into an array
-    private function _force_loopable($data)
-    {
-    	// Force it to be something useful
-		if(!is_array($data) && !is_object($data))
-		{
-			$data = (array) $data;
-		}
-
-		return $data;
-    }
-
-    /**
-     * format XML for output
-     * @param array $data
-     * @param null $structure
-     * @param string $basenode
-     * @return string
-     */
-    private function _REST_xml($data = array(), $structure = NULL, $basenode = 'xml')
-    {
-    	// turn off compatibility mode as simple xml throws a wobbly if you don't.
-		if (ini_get('zend.ze1_compatibility_mode') == 1)
-		{
-			ini_set ('zend.ze1_compatibility_mode', 0);
-		}
-
-		if ($structure == NULL)
-		{
-			$structure = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><$basenode />");
-		}
-
-		// loop through the data passed in.
-		$data = $this->_force_loopable($data);
-		foreach($data as $key => $value)
-		{
-			// no numeric keys in our xml please!
-			if (is_numeric($key))
-			{
-				// make string key...
-				//$key = "item_". (string) $key;
-				$key = "item";
-			}
-
-			// replace anything not alpha numeric
-			$key = preg_replace('/[^a-z]/i', '', $key);
-
-			// if there is another array found recrusively call this function
-			if (is_array($value) || is_object($value))
-			{
-				$node = $structure->addChild($key);
-				// recrusive call.
-				$this-> _REST_xml($value, $node, $basenode);
-			}
-			else
-			{
-				// add single node.
-
-				$value = htmlentities($value, ENT_NOQUOTES, "UTF-8");
-
-				$UsedKeys[] = $key;
-
-				$structure->addChild($key, $value);
-			}
-
-		}
-
-		// pass back as string. or simple xml object if you want!
-		return $structure->asXML();
     }
 
 
     /**
-     * Format Raw XML for output
-     * @param array $data
-     * @param null $structure
-     * @param string $basenode
-     * @return
+     * Initialize the autoload and class
+     * @return void
      */
-    private function _REST_rawxml($data = array(), $structure = NULL, $basenode = 'xml')
+    function _initialize()
     {
-    	// turn off compatibility mode as simple xml throws a wobbly if you don't.
-		if (ini_get('zend.ze1_compatibility_mode') == 1)
-		{
-			ini_set ('zend.ze1_compatibility_mode', 0);
-		}
 
-		if ($structure == NULL)
-		{
-			$structure = simplexml_load_string("<?xml version='1.0' encoding='utf-8'?><$basenode />");
-		}
-
-		// loop through the data passed in.
-		$data = $this->_force_loopable($data);
-		foreach( $data as $key => $value)
-		{
-			// no numeric keys in our xml please!
-			if (is_numeric($key))
-			{
-				// make string key...
-				//$key = "item_". (string) $key;
-				$key = "item";
-			}
-
-			// replace anything not alpha numeric
-			$key = preg_replace('/[^a-z0-9_-]/i', '', $key);
-
-			// if there is another array found recrusively call this function
-			if (is_array($value) || is_object($value))
-			{
-				$node = $structure->addChild($key);
-				// recrusive call.
-				$this->_REST_rawxml($value, $node, $basenode);
-			}
-			else
-			{
-				// add single node.
-
-				$value = htmlentities($value, ENT_NOQUOTES, "UTF-8");
-
-				$UsedKeys[] = $key;
-
-				$structure->addChild($key, $value);
-			}
-
-		}
-
-		// pass back as string. or simple xml object if you want!
-		return $structure->asXML();
-    }
-
-    
-
-    /**
-     * Format HTML for output
-     * @param array $data
-     * @return string
-     */
-    private function _REST_csv($data = array())
-    {
-    	// Multi-dimentional array
-		if(isset($data[0]))
-		{
-			$headings = array_keys($data[0]);
-		}
-
-		// Single array
-		else
-		{
-			$headings = array_keys($data);
-			$data = array($data);
-		}
-
-		$output = implode(',', $headings)."\r\n";
-		foreach($data as &$row)
-		{
-			$output .= '"'.implode('","',$row)."\"\r\n";
-		}
-
-		return $output;
-    }
-
-    /**
-     * Encode as JSON
-     * @param array $data
-     * @return string
-     */
-    private function _REST_json($data = array())
-    {
-    	return json_encode($data);
-    }
-
-    /**
-     * Encode as Serialized array
-     * @param array $data
-     * @return string
-     */
-    private function _REST_serialize($data = array())
-    {
-    	return serialize($data);
-    }
-
-    /**
-     * Encode raw PHP
-     * @param array $data
-     * @return mixed
-     */
-    private function _REST_php($data = array())
-    {
-    	return var_export($data, TRUE);
-    }
-
-    // INPUT FUNCTION
-    // --------------------------------------------------------------
-
-    /**
-     * REST get with key from GET METHOD
-     * @param  $key
-     * @param bool $xss_clean
-     * @return
-     */
-    public function get($key, $xss_clean = TRUE)
-    {
-    	return array_key_exists($key, $this->_get_args) ? $this->_xss_clean( $this->_get_args[$key], $xss_clean ) : $this->io->get($key, $xss_clean) ;
-    }
-
-    /**
-     * REST GET with key from POST METHOD
-     * @param  $key
-     * @param bool $xss_clean
-     * @return
-     */
-    public function post($key, $xss_clean = TRUE)
-    {
-    	return $this->io->post($key, $xss_clean);
-    }
-
-    /**
-     * REST GET with key from PUT METHOD
-     * @param  $key
-     * @param bool $xss_clean
-     * @return bool
-     */
-    public function put($key, $xss_clean = TRUE)
-    {
-    	return array_key_exists($key, $this->_put_args) ? $this->_xss_clean( $this->_put_args[$key], $xss_clean ) : FALSE ;
-    }
-
-    /**
-     * REST GET with key from DELETE METHOD
-     * @param  $key
-     * @param bool $xss_clean
-     * @return bool
-     */
-    public function delete($key, $xss_clean = TRUE)
-    {
-    	return array_key_exists($key, $this->_delete_args) ? $this->_xss_clean( $this->_delete_args[$key], $xss_clean ) : FALSE ;
-    }
-
-    /**
-     * XSS clean
-     * @param  $val
-     * @param  $bool
-     * @return
-     */
-    private function _xss_clean($val, $bool)
-    {
-    	return $bool ? $this->io->xss_clean($val) : $val;
-    }
+        //initalize Loader
+        $auto_load=array("io","segment","router");
         
-   
+        foreach($auto_load as $library)
+        {
+            $this->$library=& load_class($library);
+        }
+        //load loader class
+        $this->load =& load_class('Loader');
+
+        //call auto load from config file
+        $this->load->_auto_load();
+    }
+
+    /**
+     * Array to the object
+     * http://stackoverflow.com/questions/1869091/convert-array-to-object-php/1869569#1869569
+    */
+    function array_to_obj($array, &$obj)
+    {
+        foreach ($array as $key => $value)
+        {
+          if (is_array($value))
+          {
+            $obj->$key = new stdClass();
+            array_to_obj($value, $obj->$key);
+          }
+          else
+          {
+            $obj->$key = $value;
+          }
+        }
+        return $obj;
+    }
+
+    function arrayToObject($array)
+    {
+        $object= new stdClass();
+        return $this->array_to_obj($array,$object);
+    }
+
+    /**
+     * Get Status Code To Message
+     * @param int status
+     * @return string
+    */
+    function getStatusCodeMessage($status)
+    {
+            $codes = Array(
+                100 => 'Continue',
+                101 => 'Switching Protocols',
+                200 => 'OK',
+                201 => 'Created',
+                202 => 'Accepted',
+                203 => 'Non-Authoritative Information',
+                204 => 'No Content',
+                205 => 'Reset Content',
+                206 => 'Partial Content',
+                300 => 'Multiple Choices',
+                301 => 'Moved Permanently',
+                302 => 'Found',
+                303 => 'See Other',
+                304 => 'Not Modified',
+                305 => 'Use Proxy',
+                306 => '(Unused)',
+                307 => 'Temporary Redirect',
+                400 => 'Bad Request',
+                401 => 'Unauthorized',
+                402 => 'Payment Required',
+                403 => 'Forbidden',
+                404 => 'Not Found',
+                405 => 'Method Not Allowed',
+                406 => 'Not Acceptable',
+                407 => 'Proxy Authentication Required',
+                408 => 'Request Timeout',
+                409 => 'Conflict',
+                410 => 'Gone',
+                411 => 'Length Required',
+                412 => 'Precondition Failed',
+                413 => 'Request Entity Too Large',
+                414 => 'Request-URI Too Long',
+                415 => 'Unsupported Media Type',
+                416 => 'Requested Range Not Satisfiable',
+                417 => 'Expectation Failed',
+                500 => 'Internal Server Error',
+                501 => 'Not Implemented',
+                502 => 'Bad Gateway',
+                503 => 'Service Unavailable',
+                504 => 'Gateway Timeout',
+                505 => 'HTTP Version Not Supported'
+            );
+
+            return (isset($codes[$status])) ? $codes[$status] : '';
+    }
+
+    function respond($status=200,$message='',$content_type='application/json') {
+        
+        $status_header='HTTP/1.1 '.$status.' '.$this->getStatusCodeMessage($status);
+        header($status_header);
+        header('Content-type: '.$content_type);
+
+        if($message!='') {
+            if(is_array($message)){
+                echo json_encode($message);
+            }
+            else {
+                echo $message;
+            }
+        }
+    }
+
+
+
+
+
+
 }
-
 ?>
