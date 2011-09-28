@@ -2,7 +2,6 @@
 
 //get parameter
 
-message("Creating... \n",1);
 
 if(count($argv) > 2) {
 
@@ -21,7 +20,7 @@ if(count($argv) > 2) {
 		writeFile($file,$writeFilePath,ucfirst($argv[2])."Controller");
 
 	}
-	if($argv[1]=='--restcontroller' || $argv[1]=='-r') {
+	else if($argv[1]=='--restcontroller' || $argv[1]=='-r') {
 		
 		message("RESTController Name: ",1);
 		message (ucfirst($argv[2])."\n",2);
@@ -49,6 +48,27 @@ if(count($argv) > 2) {
 		$writeFilePath = dirname(__FILE__)."/application/Model/".strtolower($argv[2]).".php";
 		writeFile($file,$writeFilePath,strtolower($argv[2])."Model");
 	}
+}
+else if(count($argv)==2) {
+	if($argv[1]=='--help' || $argv[1]=='-h') {
+
+		echo "\nUsage: \$php palace [option] [name]\n\n";
+		echo "[option]\t\tdescription\n\n";
+		
+		echo "-c or --controller\t";
+		echo "Create Controller. Example:";
+		message("php palace -c newcontroller",2);
+		echo "\n\n";
+
+		echo "-m or --model\t\t";
+		echo "Create Model. Example:";
+		message("php palace -m newcontroller",2);
+		echo "\n\n";
+
+	}
+}
+else {
+	message("php palace --help\n",3);
 }
 
 
