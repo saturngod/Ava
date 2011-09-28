@@ -1,12 +1,9 @@
-<?php
-//variable for parsing
-$data['base']=$base;
-$data['public']=$public;
-
-?>
-<?php $this->load->view('header',$data); //load header ?>
-
-<h2>Ava Framework</h2>
-<p><?php echo $txt; ?></p>
-
-<?php $this->load->view('footer',$data); //load footer ?>
+<html>
+<head>
+	<title>Ava Framework</title>
+</head>
+<body>
+	<h1>Ava Framework</h1>
+	<p>Welcome to Ava Framework</p>
+</body>
+</html>

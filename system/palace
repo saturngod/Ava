@@ -1,5 +1,124 @@
 <?php
 
-echo "Building ....";
+//get parameter
 
+message("Creating... \n",1);
+
+if(count($argv) > 2) {
+
+	if($argv[1]=='--controller' || $argv[1]=='-c') {
+		
+		message("Controller Name: ",1);
+		message (ucfirst($argv[2])."\n",2);
+
+		message("Creating File...\n",1);
+
+		$file="<?php\nclass ".ucfirst($argv[2])."Controller extends Ava_Controller {\n";
+		$file.="\tfunction index(){\n\t}\n";
+		$file.="}\n?>";
+		
+		$writeFilePath = dirname(__FILE__)."/application/Controller/".strtolower($argv[2]).".php";
+		writeFile($file,$writeFilePath,ucfirst($argv[2])."Controller");
+
+	}
+	if($argv[1]=='--restcontroller' || $argv[1]=='-r') {
+		
+		message("RESTController Name: ",1);
+		message (ucfirst($argv[2])."\n",2);
+
+		message("Creating File...\n",1);
+
+		$file="<?php\nclass ".ucfirst($argv[2])."Controller extends Ava_RESTController {\n";
+		$file.="\tfunction index(){\n\t}\n";
+		$file.="}\n?>";
+		
+		$writeFilePath = dirname(__FILE__)."/application/Controller/".strtolower($argv[2]).".php";
+		writeFile($file,$writeFilePath,ucfirst($argv[2])."Controller");
+
+	}
+	else if($argv[1]=='--model' || $argv[1]=='-m') {
+		
+		message("Model Name: ",1);
+		message (strtolower($argv[2])."\n",2);
+
+		message("Creating File...\n",1);
+
+		$file="<?php\nclass ".strtolower($argv[2])."Model extends Ava_Model {\n";
+		$file.="}\n?>";
+
+		$writeFilePath = dirname(__FILE__)."/application/Model/".strtolower($argv[2]).".php";
+		writeFile($file,$writeFilePath,strtolower($argv[2])."Model");
+	}
+}
+
+
+function writeFile($txt,$path,$header) {
+	
+	
+	$fh = fopen($path, 'w');
+	
+	if(!$fh) {
+		message("Can't Write File: ",3);
+		message ($path,2);
+		exit;
+	}
+
+	fwrite($fh, $txt);
+	fclose($fh);
+
+	message($header,2);
+	message(" has been created.\n",1);
+	message("File Path: ",1);
+	message($path."\n",2);
+
+}
+
+function message($text,$type) {
+	//message
+	if($type==1) {
+		termcolored($text,"LIGHT_CYAN");
+	}
+	//info
+	else if($type==2) {
+		termcolored($text,"LIGHT_GREEN");	
+	}
+	else if($type==3) {
+		termcolored($text,"RED");		
+	}
+
+}
+##############################################
+# Output colorized text to terminal run
+# php scripts..
+##############################################
+function termcolored($text, $color="NORMAL", $back=0){
+    
+    $_colors = array(
+        "LIGHT_RED"      => "[1;31m",
+        "LIGHT_GREEN"     => "[1;32m",
+        "YELLOW"         => "[1;33m",
+        "LIGHT_BLUE"     => "[1;34m",
+        "MAGENTA"     => "[1;35m",
+        "LIGHT_CYAN"     => "[1;36m",
+        "WHITE"         => "[1;37m",
+        "NORMAL"         => "[0m",
+        "BLACK"         => "[0;30m",
+        "RED"         => "[0;31m",
+        "GREEN"         => "[0;32m",
+        "BROWN"         => "[0;33m",
+        "BLUE"         => "[0;34m",
+        "CYAN"         => "[0;36m",
+        "BOLD"         => "[1m",
+        "UNDERSCORE"     => "[4m",
+        "REVERSE"     => "[7m",
+
+	);
+    $out = $_colors[$color];
+    if($out == ""){ $out = "[0m"; }
+    if($back){
+        return chr(27)."$out$text".chr(27)."[0m";#.chr(27);
+    }else{
+        echo chr(27)."$out$text".chr(27).chr(27)."[0m";#.chr(27);
+    }//fi
+}// end function
 ?>
