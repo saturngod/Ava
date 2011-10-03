@@ -43,7 +43,7 @@ if(!is_file($router->file))
 
 //include Controller File
 include $router->file;
-$class=$router->controller."Controller";
+$class=ucfirst($router->controller)."Controller";
 
 /*** check if the action is callable ***/
 if (is_callable(array($class, $router->action)) == false)

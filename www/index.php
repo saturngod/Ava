@@ -1,10 +1,7 @@
 <?php
 
 /**
-	Ava Light Framework for simple usages
-	No Database , No Library, No Plugin
-	Very Light weight
-	Just only use for MVC pattern
+ * Ava Framework
 */
 
  /*** error reporting on ***/

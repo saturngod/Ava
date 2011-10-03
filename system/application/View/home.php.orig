@@ -1,0 +1,15 @@
+<<<<<<< HEAD
+<h2>Introduction</h2>
+    <p>Ava is a PHP web application development framework based on MVC pattern. It allows you to develop PHP web applications faster and easier than before. You can use Ava as a base framework to develop your own frameworks or plug-ins as well. You can fork from our Git repo on Github http://www.github.com/saturngod/ava and start exploring yourself while we are still working on better and thorough reference documentation and tutorials. Ava uses MIT license to provide you with maximum freedom. Happy coding.
+    </p>
+=======
+<html>
+<head>
+	<title>Ava Framework</title>
+</head>
+<body>
+	<h1>Ava Framework</h1>
+	<p>Welcome to Ava Framework</p>
+</body>
+</html>
+>>>>>>> 0f56242b0fa5816b791c3ebe0f3d9dda0f811894

@@ -1,5 +1,12 @@
 <?php
 /**
+<<<<<<< HEAD
+ * RESTController for RESTFUL API
+ * This code is base on codeigniter restserver
+ * source : https://github.com/philsturgeon/codeigniter-restserver
+ */
+Abstract class RESTController extends Ava_Controller {
+=======
  * RESTController Class
  * @package Ava
  * @since version 1.0
@@ -7,6 +14,7 @@
  * @category controller
  */
 class Ava_RESTController extends Ava_Base {
+>>>>>>> 0f56242b0fa5816b791c3ebe0f3d9dda0f811894
 
     /**
      * @access public
@@ -22,11 +30,26 @@ class Ava_RESTController extends Ava_Base {
      * constructor
      * @return void
      */
+<<<<<<< HEAD
+    function RESTController()
+    {
+
+        // How is this request being made? POST, DELETE, GET, PUT?
+	    $this->_method = $this->_detect_method();
+
+        switch($this->_method)
+        {
+        	case 'put':
+		    	// Set up out PUT variables
+		    	parse_str(file_get_contents('php://input'), $this->_put_args);
+    		break;
+=======
     function __construct()
     {   
         parent::Ava_Base();
         $this->_initialize();
         $this->_processRequest();
+>>>>>>> 0f56242b0fa5816b791c3ebe0f3d9dda0f811894
 
     }
 

@@ -192,7 +192,7 @@
     <pre class="brush:php">
         $data['name']="foo";
         $data['field']="bar";
-        $this->db->insert($data,"table");
+        $this->db->insert("table",$data);
     </pre>
 
 <a name="update"></a><h3>Update</h3>
@@ -200,7 +200,7 @@
         $data['name']='bar';
         $data['field']='foo';
         $this->db->where("id",4);
-        $this->db->update($data,"table");
+        $this->db->update("table",$data);
     </pre>
 
 <a name="delete"></a><h3>Delete</h3>

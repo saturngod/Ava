@@ -3,8 +3,19 @@ Ava Framework is an open source web application framework. It will help you deve
 ## Require
 
  1. PHP 5.3
- 2. PHP Pdo
+ 2. PHP PDO
 
+
+## ChangeLog
+Version 0.5.1 Oct 1 2001 <saturngod at gmail dot com>
+
+* Change $this->db->insert(data,table_name) to (table_name,data)
+* Change $this->db->update(data,table_name) to (table_name,data)
+
+Version 0.5 Sep 20 2011 <saturngod at gmail dot com>
+
+* Add Database Error checking. $this->db->err
+* Add sql injection fix. $this->db->query($sql,$arr);
 
 ## Installtion
 

@@ -1,0 +1,25 @@
+<?php
+<<<<<<< HEAD
+class IndexController extends Ava_Controller {
+    
+	function index()
+	{
+		$data['title']="Ava Framework Documentation";
+        $this->load->view('header',$data);
+		$this->load->view('home');
+        $this->load->view('footer');
+	}
+=======
+
+class IndexController extends Ava_Controller {
+	
+	/**
+	 * Place to start writing the code 
+	 */
+	function index()
+	{
+		$this->load->view('home');
+    }
+>>>>>>> 0f56242b0fa5816b791c3ebe0f3d9dda0f811894
+}
+?>
