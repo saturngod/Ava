@@ -281,7 +281,7 @@ class Ava_db
      * @param  string $table
      * @return int $count
      */
-	public function insert($data,$table)
+	public function insert($table,$data)
 	{
 		$i=0;
 		$this->err=false;
@@ -333,7 +333,7 @@ class Ava_db
      * @param  $table
      * @return int
      */
-	public function update($data,$table)
+	public function update($table,$data)
 	{
 		//$dbh->exec("UPDATE animals SET animal_name='bruce' WHERE animal_name='troy'");
 		$i=0;
