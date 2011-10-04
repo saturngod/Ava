@@ -169,8 +169,8 @@
         $this->db->order($order);
         $result=$this->db->get('foo');
     </pre>
-<a name="limit"></a><h3>Limit</h3>
-    $this->db->limit(TOTAL,[START = 0])
+<h3 id="limit">Limit</h3>
+    <p>$this->db->limit(TOTAL,[START = 0])</p>
     <pre class="brush:php">
         //select * from foo where id = 1 ORDER BY `name` ASC' , `type DESC
 
@@ -183,19 +183,20 @@
         $result=$this->db->get('foo');
       </pre>
     
-<a name="oneline"></a><h3>One Line</h3>
+<h3 id="oneline">One Line</h3>
     <pre class="brush:php">
         $result= $this->db->selec('foo')->where("id",1)->get('table');
     </pre>
     
-<a name="insert"></a><h3>Insert</h3>
+<h3 id="insert">Insert</h3>
     <pre class="brush:php">
+        //INSERT INTO table(`name`,`field`) VALUE ('foo','bar')
         $data['name']="foo";
         $data['field']="bar";
         $this->db->insert("table",$data);
     </pre>
 
-<a name="update"></a><h3>Update</h3>
+<h3 id="update">Update</h3>
     <pre class="brush:php">
         $data['name']='bar';
         $data['field']='foo';
@@ -203,19 +204,21 @@
         $this->db->update("table",$data);
     </pre>
 
-<a name="delete"></a><h3>Delete</h3>
+<h3 id="delete">Delete</h3>
     <pre class="brush:php">
         $this->db->where("id",4);
         $this->db->delete("table");
     </pre>
-<h3 name="query">Query</h3>
+
+<h3 id="query">Query</h3>
 <pre class="brush:php">
       $sql="SELECT * FROM `player` WHERE `name`=:username and `father`=:father";
       $arr[':username']='foo';
       $arr[':father']='bar';
       $result=$this->db->query($sql,$arr);
 </pre>
-<h3 name="error">Error Checking</h3>
+
+<h3 id="error">Error Checking</h3>
 <pre class="brush:php">
       $sql="SELECT * FROM `player` WHERE `name`=:username and `father`=:father";
       $arr[':username']='foo';

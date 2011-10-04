@@ -31,6 +31,7 @@
                     <li><a href="<?php echo AvaConfig::base_url ?>/library/database#insert">Insert</a></li>
                     <li><a href="<?php echo AvaConfig::base_url ?>/library/database#update">Update</a></li>
                     <li><a href="<?php echo AvaConfig::base_url ?>/library/database#delete">Delete</a></li>
+                    <li><a href="<?php echo AvaConfig::base_url ?>/library/database#error">Check Error</a></li>
                 </ul>
             </li>
             <li><a href="<?php echo AvaConfig::base_url ?>/library/segment">segment</a></li>
