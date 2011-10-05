@@ -81,7 +81,7 @@ class Ava_router {
  		
  		if (empty($this->controller))
 		{
-			$this->controller = 'index';
+			$this->controller = AvaConfig::home_controller;
 		}
 
 		/*** Get action ***/

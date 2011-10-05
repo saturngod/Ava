@@ -7,6 +7,13 @@ Ava Framework is an open source web application framework. It will help you deve
 
 
 ## ChangeLog
+
+Version 0.5.3 Oct 1 2001 <saturngod at gmail dot com>
+
+* Change Config for Production and Development
+* Add home_controller in config
+* Fixed home directory with index.php
+
 Version 0.5.1 Oct 1 2001 <saturngod at gmail dot com>
 
 * Change $this->db->insert(data,table_name) to (table_name,data)
