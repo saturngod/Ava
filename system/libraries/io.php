@@ -509,6 +509,21 @@ class Ava_io {
 		return $this->_fetch_from_array($_GET, $index, $xss_clean);
 	}
 
+	/**
+	* Fetch an item from the GET array
+	*
+	* @access	public
+	* @param	string
+	* @param	bool
+	* @return	string
+	*/
+	function header($index = '', $xss_clean = FALSE)
+	{
+		return $this->_fetch_from_array(getallheaders(), $index, $xss_clean);
+	}
+
+	
+
 	// --------------------------------------------------------------------
 
 	/**
