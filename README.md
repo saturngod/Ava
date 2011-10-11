@@ -8,6 +8,11 @@ Ava Framework is an open source web application framework. It will help you deve
 
 ## ChangeLog
 
+Version 0.5.5 Oct 1 2001 <saturngod at gmail dot com>
+
+* fixed Home Constant not exist in config
+* fixed Debug Error Message For Terminal
+
 Version 0.5.4 Oct 1 2001 <saturngod at gmail dot com>
 
 * add get header in io class

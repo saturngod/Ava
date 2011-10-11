@@ -14,22 +14,21 @@ include SITE_PATH.'/libraries/controller.php';
 include SITE_PATH.'/libraries/RESTController.php';
 include SITE_PATH.'/libraries/model.php';
 
-
 //Error on off
-if(AvaConfig::DEBUG)
-{
-    error_reporting(E_ALL);
-	ini_set('display_errors', '1');
-	ini_set('error_prepend_string', '<div style="background-color:#FF9BA2;border:1px solid #FF4745;width:90%;margin:0px auto;padding:8px;color:#555">');
-	ini_set('error_append_string', '</div>');
+if(defined("AvaConfig::DEBUG")) {
+	if(AvaConfig::DEBUG)
+	{
+	    error_reporting(E_ALL);
+		ini_set('display_errors', '1');
+		ini_set('error_prepend_string', "\n<div style=\"background-color:#FF9BA2;border:1px solid #FF4745;width:90%;margin:0px auto;padding:8px;color:#222\">\n");
+		ini_set('error_append_string', "</div>\n");
+	}
+	else {
+		error_reporting(0);
+	    ini_set('display_errors', '0');
+	}
 }
-else
-{
-	
-    error_reporting(0);
-    ini_set('display_errors', '0');
-	
-}
+//debug is not exist , use default php.ini
 
 //start router for controller/action
 $router = & load_class("router");
@@ -37,9 +36,8 @@ $router->load();
 
 if(!is_file($router->file))
 {
-	die("<div style='background-color:#FF9BA2;border:1px solid #FF4745;width:90%;margin:0px auto;padding:8px;color:#555'>Controller not found</div>");
+	die("\n<div style='background-color:#FF9BA2;border:1px solid #FF4745;width:90%;margin:0px auto;padding:8px;color:#555'><b>".$router->controller."</b> Controller not found</div>\n");
 }
-
 
 //include Controller File
 include $router->file;
