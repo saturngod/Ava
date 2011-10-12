@@ -40,10 +40,12 @@
          $arr_count=count($this->list);
 
         
-         if($this->list[$arr_count-1]=="")
-         {
-            array_pop($this->list);
-         }
+         if($arr_count > 0) {
+            if($this->list[$arr_count-1]=="")
+            {
+                array_pop($this->list);
+            }
+        }
         
     }
  	
