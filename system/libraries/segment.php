@@ -21,29 +21,31 @@
  	 * @author saturngod
  	 */
  	public function __construct()
- 	{
+    {
          $tmp_arr=preg_split('/\//',AvaConfig::base_url);
+        
          $count=count($tmp_arr)-2; // http:// include // 2. So substract 2
          $this->list=preg_split('/\//',$_SERVER['REQUEST_URI']);
          
-         if(substr($_SERVER['REQUEST_URI'],0,1)=="/") {
-             $count=$count-1;
+         if($this->list[count($this->list)-1]=="") {
+             array_pop($this->list);
          }
-                  
+                
          for($i=0;$i<=$count-1;$i++)
           {
- 			//shifting the uncessary array
+            //shifting the uncessary array
             array_shift($this->list);
           }
 
          $arr_count=count($this->list);
 
+        
          if($this->list[$arr_count-1]=="")
          {
             array_pop($this->list);
          }
- 		
- 	}
+        
+    }
  	
  	/**
  	 * get_list

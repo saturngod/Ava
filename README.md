@@ -8,6 +8,10 @@ Ava Framework is an open source web application framework. It will help you deve
 
 ## ChangeLog
 
+Version 0.5.5.1 Oct 11 2001 <saturngod at gmail dot com>
+
+* fixed Segment get_list()
+
 Version 0.5.5 Oct 11 2001 <saturngod at gmail dot com>
 
 * fixed Home Constant not exist in config
