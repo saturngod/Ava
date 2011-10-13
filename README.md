@@ -11,6 +11,7 @@ Ava Framework is an open source web application framework. It will help you deve
 Version 0.5.5.2 Oct 13 2001 <saturngod at gmail dot com>
 
 * add session id in session library
+* exit at respond in RESTController
 
 Version 0.5.5.1 Oct 11 2001 <saturngod at gmail dot com>
 

@@ -165,6 +165,7 @@ class Ava_RESTController extends Ava_Base {
                 echo $message;
             }
         }
+        exit;
     }
 
 
