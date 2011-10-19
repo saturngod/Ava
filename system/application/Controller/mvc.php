@@ -19,6 +19,14 @@ class MvcController extends Ava_Controller {
 
     }
 
+    function rest_controller()
+    {
+         $data['title']="Controller";
+        $this->load->view('header',$data);
+        $this->load->view('mvc/rest_controller');
+        $this->load->view('footer');
+    }
+
     function model()
     {
         $data['title']="Model";

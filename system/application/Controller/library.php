@@ -40,5 +40,21 @@ class LibraryController extends Ava_Controller {
 		$this->load->view('library/paging');
         $this->load->view('footer');
     }
+
+    function io()
+    {
+        $data['title']="IO";
+        $this->load->view("header",$data);
+        $this->load->view("library/io");
+        $this->load->view('footer');
+    }
+
+    function cache()
+    {
+        $data['title']="Cache";
+        $this->load->view("header",$data);
+        $this->load->view("library/cache");
+        $this->load->view('footer');
+    }
 }
 ?>

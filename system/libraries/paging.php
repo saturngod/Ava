@@ -16,53 +16,38 @@ class Ava_paging
      * @param  int $limit
      * @return array
      */
-    function init($page,$rp,$total,$limit)
+    function init($page,$total,$limit=10)
     {
-        $limit -= 1;
+        if($limit==0) $limit=1;
+        
+        $total_pages=ceil($total/$limit);
 
-        $mid = floor($limit/2);
+        $end=$page*$limit;
+        $start=$end-$limit;
 
-        if ($total>$rp)
-            $numpages = ceil($total/$rp);
-        else
-            $numpages = 1;
+        if($end > $total) $end=$total;
 
-        if ($page>$numpages) $page = $numpages;
+        if($start==0) $start=1;
+        else $start=$start+1;
 
-            $npage = $page;
+        $prev=1;
+        if($page > 1) $prev=$page-1;
 
-        while (($npage-1)>0&&$npage>($page-$mid)&&($npage>0))
-            $npage -= 1;
+        $next=$total_pages;
 
-        $lastpage = $npage + $limit;
+        if($page < $total_pages) $next =$page+1;
 
-        if ($lastpage>$numpages)
-            {
-            $npage = $numpages - $limit + 1;
-            if ($npage<0) $npage = 1;
-            $lastpage = $npage + $limit;
-            if ($lastpage>$numpages) $lastpage = $numpages;
-            }
+        $paging['current_page']=$page;
+        $paging['total']=$total;
+        $paging['limit']=$limit;
 
-        while (($lastpage-$npage)<$limit) $npage -= 1;
+        $paging['total_pages']=$total_pages;
+        $paging['start_point']=$start;
+        $paging['end_point']=$end;
 
-        if ($npage<1) $npage = 1;
-
-        //echo $npage; exit;
-
-        $paging['first'] = 1;
-        if ($page>1) $paging['prev'] = $page - 1; else $paging['prev'] = 1;
-        $paging['start'] = $npage;
-        $paging['end'] = $lastpage;
-        $paging['page'] = $page;
-        if (($page+1)<$numpages) $paging['next'] = $page + 1; else $paging['next'] = $numpages;
-        $paging['last'] = $numpages;
-        $paging['total'] = $total;
-        $paging['iend'] = $page * $rp;
-        $paging['istart'] = ($page * $rp) - $rp + 1;
-
-        if (($page * $rp)>$total) $paging['iend'] = $total;
-
+        $paging['next_page']=$next;
+        $paging['prev_page']=$prev;
+        
         return $paging;
     }
 }

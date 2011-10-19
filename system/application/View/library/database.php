@@ -54,23 +54,7 @@
         echo $result[0]->id;
     </pre>
 
-<a name="whereequal"></a><h3>Where Equal</h3>
-
-    <pre class="brush:php">
-        //select * from foo where id = 1
-        $this->db->where("id",1);
-        $result=$this->db->get('foo');
-    </pre>
-
-<a name="wherenotequal"></a><h3>Where Not Equal</h3>
-
-    <pre class="brush:php">
-        //select * from foo where id !=1
-        $this->db->where("id",1,false);
-        $result=$this->db->get('foo');
-    </pre>
-
-<a name="whereand"></a><h3>Where With AND</h3>
+<h3 id="whereand">Where With AND</h3>
 
     <pre class="brush:php">
         //select * from foo where id = 1 and name='foo'
@@ -82,11 +66,19 @@
     <pre class="brush:php">
         //select * from foo where id = 1 and name!='foo'
         $this->db->where("id",1);
-        $this->db->where("name","foo",false);
+        $this->db->where("name !=","foo");
+        $result=$this->db->get('foo');
+    </pre>
+    
+    <pre class="brush:php">
+        //select * from foo where id = 1 and name!='foo' and field < 5
+        $this->db->where("id",1);
+        $this->db->where("name !=","foo");
+        $this->db->where("name <","5");
         $result=$this->db->get('foo');
     </pre>
 
-<a name="whereor"></a><h3>Where With OR</h3>
+<h3 id="whereor">Where With OR</h3>
 
     <pre class="brush:php">
         //select * from foo where id = 1 or name='foo'
@@ -98,7 +90,14 @@
     <pre class="brush:php">
         //select * from foo where id = 1 or name!='foo'
         $this->db->where("id",1);
-        $this->db->where_or("name","foo",false);
+        $this->db->where_or("name !=","foo");
+        $result=$this->db->get('foo');
+    </pre>
+
+    <pre class="brush:php">
+        //select * from foo where id = 1 or name!='foo' or field < 5
+        $this->db->where("id",1);
+        $this->db->where_or("name <",5);
         $result=$this->db->get('foo');
     </pre>
 

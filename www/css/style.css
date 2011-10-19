@@ -119,8 +119,16 @@ footer
 	padding-bottom:5px;
 }
 
-.contents ul li ul {
+.contents ul li > ul {
 	text-indent:20px;
+}
+
+.contents ul li > ul > li >ul {
+    text-indent:30px;
+}
+
+.contents ul li ul li:before {
+    content: "- ";
 }
 
 .contents ul li ul li:first-child {
