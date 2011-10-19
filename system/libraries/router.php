@@ -79,9 +79,17 @@ class Ava_router {
 
  		}
  		
+ 		
  		if (empty($this->controller))
 		{
-			$this->controller = 'index';
+			//check home is exist or not
+			if(defined('AvaConfig::home')) {
+				
+				$this->controller = AvaConfig::home;
+			}
+			else {		
+				$this->controller='index';
+			}
 		}
 
 		/*** Get action ***/

@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 Class AvaConfig
 {
 	//for baseurl, current runing link
@@ -21,8 +22,11 @@ Class AvaConfig
 	
 	const google_analystic="UA-2358448-26";
 	const session_timeout=60; //seconds
+=======
+>>>>>>> 452c4dd4110dedf63745727fe10c79fed87907f7
 
-	
-}
+$stage="development";
+
+include $stage.".php";
 
 ?>

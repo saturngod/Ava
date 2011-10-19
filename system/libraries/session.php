@@ -14,10 +14,18 @@ class Ava_session
      */
 	public function __construct()
 	{
-		@session_start();
 		session_cache_expire( 20 );
 	}
 
+	public function start($session_name = null)
+   {
+     
+      if($session_name!=null) {
+       session_id($session_name);
+     }
+    @session_start(); //Start it here
+       
+   }
 	/**
 	 * check session time out or not
 	 *

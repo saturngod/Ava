@@ -2,7 +2,8 @@
 
 RewriteEngine on
 
-
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)?$ www/$1 [L]
 
 </IfModule>

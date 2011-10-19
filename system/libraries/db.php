@@ -137,6 +137,15 @@ class Ava_db
 		return $this;
 	}
 
+    /**
+     * where_or_like
+     *
+     * @param string $field 
+     * @param string $value 
+     * @param string $do 
+     * @return void
+     * @author Htain Lin Shwe
+     */
 	public function where_or_like($field,$value,$do="both")
 	{
 
@@ -154,39 +163,90 @@ class Ava_db
 	}
 
 
-	public function where($field,$value,$equal=true)
+	private function get_operator($field) {
+		
+		$field=trim($field);
+		$lastword=substr($field,-2);
+		
+		$operator="";
+
+		$lastword=trim($lastword);
+
+		if($lastword=="!=" || $lastword==">=" || $lastword=="<=") {
+		
+			$operator=$lastword;
+		}
+		else {
+			$last_word=substr($field,-1);
+
+			$lastword=trim($lastword);
+			if($lastword=="=" || $lastword==">" || $lastword=="<") {
+				$operator=$lastword;
+			}
+		}
+
+		return $operator;
+			
+	}
+
+    /**
+     * where with and
+     *
+     * @param string $field 
+     * @param string $value 
+     * @return void
+     * @author saturngod
+     */
+	public function where($field,$value)
 	{
+
+		$operator=$this->get_operator($field);
+
+
+
+		$field=substr($field,0,strlen($field)-strlen($operator));
+		$field=trim($field);
+		if($operator=="") $operator="=";
+
+		$field=trim($field);
+
         if($field!="")
         {
             $this->where_array[":".$field]=$value;
         }
+
 		if($this->where!="")
 		{
-			if($equal)
-			{
-				$this->where=$this->where.' AND `'.$field."` = :".$field;
-			}
-			else
-			{
-				$this->where=$this->where.' AND `'.$field."` != :".$field;
-			}
+
+			$this->where=$this->where.' AND '.$field." ".$operator." :".$field;
+			
 		}
 		else
 		{
-			if($equal)
-			{
-				$this->where=' `'.$field."` = :".$field;
-			}
-			else
-			{
-				$this->where=' `'.$field."` != :".$field;
-			}
+			$this->where=' '.$field." ".$operator." :".$field;
+			
 		}
+
 		return $this;
 	}
 
-	public function where_or($field,$value,$equal=true)
+    /**
+     * normal where with condition or
+     *
+     * @param string $field 
+     * @param string $value 
+     * @return this
+     * @author saturngod
+     */
+	public function where_or($field,$value)
 	{
+		$operator=$this->get_operator($field);
+
+		$field=substr($field,0,strlen($field)-strlen($operator));
+		$field=trim($field);
+		
+		if($operator=="") $operator="=";
+
         if($field!="")
         {
             $this->where_array[":".$field]=$value;
@@ -194,14 +254,12 @@ class Ava_db
         
 		if($this->where!="")
 		{
-            if($equal)
-            {
-			    $this->where=$this->where.' OR `'.$field."` = :".$field;
-            }
-            else
-            {
-                $this->where=$this->where.' OR `'.$field."` != :".$field;
-            }
+			$this->where=$this->where." OR ".$field." ".$operator." :".$field;
+         
+		}
+		else {
+			$operator=$this->get_operator($field);
+			$this->where=' '.$field." ".$operator." :".$field;
 		}
 		return $this;
 	}
@@ -395,6 +453,7 @@ class Ava_db
 		$sql=$sql.$this->where;
 		$result=$this->dbh->prepare($sql);
        //loop array for replace sql
+       
         $count=$result->execute($this->where_array);
 
         if(!$count) {
