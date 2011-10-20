@@ -8,10 +8,6 @@ Ava Framework is an open source web application framework. It will help you deve
 
 ## ChangeLog
 
-Version 0.5.6 Oct 19 2001 <saturngod at gmail dot com>
-
-* change $this->db->where(field,data,equal) to $this->db(fiedl with condition,data)
-
 Version 0.5.5.2 Oct 13 2001 <saturngod at gmail dot com>
 
 * add session id in session library
