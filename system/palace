@@ -13,7 +13,7 @@ if(count($argv) > 2) {
 		message("Creating File...\n",1);
 
 		$file="<?php\nclass ".ucfirst($argv[2])."Controller extends Ava_Controller {\n";
-		$file.="\tfunction index(){\n\t}\n";
+		$file.="\tfunction index(){\n\n\t}\n";
 		$file.="}\n?>";
 		
 		$writeFilePath = dirname(__FILE__)."/application/Controller/".strtolower($argv[2]).".php";
@@ -28,7 +28,7 @@ if(count($argv) > 2) {
 		message("Creating File...\n",1);
 
 		$file="<?php\nclass ".ucfirst($argv[2])."Controller extends Ava_RESTController {\n";
-		$file.="\tfunction index(){\n\t}\n";
+		$file.="\tfunction index(){\n\n\t}\n";
 		$file.="}\n?>";
 		
 		$writeFilePath = dirname(__FILE__)."/application/Controller/".strtolower($argv[2]).".php";
@@ -47,6 +47,18 @@ if(count($argv) > 2) {
 
 		$writeFilePath = dirname(__FILE__)."/application/Model/".strtolower($argv[2]).".php";
 		writeFile($file,$writeFilePath,strtolower($argv[2])."Model");
+	}
+	else if($argv[1]=='--view' || $argv[1]=='-v') {
+		
+		message("View Name: ",1);
+		message (strtolower($argv[2])."\n",2);
+
+		message("Creating File...\n",1);
+
+		$file="";
+
+		$writeFilePath = dirname(__FILE__)."/application/View/".strtolower($argv[2]).".php";
+		writeFile($file,$writeFilePath,strtolower($argv[2])." View");
 	}
 }
 else if(count($argv)==2) {

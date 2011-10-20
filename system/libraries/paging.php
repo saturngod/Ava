@@ -16,6 +16,7 @@ class Ava_paging
      * @param  int $limit
      * @return array
      */
+     
     function init($page,$total,$limit=10)
     {
         if($limit==0) $limit=1;
