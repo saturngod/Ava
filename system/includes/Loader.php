@@ -30,26 +30,31 @@ class Ava_Loader {
 	{
 		$Ava =& get_instance();
 		$modelname = strtolower($modelname);
+
+		$file_path=$modelname;
+		$models=explode("/",$modelname);
+		$modelname=$models[count($models)-1];
 		$modelclassname=$modelname."Model";
 		
 		//Check File exist or not
-		if(!file_exists(SITE_PATH."/application/Model/".$modelname.".php"))
+		if(!file_exists(SITE_PATH."/application/Model/".$file_path.".php"))
 		{
 			$this->notfound_err("Model");
 		}
 		else
 		{
+			if($name=="")
+			{
+				$name=$modelname;
+			}
+
 			//check alery exist or not
 			if(!in_array($name,$this->_ava_models))
 			{
-				if($name=="")
-				{
-					$name=$modelname;
-				}
-				require(SITE_PATH."/application/Model/".$modelname.".php");
+				
+				require_once(SITE_PATH."/application/Model/".$file_path.".php");
 				$modelclassname = ucfirst($modelclassname);
 				$Ava->$name=new $modelclassname();
-				$Ava->$name->_assign_libraries();
 				$this->_ava_models[] = $name;
 			}
 		}
@@ -82,7 +87,7 @@ class Ava_Loader {
 			{
 				extract($data_array);
 			}
-			require(SITE_PATH."/application/View/".$view.".php");
+			include(SITE_PATH."/application/View/".$view.".php");
 		}
 			
 	}
@@ -111,7 +116,6 @@ class Ava_Loader {
 			$this->_load_class($library);
 		}
 		
-		$this->_assign_to_models();
 	}
 
     /**
@@ -138,33 +142,11 @@ class Ava_Loader {
 		{		
 			return;
 		}
-		
+
 		$_ava_Ava =& get_instance();
 		$_ava_Ava->$library=& load_class($library);
 		$this->_ava_loaded_libraries[]=$library;
 		
-		
-	}
-
-    /**
-     * assign all the class models
-     * @return
-     */
-	function _assign_to_models()
-	{
-		if (count($this->_ava_models) == 0)
-		{
-			return;
-		}
-		
-		$Ava =& get_instance();
-		foreach ($this->_ava_models as $model)
-		{			
-			if($model!="")
-			{
-				$Ava->$model->_assign_libraries();
-			}
-		}
 		
 	}
 

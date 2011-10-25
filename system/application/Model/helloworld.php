@@ -1,10 +1,10 @@
 <?php
-class helloworldModel extends Ava_Model {
+class HelloworldModel extends Ava_Model {
 
 
 	function get_txt()
 	{
-		return "<p>Hello World</p>";
+		echo "<p>Hello World</p>";
 	}
 	
 	function form_db()
