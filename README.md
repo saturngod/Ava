@@ -8,6 +8,10 @@ Ava Framework is an open source web application framework. It will help you deve
 
 ## ChangeLog
 
+Version 0.6.1 Oct 26 [saturngod at gmail dot com]
+
+* change status code 404 in controller not found
+
 Version 0.6 Oct 25 [saturngod at gmail dot com]
 
 * fixed Loader for load module

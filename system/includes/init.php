@@ -36,7 +36,9 @@ $router->load();
 
 if(!is_file($router->file))
 {
-	die("\n<div style='background-color:#FF9BA2;border:1px solid #FF4745;width:90%;margin:0px auto;padding:8px;color:#555'><b>".$router->controller."</b> Controller not found</div>\n");
+    header("HTTP/1.0 404 Not Found");
+	echo("\n<div style='background-color:#FF9BA2;border:1px solid #FF4745;width:90%;margin:0px auto;padding:8px;color:#555'><b>".$router->controller."</b> Controller not found</div>\n");
+	exit;
 }
 
 //include Controller File
