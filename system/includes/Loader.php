@@ -39,7 +39,7 @@ class Ava_Loader {
 		//Check File exist or not
 		if(!file_exists(SITE_PATH."/application/Model/".$file_path.".php"))
 		{
-			$this->notfound_err("Model");
+			$this->notfound_err("MODEL:: ".$modelclassname." ");
 		}
 		else
 		{
@@ -70,7 +70,7 @@ class Ava_Loader {
 	{
 		if(!file_exists(SITE_PATH."/application/View/".$view.".php"))
 		{
-			$this->notfound_err("View");
+			$this->notfound_err("VIEW:: ".$view." ");
 		}
 		else
 		{
@@ -164,7 +164,7 @@ class Ava_Loader {
 			require SITE_PATH."/helper/".$helper.".php";
 		}
 		else {
-			$this->notfound_err("HELPER::". $helper);
+			$this->notfound_err("HELPER:: ". $helper);
 		}
 	}
 
@@ -223,7 +223,7 @@ class Ava_Loader {
 			require SITE_PATH."/plugin/".$name.".php";
 		}
 		else {
-			$this->notfound_err("PLUGIN::". $name);
+			$this->notfound_err("PLUGIN:: ". $name);
 		}
 		
 	}
@@ -233,9 +233,10 @@ class Ava_Loader {
      * @param  $type
      * @return void
      */
-	private function notfound_err($type)
+	function notfound_err($type)
 	{
-		die("<div style='background-color:#FF9BA2;border:1px solid #FF4745;width:90%;margin:0px auto;padding:8px;color:#555'>$type not found</div>");
+        header("Status: 404 Not Found");
+		die("<div style='background-color:#FFBABA;border:1px solid #FF4745;width:90%;margin:0px auto;padding:8px;color:#D8000C'>$type not found</div>");
 		
 	}
 }

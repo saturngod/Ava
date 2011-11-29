@@ -1,0 +1,41 @@
+<?php
+class RestController extends Ava_RESTController {
+	function index(){
+
+        $this->get_route("/","home");
+        $this->get_route("/test","testing");
+        $this->post_route("/test","posttesting");
+        $this->get_route("/name/:username","showusername");
+        $this->get_route("/name/:username/detail/:id","userdetail");
+        $this->run($this);
+
+	}
+
+    protected function home()
+    {
+        echo "HOME";
+    }
+
+    protected function testing()
+    {
+        echo "this is testing page";
+    }
+
+    protected function showusername($params)
+    {
+        echo "USERNAME : ".$params['username'];
+    }
+
+    protected function userdetail($params)
+    {
+        echo "USERNAME : ".$params['username'];
+        echo "<br/>";
+        echo "ID : ".$params['id'];
+    }
+
+    protected function posttesting()
+    {
+        echo "POST TESTING";
+    }
+}
+?>

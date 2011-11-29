@@ -18,6 +18,14 @@ class Ava_RESTController extends Ava_Base {
     public $get= array();
     public $post= array();
     public $put = array();
+
+    public $getRoute=array();
+    public $postRoute=array();
+    public $putRoute=array();
+    public $deleteRoute=array();
+
+    private $paramter = array();
+
     /**
      * constructor
      * @return void
@@ -168,7 +176,146 @@ class Ava_RESTController extends Ava_Base {
         exit;
     }
 
+    /**
+     * for get routing
+     *
+     * @return void
+     * @author saturngod
+     **/
+    function get_route($name,$function)
+    {
+        $this->getRoute[$name]=$function;
+    }
 
+    /**
+     * for post routing
+     *
+     * @return void
+     * @author saturngod
+     **/
+    function post_route($name,$function)
+    {
+        $this->postRoute[$name]=$function;
+    }
+
+    /**
+     * for put routing
+     *
+     * @return void
+     * @author saturngod
+     **/
+    function put_route($name,$function)
+    {
+        $this->putRoute[$name]=$function;
+    }
+
+    /**
+     * for delete routing
+     *
+     * @return void
+     * @author saturngod
+     **/
+    function delete_route($name,$function)
+    {
+        $this->deleteRoute[$name]=$function;
+    }
+
+    /**
+     * for get param
+     * @return array
+     * @author saturngod
+     **/
+    function get_param($path,$url)
+    {   
+        $rule_items = explode('/',$path);
+        $data_items = explode('/',$url);
+        
+        if (count($rule_items) == count($data_items)) {
+            $result=array();
+
+            foreach($rule_items as $rule_key => $rule_value) {
+                if (preg_match('/^:[\w]{1,}$/',$rule_value)) {
+                    $rule_value = substr($rule_value,1);
+                    $result[$rule_value] = $data_items[$rule_key];
+                }
+                else {
+                    if (strcmp($rule_value,$data_items[$rule_key]) != 0) {
+                        return false;
+                    }
+                }
+            }
+            if(count($result) > 0) return $result;
+            unset($result);
+        }
+        
+        return false;
+    }
+
+    /**
+     * run the app with routing system
+     * @return void
+     * @author saturngod
+     **/
+    function run($app) {
+        //check routing
+        $list=$this->segment->get_list();
+        $path="";
+        //remove first array because it's router
+        for($route=1;$route<count($list);$route++)
+        {
+            $path.="/".$list[$route];
+        }
+        
+        //init for home
+        if($path=="") $path="/";
+
+        //init the route
+        $route=array();
+
+        //check method
+        if($this->method=="get")
+        {
+            $route=$this->getRoute;
+        }
+        else if($this->method=="post")
+        {
+            $route=$this->postRoute;
+        }
+        else if($this->method=="put")
+        {
+            $route=$this->putRoute;
+        }
+        else if($this->method=="delete")
+        {
+            $route=$this->deleteRoute;
+        }
+                
+        if(isset($route[$path]))
+        {
+                $function=$route[$path];
+
+                if(is_callable(array($app,$function))) {
+                    $app->{$function}();
+                }
+                else {
+                    $this->load->notfound_err("FUNCTION :: ".$function." ");
+                }
+                
+        }
+        else {
+             if (count($route)) {
+                foreach($route as $rule_key => $function) {
+                    $params = $this->get_param($rule_key,$path);
+                    if($params)
+                    {
+                        $app->{$function}($params);
+                        break;
+                    }
+                }
+            }
+        }
+        
+    }
 
 
 

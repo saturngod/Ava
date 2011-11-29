@@ -7,7 +7,8 @@ class IndexController extends Ava_Controller {
 	 */
 	function index()
 	{
-		$this->load->view('home');
+		
+        print_r($result);
     }
 }
 ?>
