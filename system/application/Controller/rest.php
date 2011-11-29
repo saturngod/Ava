@@ -23,14 +23,12 @@ class RestController extends Ava_RESTController {
 
     protected function showusername($params)
     {
-        echo "USERNAME : ".$params['username'];
+       $this->load->view("restview",$params);
     }
 
     protected function userdetail($params)
     {
-        echo "USERNAME : ".$params['username'];
-        echo "<br/>";
-        echo "ID : ".$params['id'];
+        $this->load->view("restview",$params);
     }
 
     protected function posttesting()
