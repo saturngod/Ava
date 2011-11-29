@@ -231,7 +231,17 @@ class Ava_RESTController extends Ava_Base {
     {   
         $rule_items = explode('/',$path);
         $data_items = explode('/',$url);
-        
+
+        if($rule_items[count($rule_items)-1]=="")
+        {
+            array_pop($rule_items);
+        }
+
+        if(substr($data_items[count($data_items)-1],0,1)=="?")
+        {
+            array_pop($data_items);
+        }
+
         if (count($rule_items) == count($data_items)) {
             $result=array();
 
@@ -323,9 +333,5 @@ class Ava_RESTController extends Ava_Base {
         }
         
     }
-
-
-
-
 }
 ?>
