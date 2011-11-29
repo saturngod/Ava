@@ -7,6 +7,9 @@ Ava Framework is an open source web application framework. It will help you deve
 
 
 ## ChangeLog
+Version 0.6.5 Nov 29 [saturngod at gmail dot com]
+* add Rest Routing System in rest controller. Check /system/application/Controller/rest.php
+* support GET , POST , PUT , DELETE method for routing
 
 Version 0.6.1 Oct 26 [saturngod at gmail dot com]
 

@@ -19,12 +19,10 @@ class Ava_RESTController extends Ava_Base {
     public $post= array();
     public $put = array();
 
-    public $getRoute=array();
-    public $postRoute=array();
-    public $putRoute=array();
-    public $deleteRoute=array();
-
-    private $paramter = array();
+    private $getRoute=array();
+    private $postRoute=array();
+    private $putRoute=array();
+    private $deleteRoute=array();
 
     /**
      * constructor
@@ -52,6 +50,10 @@ class Ava_RESTController extends Ava_Base {
             case 'put':
                 parse_str(file_get_contents('php://input'), $put_vars);
                 $this->put = $this->arrayToObject($put_vars);
+                break;
+            case 'delete':
+                parse_str(file_get_contents('php://input'), $del_vars);
+                $this->delete = $this->arrayToObject($del_vars);
                 break;
         }
     }
@@ -308,8 +310,13 @@ class Ava_RESTController extends Ava_Base {
                     $params = $this->get_param($rule_key,$path);
                     if($params)
                     {
-                        $app->{$function}($params);
-                        break;
+                        if(is_callable(array($app,$function))) {
+                            $app->{$function}($params);
+                            break;
+                        }
+                        else {
+                            $this->load->notfound_err("FUNCTION :: ".$function." ");
+                        }
                     }
                 }
             }
