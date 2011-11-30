@@ -37,29 +37,15 @@ function &load_class($class)
 			die('There is no auto load class. <br/> Class name: '.$class);
 		}
 	}
-
     
+    if($class=="router"){
+        $objects[$class] =& instantiate_class(new $name(SITE_PATH));
+        $objects[$class]->load();
+    }
+    else{
+        $objects[$class] =& instantiate_class(new $name());
+    }
 
-	if($class=="facebook")
-	{
-		$objects[$class] =& instantiate_class(new $name(array(
-			  'appId'  => AvaConfig::fbappid,
-			  'secret' => AvaConfig::fbapisecret,
-			  'cookie' => AvaConfig::fbcookie,
-			)));
-	}
-	else
-	{
-        
-        if($class=="router"){
-            $objects[$class] =& instantiate_class(new $name(SITE_PATH));
-            $objects[$class]->load();
-        }
-        else{
-            $objects[$class] =& instantiate_class(new $name());
-        }
-
-	}
 	return $objects[$class];
 }
 
