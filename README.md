@@ -7,7 +7,7 @@ Ava Framework is an open source web application framework. It will help you deve
 
 
 ## ChangeLog
-Version 0.7 Dec 1 [saturngod at gmail dot com]
+Version 0.7 Dec 1+2 [saturngod at gmail dot com]
 
 * change RestController to Controller.
 * remove original controller
@@ -16,13 +16,9 @@ Version 0.7 Dec 1 [saturngod at gmail dot com]
 * update palace. Remove -r and --restcontroller
 * fixed router
 * support home_controller at config file
-* update output class in $this object
-* DEPRECATED in controller
-** $this->method
-** $this->get
-** $this->post
-** $this->put
-** $this->delete
+* add output class in $this object
+* DEPRECATED in controller, $this->method, $this->get, $this->post, $this->put, $this->delete
+* Support new , $this->io->method, $this->io->get('name',BOOL xss_clean), $this->io->post('name',BOOL xss_clean), $this->io->put('name',BOOL xss_clean), $this->io->delete('name',BOOL xss_clean), $this->io->header('name',BOOL xss_clean)
 
 
 
