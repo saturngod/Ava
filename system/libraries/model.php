@@ -26,4 +26,3 @@ class Ava_Model {
 		return $Ava->$key;
 	}
 }
-?>

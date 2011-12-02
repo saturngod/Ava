@@ -1,6 +1,6 @@
 <?php
 
-class IndexController extends Ava_Controller {
+class Home extends Ava_Controller {
 	
 	/**
 	 * Place to start writing the code 
@@ -10,4 +10,4 @@ class IndexController extends Ava_Controller {
 		$this->load->view('home');
     }
 }
-?>
+

@@ -1,5 +1,12 @@
 <?php
-class RestController extends Ava_RESTController {
+class Rest extends Ava_Controller {
+
+	/**
+	 * Index Page
+	 *
+	 * @return void
+	 * @author saturngod
+	 */
 	function index(){
 
         $this->get_route("/","home");
@@ -13,62 +20,9 @@ class RestController extends Ava_RESTController {
 
         $this->delete_route("/name/:username","delete_user");
 
-
-        $this->run($this);
+		$this->load->model("rest_model");
+        $this->run($this->rest_model);
 
 	}
 
-    protected function home()
-    {
-        $this->respond(200,array("message"=>"HOME"));
-    }
-
-    protected function testing()
-    {
-        $this->respond(200,array("message"=>"Page"));
-    }
-
-    protected function showusername($params)
-    {
-       $this->load->view("restview",$params);
-    }
-
-    protected function userdetail($params)
-    {
-        $this->load->view("restview",$params);
-    }
-
-    protected function post_user($params)
-    {
-        if(isset($this->post->message))
-        {
-            $this->respond(200,array("method"=>$this->method,"message"=>$this->post->message,"params"=>$params));
-        }
-        else {
-            $this->respond(200,array("method"=>$this->method,"params"=>$params));   
-        }
-    }
-
-    protected function delete_user($params)
-    {
-        if(isset($this->delete->message))
-        {
-            $this->respond(200,array("method"=>$this->method,"message"=>$this->delete->message,"params"=>$params));
-        }
-        else {
-            $this->respond(200,array("method"=>$this->method,"params"=>$params));   
-        }
-    }
-
-    protected function put_user($params)
-    {
-        if(isset($this->put->message))
-        {
-            $this->respond(200,array("method"=>$this->method,"message"=>$this->put->message,"params"=>$params));
-        }
-        else {
-            $this->respond(200,array("method"=>$this->method,"params"=>$params));   
-        }
-    }
 }
-?>

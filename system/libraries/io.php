@@ -39,6 +39,39 @@ class Ava_io {
     /*
      *
      */
+    
+    private $get_var=array();
+    private $post_var=array();
+    private $put_var=array();
+    private $delete_var=array();
+    private $header_var=array();
+
+    public $method;
+
+    function __construct()
+    {
+    	$request_method = strtolower($_SERVER['REQUEST_METHOD']);
+        $this->method=$request_method;
+        
+        $this->header_var = getallheaders();
+        
+        switch ($request_method) {
+            case 'get':
+                $this->get_var = $_GET;
+                break;
+            case 'post':
+                $this->post_var = $_POST;
+            case 'put':
+                parse_str(file_get_contents('php://input'), $put_vars);
+                $this->put_var = $put_vars;
+                break;
+            case 'delete':
+                parse_str(file_get_contents('php://input'), $del_vars);
+                $this->delete_var = $del_vars;
+                break;
+        }
+         
+    }
     function set_status_header($code = 200, $text = '')
     {
         $status = array(
@@ -322,7 +355,7 @@ class Ava_io {
 
 			if (preg_match("/<img/i", $str))
 			{
-				$str = preg_replace_callback("#<img\s+([^>]*?)(\s?/?>|$)#si", array($this, '_js_img_removal'), $str);
+				$str = preg_replace_callback("#<img\s+([^>]*?)(\s?/|$)#si", array($this, '_js_img_removal'), $str);
 			}
 
 			if (preg_match("/script/i", $str) OR preg_match("/xss/i", $str))
@@ -506,7 +539,7 @@ class Ava_io {
 	*/
 	function get($index = '', $xss_clean = FALSE)
 	{
-		return $this->_fetch_from_array($_GET, $index, $xss_clean);
+		return $this->_fetch_from_array($this->get_var, $index, $xss_clean);
 	}
 
 	/**
@@ -516,10 +549,11 @@ class Ava_io {
 	* @param	string
 	* @param	bool
 	* @return	string
+	* @author	saturngod 
 	*/
 	function header($index = '', $xss_clean = FALSE)
 	{
-		return $this->_fetch_from_array(getallheaders(), $index, $xss_clean);
+		return $this->_fetch_from_array($this->header_var, $index, $xss_clean);
 	}
 
 	
@@ -536,9 +570,36 @@ class Ava_io {
 	*/
 	function post($index = '', $xss_clean = FALSE)
 	{
-		return $this->_fetch_from_array($_POST, $index, $xss_clean);
+		return $this->_fetch_from_array($this->post_var, $index, $xss_clean);
 	}
 
+	/**
+	* Fetch an item from the PUT array
+	*
+	* @access	public
+	* @param	string
+	* @param	bool
+	* @return	string
+	*/
+
+	function put($index = '',$xss_clean=FALSE)
+	{
+		return $this->_fetch_from_array($this->put_var, $index, $xss_clean);
+	}
+
+	/**
+	* Fetch an item from the DELETE array
+	*
+	* @access	public
+	* @param	string
+	* @param	bool
+	* @return	string
+	*/
+
+	function delete($index = '',$xss_clean=FALSE)
+	{
+		return $this->_fetch_from_array($this->delete_var, $index, $xss_clean);
+	}
 
     ////
 
@@ -571,4 +632,4 @@ class Ava_io {
 		return $str;
 	}
 }
-?>
+

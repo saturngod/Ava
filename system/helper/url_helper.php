@@ -14,4 +14,3 @@ function get_current_url() {
      }
      return $pageURL;
 }
-?>

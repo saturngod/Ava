@@ -43,4 +43,3 @@ function timeago($date)
     
     return "$difference $periods[$j] {$tense}";
 }
-?>

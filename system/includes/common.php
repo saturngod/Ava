@@ -9,9 +9,9 @@
 function &load_class($class)
 {
 	static $objects = array();
-
+ 
     $name="Ava_".ucfirst($class);
-
+    
     // Does the class exist?  If so, we're done...
 	if (isset($objects[$name]))
 	{
@@ -37,12 +37,13 @@ function &load_class($class)
 			die('There is no auto load class. <br/> Class name: '.$class);
 		}
 	}
-    
+   
     if($class=="router"){
         $objects[$class] =& instantiate_class(new $name(SITE_PATH));
         $objects[$class]->load();
     }
     else{
+
         $objects[$class] =& instantiate_class(new $name());
     }
 
@@ -57,4 +58,3 @@ function &instantiate_class(&$class_object)
 {
 	return $class_object;
 }
-?>

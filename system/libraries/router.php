@@ -1,15 +1,15 @@
 <?php
 /**
  * Router class for separate controller and action from URI
- * @author saturngod
- * @since version 1.0
- * @package Ava
+ * @author	saturngod
+ * @since	version 1.0
+ * @package	Ava
  */
 class Ava_router {
 
     /**
      * @access private
-     * @var string $controller_path
+     * @var	string $controller_path
      * @var array $args
      */
 
@@ -83,12 +83,12 @@ class Ava_router {
  		if (empty($this->controller))
 		{
 			//check home is exist or not
-			if(defined('AvaConfig::home')) {
+			if(defined('AvaConfig::home_controller')) {
 				
-				$this->controller = AvaConfig::home;
+				$this->controller = AvaConfig::home_controller;
 			}
 			else {		
-				$this->controller='index';
+				$this->controller='home';
 			}
 		}
 
@@ -103,4 +103,3 @@ class Ava_router {
  	}
 
 }
-?>

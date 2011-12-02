@@ -107,4 +107,3 @@ class Ava_session
 		session_unset($name);
 	}
 }
-?>

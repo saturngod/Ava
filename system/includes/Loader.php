@@ -33,8 +33,8 @@ class Ava_Loader {
 
 		$file_path=$modelname;
 		$models=explode("/",$modelname);
-		$modelname=$models[count($models)-1];
-		$modelclassname=$modelname."Model";
+		$modelclassname=$models[count($models)-1];
+		
 		
 		//Check File exist or not
 		if(!file_exists(SITE_PATH."/application/Model/".$file_path.".php"))
@@ -45,7 +45,7 @@ class Ava_Loader {
 		{
 			if($name=="")
 			{
-				$name=$modelname;
+				$name=$modelclassname;
 			}
 
 			//check alery exist or not
@@ -240,4 +240,3 @@ class Ava_Loader {
 		
 	}
 }
-?>

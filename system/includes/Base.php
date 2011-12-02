@@ -29,4 +29,3 @@ function &get_instance()
 	return Ava_Base::get_instance();
 }
 
-?>

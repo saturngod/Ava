@@ -4,4 +4,3 @@ $stage="development";
 
 include $stage.".php";
 
-?>

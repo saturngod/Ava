@@ -467,4 +467,3 @@ class Ava_db
 
 
 }
-?>

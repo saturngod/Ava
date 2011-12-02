@@ -94,12 +94,12 @@ class Markdown_Parser {
 		$this->prepareItalicsAndBold();
 	
 		$this->nested_brackets_re = 
-			str_repeat('(?>[^\[\]]+|\[', $this->nested_brackets_depth).
+			str_repeat('([^\[\]]+|\[', $this->nested_brackets_depth).
 			str_repeat('\])*', $this->nested_brackets_depth);
 	
 		$this->nested_url_parenthesis_re = 
-			str_repeat('(?>[^()\s]+|\(', $this->nested_url_parenthesis_depth).
-			str_repeat('(?>\)))*', $this->nested_url_parenthesis_depth);
+			str_repeat('([^()\s]+|\(', $this->nested_url_parenthesis_depth).
+			str_repeat('(\)))*', $this->nested_url_parenthesis_depth);
 		
 		$this->escape_chars_re = '['.preg_quote($this->escape_chars).']';
 		
@@ -258,9 +258,9 @@ class Markdown_Parser {
 		# Regular expression for the content of a block tag.
 		$nested_tags_level = 4;
 		$attr = '
-			(?>				# optional tag attributes
+			(				# optional tag attributes
 			  \s			# starts with whitespace
-			  (?>
+			  (
 				[^>"/]+		# text outside quotes
 			  |
 				/+(?!>)		# slash not followed by ">"
@@ -273,12 +273,12 @@ class Markdown_Parser {
 			';
 		$content =
 			str_repeat('
-				(?>
+				(
 				  [^<]+			# content without tag
 				|
 				  <\2			# nested opening tag
 					'.$attr.'	# attributes
-					(?>
+					(
 					  />
 					|
 					  >', $nested_tags_level).	# end of opening tag
@@ -304,8 +304,8 @@ class Markdown_Parser {
 		# the inner nested divs must be indented.
 		# We need to do this before the next, more liberal match, because the next
 		# match will start at the first `<div>` and stop at the first `</div>`.
-		$text = preg_replace_callback('{(?>
-			(?>
+		$text = preg_replace_callback('{(
+			(
 				(?<=\n\n)		# Starting after a blank line
 				|				# or
 				\A\n?			# the beginning of the doc
@@ -339,7 +339,7 @@ class Markdown_Parser {
 						[ ]{0,'.$less_than_tab.'}
 						<(hr)				# start tag = $2
 						'.$attr.'			# attributes
-						/?>					# the matching end tag
+						/					# the matching end tag
 						[ ]*
 						(?=\n{2,}|\Z)		# followed by a blank line or end of document
 			
@@ -458,7 +458,7 @@ class Markdown_Parser {
 			'{
 				^[ ]{0,3}	# Leading space
 				([-*_])		# $1: First marker
-				(?>			# Repeated marker group
+				(			# Repeated marker group
 					[ ]{0,2}	# Zero, one, or two spaces.
 					\1			# Marker character
 				){2,}		# Group repeated at least twice
@@ -953,7 +953,7 @@ class Markdown_Parser {
 		$text = preg_replace_callback('{
 				(?:\n\n|\A\n?)
 				(	            # $1 = the code block -- one or more lines, starting with a space/tab
-				  (?>
+				  (
 					[ ]{'.$this->tab_width.'}  # Lines must start with a tab or a tab-width of spaces
 					.*\n+
 				  )+
@@ -1153,7 +1153,7 @@ class Markdown_Parser {
 	function doBlockQuotes($text) {
 		$text = preg_replace_callback('/
 			  (								# Wrap whole match in $1
-				(?>
+				(
 				  ^[ ]*>[ ]?			# ">" at the start of a line
 					.+\n					# rest of the first line
 				  (.+\n)*					# subsequent consecutive lines
@@ -1385,12 +1385,12 @@ class Markdown_Parser {
 				|
 					<!--    .*?     -->		# comment
 				|
-					<\?.*?\?> | <%.*?%>		# processing instruction
+					<\?.*?\ | <%.*?%>		# processing instruction
 				|
 					<[/!$]?[-a-zA-Z0-9:_]+	# regular tags
-					(?>
+					(
 						\s
-						(?>[^"\'>]+|"[^"]*"|\'[^\']*\')*
+						([^"\'>]+|"[^"]*"|\'[^\']*\')*
 					)?
 					>
 			').'
@@ -1601,4 +1601,3 @@ negligence or otherwise) arising in any way out of the use of this
 software, even if advised of the possibility of such damage.
 
 */
-?>

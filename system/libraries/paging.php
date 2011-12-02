@@ -52,4 +52,3 @@ class Ava_paging
         return $paging;
     }
 }
-?>

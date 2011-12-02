@@ -7,6 +7,25 @@ Ava Framework is an open source web application framework. It will help you deve
 
 
 ## ChangeLog
+Version 0.7 Dec 1 [saturngod at gmail dot com]
+
+* change RestController to Controller.
+* remove original controller
+* change ClassNameController to ClassName in Controller
+* change ClassNameModel to ClassName in Model
+* update palace. Remove -r and --restcontroller
+* fixed router
+* support home_controller at config file
+* update output class in $this object
+* DEPRECATED in controller
+** $this->method
+** $this->get
+** $this->post
+** $this->put
+** $this->delete
+
+
+
 Version 0.6.5 Nov 29 [saturngod at gmail dot com]
 
 * add Rest Routing System in rest controller. Check /system/application/Controller/rest.php

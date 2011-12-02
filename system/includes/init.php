@@ -11,7 +11,6 @@ include SITE_PATH.'/includes/common.php';
 include SITE_PATH.'/includes/Base.php';
 include SITE_PATH.'/libraries/router.php';
 include SITE_PATH.'/libraries/controller.php';
-include SITE_PATH.'/libraries/RESTController.php';
 include SITE_PATH.'/libraries/model.php';
 
 //Error on off
@@ -43,7 +42,7 @@ if(!is_file($router->file))
 
 //include Controller File
 include $router->file;
-$class=ucfirst($router->controller)."Controller";
+$class=ucfirst($router->controller);
 
 /*** check if the action is callable ***/
 if (is_callable(array($class, $router->action)) == false)
@@ -54,10 +53,8 @@ else
 {
 	$action = $router->action;
 }
-
 //Calll Controller Class
 $controller = new $class() ;
 
 //Call Controller Action
 $controller->$action();
-?>
