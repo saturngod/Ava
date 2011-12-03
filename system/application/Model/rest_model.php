@@ -3,7 +3,7 @@ class rest_model extends Ava_Model {
 
     function home()
     {
-        $this->output->write(200,array("header"=>$this->header));
+        $this->output->write(200,array("message"=>"hello world"));
     }
 
     function testing()
@@ -48,10 +48,10 @@ class rest_model extends Ava_Model {
     {
         if($this->io->put('message',true)!="")
         {
-            $this->output->write(200,array("method"=>$this->method,"message"=>$this->io->put('message'),"params"=>$params));
+            $this->output->write(200,array("method"=>$this->io->method,"message"=>$this->io->put('message'),"params"=>$params));
         }
         else {
-            $this->output->write(200,array("method"=>$this->method,"params"=>$params));   
+            $this->output->write(200,array("method"=>$this->io->method,"params"=>$params));   
         }
     }
 

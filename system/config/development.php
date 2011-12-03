@@ -14,7 +14,7 @@ const db_user="root";
 const db_password="root";
 
 //home page controller
-const home_controller = 'rest';
+const home_controller = 'home';
 
 //autoloading library
 // database class is db
