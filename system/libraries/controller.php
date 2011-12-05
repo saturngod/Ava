@@ -38,7 +38,7 @@ class Ava_Controller extends Ava_Base {
     {
 
         //initalize Loader
-        $auto_load=array("io","segment","router","output");
+        $auto_load=array("io","segment","router");
         
         foreach($auto_load as $library)
         {
@@ -79,7 +79,7 @@ class Ava_Controller extends Ava_Base {
     }
 
     function respond($status=200,$message='',$content_type='application/json') {
-        $this->output->write($status,$message,$content_type);
+        $this->io->write($status,$message,$content_type);
     }
 
     /**

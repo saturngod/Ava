@@ -74,47 +74,49 @@ class Ava_io {
     }
     function set_status_header($code = 200, $text = '')
     {
-        $status = array(
-                            200	=> 'OK',
-                            201	=> 'Created',
-                            202	=> 'Accepted',
-                            203	=> 'Non-Authoritative Information',
-                            204	=> 'No Content',
-                            205	=> 'Reset Content',
-                            206	=> 'Partial Content',
-
-                            300	=> 'Multiple Choices',
-                            301	=> 'Moved Permanently',
-                            302	=> 'Found',
-                            304	=> 'Not Modified',
-                            305	=> 'Use Proxy',
-                            307	=> 'Temporary Redirect',
-
-                            400	=> 'Bad Request',
-                            401	=> 'Unauthorized',
-                            403	=> 'Forbidden',
-                            404	=> 'Not Found',
-                            405	=> 'Method Not Allowed',
-                            406	=> 'Not Acceptable',
-                            407	=> 'Proxy Authentication Required',
-                            408	=> 'Request Timeout',
-                            409	=> 'Conflict',
-                            410	=> 'Gone',
-                            411	=> 'Length Required',
-                            412	=> 'Precondition Failed',
-                            413	=> 'Request Entity Too Large',
-                            414	=> 'Request-URI Too Long',
-                            415	=> 'Unsupported Media Type',
-                            416	=> 'Requested Range Not Satisfiable',
-                            417	=> 'Expectation Failed',
-
-                            500	=> 'Internal Server Error',
-                            501	=> 'Not Implemented',
-                            502	=> 'Bad Gateway',
-                            503	=> 'Service Unavailable',
-                            504	=> 'Gateway Timeout',
-                            505	=> 'HTTP Version Not Supported'
-                        );
+    	$status = Array(
+                100 => 'Continue',
+                101 => 'Switching Protocols',
+                200 => 'OK',
+                201 => 'Created',
+                202 => 'Accepted',
+                203 => 'Non-Authoritative Information',
+                204 => 'No Content',
+                205 => 'Reset Content',
+                206 => 'Partial Content',
+                300 => 'Multiple Choices',
+                301 => 'Moved Permanently',
+                302 => 'Found',
+                303 => 'See Other',
+                304 => 'Not Modified',
+                305 => 'Use Proxy',
+                306 => '(Unused)',
+                307 => 'Temporary Redirect',
+                400 => 'Bad Request',
+                401 => 'Unauthorized',
+                402 => 'Payment Required',
+                403 => 'Forbidden',
+                404 => 'Not Found',
+                405 => 'Method Not Allowed',
+                406 => 'Not Acceptable',
+                407 => 'Proxy Authentication Required',
+                408 => 'Request Timeout',
+                409 => 'Conflict',
+                410 => 'Gone',
+                411 => 'Length Required',
+                412 => 'Precondition Failed',
+                413 => 'Request Entity Too Large',
+                414 => 'Request-URI Too Long',
+                415 => 'Unsupported Media Type',
+                416 => 'Requested Range Not Satisfiable',
+                417 => 'Expectation Failed',
+                500 => 'Internal Server Error',
+                501 => 'Not Implemented',
+                502 => 'Bad Gateway',
+                503 => 'Service Unavailable',
+                504 => 'Gateway Timeout',
+                505 => 'HTTP Version Not Supported'
+            );
 
         if ($code == '' OR ! is_numeric($code))
         {
@@ -153,6 +155,27 @@ class Ava_io {
         $this->set_status_header($status_code);
         die($txt);
         
+    }
+
+    /**
+     * write restful with json. XML need to develop
+     *
+     * @return void
+     * @author 
+     **/
+    function write($status=200,$message='',$content_type='application/json') {
+        
+        $this->set_status_header($status);
+        if($message!='') {
+            if(is_array($message) || is_object($message)){
+            	header('Content-type: '.$content_type);
+                echo json_encode($message);
+            }
+            else {
+                echo $message;
+            }
+        }
+        exit;
     }
 
     /**

@@ -7,6 +7,11 @@ Ava Framework is an open source web application framework. It will help you deve
 
 
 ## ChangeLog
+Version 0.7.1 Dec 5 [saturngod at gmail dot com]
+
+* remove outclass and merge with io
+* fixed palace
+
 Version 0.7 Dec 1+2 [saturngod at gmail dot com]
 
 * change RestController to Controller.

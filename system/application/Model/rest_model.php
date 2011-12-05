@@ -3,12 +3,12 @@ class rest_model extends Ava_Model {
 
     function home()
     {
-        $this->output->write(200,array("message"=>"hello world"));
+        $this->io->write(200,array("message"=>"hello world"));
     }
 
     function testing()
     {
-        $this->output->write(200,array("message"=>"Page"));
+        $this->io->write(200,array("message"=>"Page"));
     }
 
     function showusername($params)
@@ -26,10 +26,10 @@ class rest_model extends Ava_Model {
         //io->post(array_name,xss_clean); default xss_clean is false
         if($this->io->post('message',true)!="")
         {
-            $this->output->write(200,array("method"=>$this->method,"message"=>$this->io->post('message',true),"params"=>$params));
+            $this->io->write(200,array("method"=>$this->method,"message"=>$this->io->post('message',true),"params"=>$params));
         }
         else {
-            $this->output->write(200,array("method"=>$this->method,"params"=>$params));   
+            $this->io->write(200,array("method"=>$this->method,"params"=>$params));   
         }
     }
 
@@ -37,10 +37,10 @@ class rest_model extends Ava_Model {
     {
         if($this->io->delete('message',true)!="")
         {
-            $this->output->write(200,array("method"=>$this->method,"message"=>$this->io->delete('message',true),"params"=>$params));
+            $this->io->write(200,array("method"=>$this->method,"message"=>$this->io->delete('message',true),"params"=>$params));
         }
         else {
-            $this->output->write(200,array("method"=>$this->method,"params"=>$params));   
+            $this->io->write(200,array("method"=>$this->method,"params"=>$params));   
         }
     }
 
@@ -48,10 +48,10 @@ class rest_model extends Ava_Model {
     {
         if($this->io->put('message',true)!="")
         {
-            $this->output->write(200,array("method"=>$this->io->method,"message"=>$this->io->put('message'),"params"=>$params));
+            $this->io->write(200,array("method"=>$this->io->method,"message"=>$this->io->put('message'),"params"=>$params));
         }
         else {
-            $this->output->write(200,array("method"=>$this->io->method,"params"=>$params));   
+            $this->io->write(200,array("method"=>$this->io->method,"params"=>$params));   
         }
     }
 
