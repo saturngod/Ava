@@ -51,33 +51,6 @@ class Ava_Controller extends Ava_Base {
         $this->load->_auto_load();
     }
 
-    /**
-     * Array to the object
-     * http://stackoverflow.com/questions/1869091/convert-array-to-object-php/1869569#1869569
-    */
-    function array_to_obj($array, &$obj)
-    {
-        foreach ($array as $key => $value)
-        {
-          if (is_array($value))
-          {
-            $obj->$key = new stdClass();
-            array_to_obj($value, $obj->$key);
-          }
-          else
-          {
-            $obj->$key = $value;
-          }
-        }
-        return $obj;
-    }
-
-    function arrayToObject($array)
-    {
-        $object= new stdClass();
-        return $this->array_to_obj($array,$object);
-    }
-
     function respond($status=200,$message='',$content_type='application/json') {
         $this->io->write($status,$message,$content_type);
     }
