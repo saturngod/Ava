@@ -83,6 +83,21 @@ class Ava_Controller extends Ava_Base {
     }
 
     /**
+     * remove / at the end
+     *
+     * @return string $str
+     * @author saturngod
+     **/
+    private function remove_end_slash($str)
+    {
+        if(substr($str,-1)=="/")
+        {
+          $str=substr($str,0,strlen($str)-1);
+        }
+        return $str;
+    }
+
+    /**
      * for get routing
      *
      * @return void
@@ -90,6 +105,7 @@ class Ava_Controller extends Ava_Base {
      **/
     function get_route($name,$function)
     {
+        $name=$this->remove_end_slash($name);
         $this->getRoute[$name]=$function;
     }
 
@@ -101,6 +117,7 @@ class Ava_Controller extends Ava_Base {
      **/
     function post_route($name,$function)
     {
+        $name=$this->remove_end_slash($name);
         $this->postRoute[$name]=$function;
     }
 
@@ -112,6 +129,7 @@ class Ava_Controller extends Ava_Base {
      **/
     function put_route($name,$function)
     {
+        $name=$this->remove_end_slash($name);
         $this->putRoute[$name]=$function;
     }
 
@@ -123,6 +141,7 @@ class Ava_Controller extends Ava_Base {
      **/
     function delete_route($name,$function)
     {
+        $name=$this->remove_end_slash($name);
         $this->deleteRoute[$name]=$function;
     }
 
@@ -139,11 +158,6 @@ class Ava_Controller extends Ava_Base {
         if($rule_items[count($rule_items)-1]=="")
         {
             array_pop($rule_items);
-        }
-
-        if(substr($data_items[count($data_items)-1],0,1)=="?")
-        {
-            array_pop($data_items);
         }
 
         if (count($rule_items) == count($data_items)) {
@@ -181,7 +195,10 @@ class Ava_Controller extends Ava_Base {
         {
             $path.="/".$list[$route];
         }
-        
+        $path=strstr($path,"?",true);
+
+        $path=$this->remove_end_slash($path);
+
         //init for home
         if($path=="") $path="/";
 
@@ -221,6 +238,7 @@ class Ava_Controller extends Ava_Base {
         else {
              if (count($route)) {
                 foreach($route as $rule_key => $function) {
+                    
                     $params = $this->get_param($rule_key,$path);
                     if($params)
                     {
