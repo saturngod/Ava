@@ -90,9 +90,11 @@ class Ava_Controller extends Ava_Base {
      **/
     private function remove_end_slash($str)
     {
-        if(substr($str,-1)=="/")
-        {
-          $str=substr($str,0,strlen($str)-1);
+        if(strlen($str) > 1) {
+            if(substr($str,-1)=="/")
+            {
+            $str=substr($str,0,strlen($str)-1);
+            }
         }
         return $str;
     }
@@ -225,7 +227,7 @@ class Ava_Controller extends Ava_Base {
         {
             $route=$this->deleteRoute;
         }
-                
+        
         if(isset($route[$path]))
         {
                 $function=$route[$path];
