@@ -24,6 +24,14 @@
     {
          $tmp_arr=preg_split('/\//',AvaConfig::base_url);
         
+         //if user add / in the end, it will remove. 
+         //Eg: http://localhost/test/ => localhost,test,
+         //change to localhost,test
+         
+         if($tmp_arr[count($tmp_arr)-1]=="") {
+             array_pop($tmp_arr);
+         }
+
          $count=count($tmp_arr)-2; // http:// include // 2. So substract 2
          $this->list=preg_split('/\//',$_SERVER['REQUEST_URI']);
          
