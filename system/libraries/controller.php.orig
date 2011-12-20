@@ -170,13 +170,24 @@ class Ava_Controller extends Ava_Base {
         {
             $path.="/".$list[$route];
         }
+<<<<<<< HEAD
+=======
 
         if(count($_GET)>1) {
             $path=strstr($path,"?",true);
         }
         
         $path=$this->remove_end_slash($path);
+>>>>>>> 5a61d2ef81b4a52686c19010be6e11d0dd546f93
 
+        
+        
+        if(count($_GET) > 1)
+        {
+            $path=strstr($path,"?",true);
+            $path=$this->remove_end_slash($path);
+        }
+ 
         //init for home
         if($path=="") $path="/";
 

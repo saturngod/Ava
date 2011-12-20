@@ -7,6 +7,12 @@ Ava Framework is an open source web application framework. It will help you deve
 
 
 ## ChangeLog
+
+Version 0.7.2 Dec 6 [saturngod at gmail dot com]
+
+* fixed GET in routing
+* remove array_to_object in controller
+
 Version 0.7.1 Dec 5 [saturngod at gmail dot com]
 
 * remove outclass and merge with io
