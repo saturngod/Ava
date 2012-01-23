@@ -15,8 +15,14 @@ class Ava_db
 	private $limit;
 	private $select;
 	private $order;
+	private $join;
+	private $distinct;
+	private $groupby;
+    private $having;
+    private $row_count;
+    
 	public $err;
-
+	public $sql;
 	/**
 	 * Constructor. Can check the query error with if ($this->db->err) echo $this->db->err[2];
 	 */
@@ -37,6 +43,18 @@ class Ava_db
 	    }
 	}
 
+    private function clear_variable()
+    {
+        $this->where="";
+        $this->limit="";
+        $this->select="";
+        $this->order="";
+        $this->where_array=array();
+        $this->join="";
+        $this->distinct="";
+        $this->groupby="";
+        $this->having="";
+    }
     /**
      * normal query
      * @param  string $sql
@@ -44,7 +62,6 @@ class Ava_db
      */
 	public function query($sql,$query_array="")
 	{
-
 		$this->err=false;
 		try
 		{
@@ -59,6 +76,15 @@ class Ava_db
             	$return=$result->execute($this->where_array);
             }
 
+            $debug_sql=$sql;
+            if (sizeof($this->where_array) > 0) {
+				foreach ($this->where_array as $key => $value) {
+					$debug_sql = str_replace($key, $this->dbh->quote($value), $debug_sql);
+				}
+			}
+
+			$this->sql=$debug_sql;
+
             //check error
 			if(!$return) {
 				$this->err=$result->errorInfo();
@@ -67,12 +93,11 @@ class Ava_db
             if(is_object($result))
             {
                 $result->setFetchMode(PDO::FETCH_OBJ);
-                $this->where="";
-                $this->limit="";
-                $this->select="";
-                $this->order="";
-                $this->where_array=array();
-                return $result->fetchAll();
+                $this->clear_variable();
+                
+                $return =$result->fetchAll();
+                $this->row_count=count($return);
+                return $return;
             }
             else
             {
@@ -96,20 +121,22 @@ class Ava_db
      */
 	private function wherelike($field,$value,$do="both")
 	{
+		$field_value=$field.count($this->where_array);
+
 		if($do=="both")
 		{
-			$like=$field." like :".$field;
-            $this->where_array[":".$field]="%".$value."%";
+			$like=$field." like :".$field_value;
+            $this->where_array[":".$field_value]="%".$value."%";
 		}
 		else if($do=="before")
 		{
-			$like=$field." like :".$field;
-            $this->where_array[":".$field]="%".$value;
+			$like=$field." like :".$field_value;
+            $this->where_array[":".$field_value]="%".$value;
 		}
 		else if($do=="after")
 		{
-			$like=$field." like :".$field;
-            $this->where_array[":".$field]=$value."%";
+			$like=$field." like :".$field_value;
+            $this->where_array[":".$field_value]=$value."%";
 		}
 		return $like;
 	}
@@ -209,21 +236,21 @@ class Ava_db
 		if($operator=="") $operator="=";
 
 		$field=trim($field);
-
+		$field_value=$field.count($this->where_array);
         if($field!="")
         {
-            $this->where_array[":".$field]=$value;
+            $this->where_array[":".$field_value]=$value;
         }
 
 		if($this->where!="")
 		{
 
-			$this->where=$this->where.' AND '.$field." ".$operator." :".$field;
+			$this->where=$this->where.' AND '.$field." ".$operator." :".$field_value;
 			
 		}
 		else
 		{
-			$this->where=' '.$field." ".$operator." :".$field;
+			$this->where=' '.$field." ".$operator." :".$field_value;
 			
 		}
 
@@ -249,17 +276,20 @@ class Ava_db
 
         if($field!="")
         {
-            $this->where_array[":".$field]=$value;
+        	$field_value=$field.count($this->where_array);
+
+            $this->where_array[":".$field_value]=$value;
         }
         
 		if($this->where!="")
 		{
-			$this->where=$this->where." OR ".$field." ".$operator." :".$field;
+			$this->where=$this->where." OR ".$field." ".$operator." :".$field_value;
          
 		}
 		else {
 			$operator=$this->get_operator($field);
-			$this->where=' '.$field." ".$operator." :".$field;
+			if($operator=="") $operator="=";
+			$this->where=' '.$field." ".$operator." :".$field_value;
 		}
 		return $this;
 	}
@@ -284,16 +314,37 @@ class Ava_db
 		$this->order=substr($this->order,0,-2);
 		return $this;
 	}
+	
+	/**
+	 * LIMIT in query
+	 *
+	 * @param string $total 
+	 * @param string $start 
+	 * @return $this
+	 */
+	 
 	public function limit($total='',$start=0)
 	{
 		$this->limit="limit ".$start.",".$total;
 		return $this;
 	}
 
+    /**
+     * SELECT query
+     *
+     * @param string $select 
+     * @return $this
+     */
 	public function select($select)
 	{
 		$this->select=$select;
 		return $this;
+	}
+	
+	public function distinct($select)
+	{
+	    $this->distinct= "DISTINCT ($select)";
+	    return $this;
 	}
 	/**
 	 * get result from table
@@ -307,19 +358,35 @@ class Ava_db
 
 		if($this->select!="")
 		{
-			$sql="SELECT ".$this->select." FROM ".$table;
+		    if($this->distinct!="")
+		    {
+			    $sql="SELECT ".$this->distinct.",".$this->select." FROM ".$table;
+		    }
+		    else {
+		        $sql="SELECT ".$this->select." FROM ".$table;
+		    }
 		}
 		else
 		{
-			$sql="SELECT * FROM ".$table;
+		    if($this->distinct!="")
+		    {
+		        $sql="SELECT ".$this->distinct." FROM ".$table;   
+		    }
+		    else {
+                $sql="SELECT * FROM ".$table;   
+		    }
 
 		}
+
+		$sql=$sql." ".$this->join;
 
 		if($this->where!="")
 		{
 			$sql=$sql." WHERE ".$this->where;
 		}
 
+        $sql=$sql." ".$this->groupby. " ".$this->having;
+        
 		if($this->order!="")
 		{
 			$sql=$sql." ".$this->order;
@@ -328,6 +395,8 @@ class Ava_db
 		{
 			$sql=$sql." ".$this->limit;
 		}
+		
+		
 		$this->err=false;
 		return $this->query($sql);
 
@@ -465,5 +534,53 @@ class Ava_db
 
 	}
 
+	/**
+	 * join tables
+	 *
+	 * @param string $command 
+	 * @param string $condition 
+	 * @param string $type 
+	 * @return $this
+	 */
+	function join($command,$condition,$type="JOIN")
+	{
+		//LEFT JOIN comments ON comments.id = blogs.id
+		if(strtoupper($type)!="JOIN")
+		{
+			$type = strtoupper($type). " JOIN";
+		}
 
+		$join = $type." ".$command. " ON ".$condition;
+		$this->join=$this->join." ".$join;
+		return $this;
+	}
+
+    /**
+     * group by function
+     *
+     * @param string $groupby 
+     * @return $this
+     */
+    function group_by($groupby)
+    {
+        $this->groupby="GROUP BY ".$groupby;
+        return $this;
+    }
+    
+    /**
+     * HAVING in mysql
+     *
+     * @param string $having 
+     * @return $tis
+     */
+    function having($having)
+    {
+        $this->having = "HAVING($having)";
+        return $this;
+    }
+    
+    function count()
+    {
+        return $this->row_count;        
+    }
 }
