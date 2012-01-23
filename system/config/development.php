@@ -22,6 +22,5 @@ public static $autoload=array("db","session");
 
 const DEBUG=true; //show error or not; recommend true for development
 
-const google_analystic="UA-2358448-26";
 const session_timeout=60; //seconds
 }
