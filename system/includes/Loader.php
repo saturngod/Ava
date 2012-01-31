@@ -217,10 +217,10 @@ class Ava_Loader {
 	public function plugin($name)
 	{
 		if(file_exists(SITE_PATH."/user/plugin/".$name.".php")) {
-			require SITE_PATH."/user/plugin/".$name.".php";
+			require_once SITE_PATH."/user/plugin/".$name.".php";
 		}
 		else if(file_exists(SITE_PATH."/plugin/".$name.".php")) {
-			require SITE_PATH."/plugin/".$name.".php";
+			require_once SITE_PATH."/plugin/".$name.".php";
 		}
 		else {
 			$this->notfound_err("PLUGIN:: ". $name);
