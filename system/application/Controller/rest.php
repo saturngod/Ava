@@ -1,5 +1,5 @@
 <?php
-class Rest extends Ava_Controller {
+class restController extends Ava_Controller {
 
 	/**
 	 * Index Page
@@ -20,8 +20,8 @@ class Rest extends Ava_Controller {
 
         $this->delete_route("/name/:username","delete_user");
 
-		$this->load->model("rest_model");
-        $this->run($this->rest_model);
+		$this->load->model("rest");
+        $this->run($this->rest);
 
 	}
 

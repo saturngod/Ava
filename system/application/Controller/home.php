@@ -1,6 +1,6 @@
 <?php
 
-class Home extends Ava_Controller {
+class homeController extends Ava_Controller {
 	
 	/**
 	 * Place to start writing the code 
