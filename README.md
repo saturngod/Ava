@@ -11,7 +11,9 @@ Ava Framework is an open source web application framework. It will help you deve
 
 Version 1.0.2 Jan 30 , 2012 [saturngod at gmail dot com]
 
-* change Load Model only need first character is lowercase (eg: support userModel now)
+* change Load Model only need first character is lowercase (eg: support userRouting now)
+* re-add Model in model class (e.g: userRouting.php , class name is userRoutingModel)
+* re-add Controller in controller class (e.g.user.php , class name is userController)
 * fixed same helper load more than one time
 
 Version 1.0.1 Jan 30 , 2012 [saturngod at gmail dot com]
