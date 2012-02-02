@@ -8,6 +8,23 @@ Ava Framework is an open source web application framework. It will help you deve
 
 ## ChangeLog
 
+
+Version 1.0.2 Jan 30 , 2012 [saturngod at gmail dot com]
+
+* change Load Model only need first character is lowercase (eg: support userModel now)
+* fixed same helper load more than one time
+
+Version 1.0.1 Jan 30 , 2012 [saturngod at gmail dot com]
+
+* fixed same plugin load more than one time
+
+Version 1.0 Jan 23 , 2012 [saturngod at gmail dot com]
+
+* fixed db class for same field multi where
+* add JOIN in db
+* add $this->db->sql to get sql
+* add $this-db->count for rows count
+
 Version 0.7.2 Dec 6 [saturngod at gmail dot com]
 
 * fixed GET in routing

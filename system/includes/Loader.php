@@ -29,7 +29,7 @@ class Ava_Loader {
 	public function model($modelname,$name='')
 	{
 		$Ava =& get_instance();
-		$modelname = strtolower($modelname);
+		$modelname = lcfirst($modelname);
 
 		$file_path=$modelname;
 		$models=explode("/",$modelname);
@@ -158,10 +158,10 @@ class Ava_Loader {
 	public function helper($helper)
 	{
 		if(file_exists(SITE_PATH."/user/helper/".$helper.".php")) {
-			require SITE_PATH."/user/helper/".$helper.".php";
+			require_once SITE_PATH."/user/helper/".$helper.".php";
 		}
 		else if(file_exists(SITE_PATH."/helper/".$helper.".php")) {
-			require SITE_PATH."/helper/".$helper.".php";
+			require_once SITE_PATH."/helper/".$helper.".php";
 		}
 		else {
 			$this->notfound_err("HELPER:: ". $helper);
