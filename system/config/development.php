@@ -12,6 +12,7 @@ const db_host="localhost";
 const db_name="app_drops";
 const db_user="root";
 const db_password="root";
+const db_encode = "utf8";
 
 //home page controller
 const home_controller = 'home';

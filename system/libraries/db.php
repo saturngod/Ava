@@ -33,7 +33,7 @@ class Ava_db
         $this->where_array=array();
 		try {
             //setup database
-   	 		$this->dbh = new PDO("mysql:host=".AvaConfig::db_host.";dbname=".AvaConfig::db_name, AvaConfig::db_user, AvaConfig::db_password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+   	 		$this->dbh = new PDO("mysql:host=".AvaConfig::db_host.";dbname=".AvaConfig::db_name, AvaConfig::db_user, AvaConfig::db_password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES ".AvaConfig::db_encode));
    	 		
    	 		$this->err=false;
 	    }
