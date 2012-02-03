@@ -15,6 +15,7 @@ Version 1.0.2 Jan 30 , 2012 [saturngod at gmail dot com]
 * re-add Model in model class (e.g: userRouting.php , class name is userRoutingModel)
 * re-add Controller in controller class (e.g.user.php , class name is userController)
 * fixed same helper load more than one time
+* fixed db class for missing $this->db->sql in insert and update
 
 Version 1.0.1 Jan 30 , 2012 [saturngod at gmail dot com]
 
