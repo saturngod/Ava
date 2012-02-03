@@ -16,6 +16,7 @@ Version 1.0.2 Jan 30 , 2012 [saturngod at gmail dot com]
 * re-add Controller in controller class (e.g.user.php , class name is userController)
 * fixed same helper load more than one time
 * fixed db class for missing $this->db->sql in insert and update
+* support $this->io->request_body for JSON string or XML string in post , put , delete
 
 Version 1.0.1 Jan 30 , 2012 [saturngod at gmail dot com]
 
