@@ -87,7 +87,7 @@ class Ava_Loader {
             {
                 extract($data_array);
             }
-            include(SITE_PATH."/application/View/".$view.".php");
+            require_once(SITE_PATH."/application/View/".$view.".php");
         }
             
     }
@@ -158,10 +158,10 @@ class Ava_Loader {
     public function helper($helper)
     {
         if(file_exists(SITE_PATH."/user/helper/".$helper.".php")) {
-            require SITE_PATH."/user/helper/".$helper.".php";
+            require_once(SITE_PATH."/user/helper/".$helper.".php");
         }
         else if(file_exists(SITE_PATH."/helper/".$helper.".php")) {
-            require SITE_PATH."/helper/".$helper.".php";
+            require_once(SITE_PATH."/helper/".$helper.".php");
         }
         else {
             $this->notfound_err("HELPER:: ". $helper);

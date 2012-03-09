@@ -203,17 +203,23 @@ class Ava_Controller extends Ava_Base {
         
         if(isset($route[$path]))
         {
-                $function=$route[$path];
+            //without param / , /username
+            $function=$route[$path];
 
-                if(is_callable(array($app,$function))) {
-                    $app->{$function}();
-                }
-                else {
-                    $this->load->notfound_err("FUNCTION :: ".$function." ");
-                }
+            if(is_callable(array($app,$function))) {
+                $app->{$function}();
+            }
+            else if(is_callable($function))
+            {
+                $function();
+            }
+            else {
+                $this->load->notfound_err("FUNCTION :: ".$function." ");
+            }
                 
         }
         else {
+            //with param /:id , /:username
              if (count($route)) {
                 foreach($route as $rule_key => $function) {
                     
@@ -223,6 +229,10 @@ class Ava_Controller extends Ava_Base {
                         if(is_callable(array($app,$function))) {
                             $app->{$function}($params);
                             break;
+                        }
+                        else if(is_callable($function))
+                        {
+                            $function($params);
                         }
                         else {
                             $this->load->notfound_err("FUNCTION :: ".$function." ");

@@ -13,6 +13,14 @@ class restController extends Ava_Controller {
         $this->get_route("/test","testing");
         $this->get_route("/name/:username","showusername");
         $this->get_route("/name/:username/id/:id","userdetail");
+        
+        $this->get_route("/callback",function(){
+            echo "This is callback";
+        });
+        
+        $this->get_route("/callback/:id",function($param){
+            echo $param['id'];
+        });
 
         $this->post_route("/name/:username","post_user");
 
