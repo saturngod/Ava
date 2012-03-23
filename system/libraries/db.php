@@ -203,7 +203,13 @@ class Ava_db
 
         if($this->where!="")
         {
-            $this->where=$this->where." OR ".$like;
+            if($this->check_bracket())
+            {
+                $this->where=$this->where." ".$like;
+            }
+            else {
+                $this->where=$this->where." OR ".$like;   
+            }
         }
         else
         {
@@ -261,7 +267,13 @@ class Ava_db
         }
         if($this->where!="")
         {
-            $this->where = $this->where." OR ".$field." ".$is_txt;
+            if($this->check_bracket())
+            {
+                $this->where = $this->where." ".$field." ".$is_txt;
+            }
+            else {
+                $this->where = $this->where." OR ".$field." ".$is_txt;   
+            }
         }
         else {
             $this->where = $field." IS NULL";
@@ -366,7 +378,13 @@ class Ava_db
         
         if($this->where!="")
         {
-            $this->where=$this->where." OR ".$field." ".$operator." :".$field_value;
+            if($this->check_bracket())
+            {
+                $this->where=$this->where." ".$field." ".$operator." :".$field_value;
+            }
+            else {
+                $this->where=$this->where." OR ".$field." ".$operator." :".$field_value;   
+            }
          
         }
         else {
