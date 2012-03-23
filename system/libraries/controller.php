@@ -163,6 +163,7 @@ class Ava_Controller extends Ava_Base {
      **/
     function run($app) {
         //check routing
+
         $list=$this->segment->get_list();
         $path="";
         //remove first array because it's router
@@ -184,43 +185,51 @@ class Ava_Controller extends Ava_Base {
         $route=array();
 
         //check method
-        if($this->io->method=="get")
+        if($this->io->method=="GET")
         {
             $route=$this->getRoute;
         }
-        else if($this->io->method=="post")
+        else if($this->io->method=="POST")
         {
             $route=$this->postRoute;
         }
-        else if($this->io->method=="put")
+        else if($this->io->method=="PUT")
         {
             $route=$this->putRoute;
         }
-        else if($this->io->method=="delete")
+        else if($this->io->method=="DELETE")
         {
             $route=$this->deleteRoute;
         }
-        
+
         if(isset($route[$path]))
         {
+            $already_call=false;
             //without param / , /username
             $function=$route[$path];
 
-            if(is_callable(array($app,$function))) {
-                $app->{$function}();
-            }
-            else if(is_callable($function))
+            if(is_callable($function))
             {
                 $function();
+                $already_call=true;
+            }
+            else if(is_callable(array($app,$function))) {
+                $app->{$function}();
+                $already_call=true;
             }
             else {
                 $this->load->notfound_err("FUNCTION :: ".$function." ");
             }
                 
+            if(!$already_call)
+            {
+                $this->load->notfound_err("");
+            }
         }
         else {
             //with param /:id , /:username
              if (count($route)) {
+                $already_call=false;
                 foreach($route as $rule_key => $function) {
                     
                     $params = $this->get_param($rule_key,$path);
@@ -228,17 +237,28 @@ class Ava_Controller extends Ava_Base {
                     {
                         if(is_callable(array($app,$function))) {
                             $app->{$function}($params);
+                            $already_call=true;
                             break;
                         }
                         else if(is_callable($function))
                         {
                             $function($params);
+                            $already_call=true;
                         }
                         else {
                             $this->load->notfound_err("FUNCTION :: ".$function." ");
                         }
                     }
                 }
+                //if not found , show 404 error
+
+                if(!$already_call)
+                {
+                    $this->load->notfound_err("");
+                }
+            }
+            else {
+                $this->load->notfound_err("Need to config path in config/config.php. or Path ");
             }
         }
         

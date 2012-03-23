@@ -8,6 +8,13 @@ Ava Framework is an open source web application framework. It will help you deve
 
 ## ChangeLog
 
+Version 1.0.3 Jan 30 , 2012 [saturngod at gmail dot com]
+
+* support Closure (callback) in routing
+* add IS (NOT) NULL in db
+* support bracket in db
+* fixed same view can't load two time
+* fixed same helper can't load two time
 
 Version 1.0.2 Jan 30 , 2012 [saturngod at gmail dot com]
 

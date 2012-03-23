@@ -67,6 +67,16 @@ class Ava_db
 
         $this->sql=$debug_sql;
     }
+
+    private function check_bracket()
+    {
+        $where = trim($this->where);
+        if(substr($where, -1,1)=="(")
+        {
+            return true;
+        }
+        return false;
+    }
     /**
      * normal query
      * @param  string $sql
@@ -162,7 +172,13 @@ class Ava_db
 
         if($this->where!="")
         {
-            $this->where=$this->where." AND ".$like;
+            if($this->check_bracket())
+            {
+                $this->where=$this->where." ".$like;
+            }
+            else {
+                $this->where=$this->where." AND ".$like;
+            }
         }
         else
         {
@@ -196,6 +212,62 @@ class Ava_db
         return $this;
     }
 
+    
+    /**
+     * IS NULL or IS NOT NULL with AND
+     *
+     * @param string $field 
+     * @param string $is_null 
+     * @return void
+     * @author saturngod
+     */
+    public function where_null($field,$is_null=true)
+    {
+        $is_txt=" IS NULL";
+        if(!$is_null)
+        {
+            $is_txt = " IS NOT NULL";
+        }
+        if($this->where!="")
+        {
+            if($this->check_bracket())
+            {
+                $this->where = $this->where." ".$field." ".$is_txt;
+            }
+            else {
+                $this->where = $this->where." AND ".$field." ".$is_txt;
+            }
+        }
+        else {
+            $this->where = $field." IS NULL";
+        }
+        return $this;
+    }
+
+    /**
+     * IS NULL or IS NOT NULL with OR
+     *
+     * @param string $field 
+     * @param string $is_null 
+     * @return void
+     * @author saturngod
+     */
+    public function where_or_null($field,$is_null=true)
+    {
+        $is_txt=" IS NULL";
+        if(!$is)
+        {
+            $is_txt = " IS NOT NULL";
+        }
+        if($this->where!="")
+        {
+            $this->where = $this->where." OR ".$field." ".$is_txt;
+        }
+        else {
+            $this->where = $field." IS NULL";
+        }
+        return $this;
+    }
 
     private function get_operator($field) {
         
@@ -251,9 +323,13 @@ class Ava_db
 
         if($this->where!="")
         {
-
-            $this->where=$this->where.' AND '.$field." ".$operator." :".$field_value;
-            
+            if($this->check_bracket())
+            {
+                $this->where=$this->where." ".$field." ".$operator." :".$field_value;
+            }
+            else {
+                $this->where=$this->where." AND ".$field." ".$operator." :".$field_value;
+            }
         }
         else
         {
@@ -590,8 +666,48 @@ class Ava_db
         return $this;
     }
     
+    /**
+     * total row count
+     *
+     * @return void
+     * @author saturngod
+     */
     function count()
     {
         return $this->row_count;        
+    }
+
+    /**
+     * ( start
+     *
+     * @return void
+     * @author saturngod
+     */
+    function bracket_open($separator="")
+    {
+        if($this->where!="")
+        {
+            $this->where = $this->where . " ".$separator. " (";
+        }
+        else {
+            $this->where = $separator." (";
+        }
+    }
+
+    /**
+     * ) end
+     *
+     * @return void
+     * @author saturngod
+     */
+    function bracket_close($separator="")
+    {
+        if($this->where!="")
+        {
+            $this->where = $this->where . " ".$separator. " )";
+        }
+        else {
+            $this->where = $separator. " )";
+        }
     }
 }

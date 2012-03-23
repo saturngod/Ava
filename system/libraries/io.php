@@ -52,7 +52,7 @@ class Ava_io {
     function __construct()
     {
         $request_method = strtolower($_SERVER['REQUEST_METHOD']);
-        $this->method=$request_method;
+        $this->method=strtoupper($request_method);
         
         $this->header_var = getallheaders();
         $this->request_body = file_get_contents('php://input');

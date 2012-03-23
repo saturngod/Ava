@@ -76,8 +76,17 @@ class gravatar
      * @param  $default
      * @return void
      */
+    
+     // http://en.gravatar.com/site/implement/images/
+     // mm: (mystery-man) a simple, cartoon-style silhouetted outline of a person (does not vary by email hash)
+     // identicon: a geometric pattern based on an email hash
+     // monsterid: a generated 'monster' with different colors, faces, etc
+     // wavatar: generated faces with differing features and backgrounds
+     // retro: awesome generated, 8-bit arcade-style pixelated faces
+     
 	public function setDefault($default)
 	{
+
 		$this->properties['d']=$default;
 	}
 
@@ -87,7 +96,7 @@ class gravatar
      */
 	public function get()
 	{
-		$url=$this->GRAVATAR_PATH.MD5($this->email);
+		$url=$this->GRAVATAR_PATH.MD5(strtolower($this->email));
 		$first=true;
 		foreach($this->properties as $key => $value) {
 		          
