@@ -625,6 +625,29 @@ class Ava_io {
 		return $this->_fetch_from_array($this->delete_var, $index, $xss_clean);
 	}
 
+
+    /**
+     * return All Put Variable
+     * @access  public
+     * @return array
+     * @author saturngod
+     **/
+    
+    function get_puts()
+    {
+        return $this->put_var;
+    }
+
+    /**
+     * return All Delete Variable Array
+     * @access public
+     * @return array
+     * @author saturngod
+     **/
+    function get_deltes()
+    {
+        return $this->delete_var;
+    }
     ////
 
     function _convert_attribute($match)
