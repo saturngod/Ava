@@ -1,4 +1,4 @@
-Ava Framework is an open source web application framework. It will help you develop your application faster. Ava light version will helps you develop your own framework. It's still in development version. It will release soon. You can download from github. You can read documentation from Ava Doc.
+Ava Framework is an open source web application framework. It will help you develop your application faster. Ava light version will helps you develop your own framework. You can download from [Ava-light branch](https://github.com/saturngod/Ava/tree/ava-lite) . You can read documentation from [https://github.com/saturngod/Ava/wiki]( https://github.com/saturngod/Ava/wiki) .
 
 ## Require
 
