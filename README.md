@@ -8,9 +8,10 @@ Ava Framework is an open source web application framework. It will help you deve
 
 ## ChangeLog
 
-Version 1.0.4 Apr 3 , 2012 [saturngod at gmail dot com]
+Version 1.0.4 Apr 18 , 2012 [saturngod at gmail dot com]
 
 * support $this->io->get_puts() and $this->io->get_deletes();
+* support db_port
 
 Version 1.0.3 Jan 30 , 2012 [saturngod at gmail dot com]
 
