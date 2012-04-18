@@ -13,6 +13,7 @@ const db_name="information_schema";
 const db_user="root";
 const db_password="root";
 const db_encode = "utf8";
+const db_port = 3306;
 
 //home page controller
 const home_controller = 'index';
