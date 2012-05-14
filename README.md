@@ -8,6 +8,19 @@ Ava Framework is an open source web application framework. It will help you deve
 
 ## ChangeLog
 
+Version 1.0.5 May 14, 2012 [saturngod at gmail dot com]
+
+* support array in routing
+
+		$get["/"]="home";
+		$get["/test"]="testing";
+		$get["/name/:username"]= "showusername";
+		$get["/name/:username/id/:id"]="userdetail";
+                
+		$this->get_route($get);
+
+
+
 Version 1.0.4 Apr 18 , 2012 [saturngod at gmail dot com]
 
 * support $this->io->get_puts() and $this->io->get_deletes();

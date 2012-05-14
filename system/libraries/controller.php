@@ -78,10 +78,20 @@ class Ava_Controller extends Ava_Base {
      * @return void
      * @author saturngod
      **/
-    function get_route($name,$function)
+    function get_route($name,$function="")
     {
-        $name=$this->remove_end_slash($name);
-        $this->getRoute[$name]=$function;
+        if(is_array($name))
+        {
+            foreach ($name as $name_key => $function_value) {
+                $name_key=$this->remove_end_slash($name_key);
+                $this->getRoute[$name_key]=$function_value;                
+            }
+        }
+        else {
+            $name=$this->remove_end_slash($name);
+            $this->getRoute[$name]=$function;
+        }
+
     }
 
     /**
@@ -90,10 +100,19 @@ class Ava_Controller extends Ava_Base {
      * @return void
      * @author saturngod
      **/
-    function post_route($name,$function)
+    function post_route($name,$function="")
     {
-        $name=$this->remove_end_slash($name);
-        $this->postRoute[$name]=$function;
+        if(is_array($name))
+        {
+            foreach ($name as $name_key => $function_value) {
+                $name_key=$this->remove_end_slash($name_key);
+                $this->postRoute[$name_key]=$function_value;                
+            }
+        }
+        else {
+            $name=$this->remove_end_slash($name);
+            $this->postRoute[$name]=$function;
+        }
     }
 
     /**
@@ -102,10 +121,19 @@ class Ava_Controller extends Ava_Base {
      * @return void
      * @author saturngod
      **/
-    function put_route($name,$function)
+    function put_route($name,$function="")
     {
-        $name=$this->remove_end_slash($name);
-        $this->putRoute[$name]=$function;
+        if(is_array($name))
+        {
+            foreach ($name as $name_key => $function_value) {
+                $name_key=$this->remove_end_slash($name_key);
+                $this->putRoute[$name_key]=$function_value;                
+            }
+        }
+        else {
+            $name=$this->remove_end_slash($name);
+            $this->putRoute[$name]=$function;
+        }
     }
 
     /**
@@ -114,10 +142,19 @@ class Ava_Controller extends Ava_Base {
      * @return void
      * @author saturngod
      **/
-    function delete_route($name,$function)
+    function delete_route($name,$function="")
     {
-        $name=$this->remove_end_slash($name);
-        $this->deleteRoute[$name]=$function;
+        if(is_array($name))
+        {
+            foreach ($name as $name_key => $function_value) {
+                $name_key=$this->remove_end_slash($name_key);
+                $this->deleteRoute[$name_key]=$function_value;                
+            }
+        }
+        else {
+            $name=$this->remove_end_slash($name);
+            $this->deleteRoute[$name]=$function;
+        }
     }
 
     /**

@@ -2,7 +2,7 @@
 Class AvaConfig
 {
 //for baseurl, current runing link
-const base_url="http://localhost/Ava";
+const base_url="http://localhost/indoCMS";
 
 const htaccess = true;
 

@@ -9,10 +9,12 @@ class restController extends Ava_Controller {
 	 */
 	function index(){
                 
-                $this->get_route("/","home");
-                $this->get_route("/test","testing");
-                $this->get_route("/name/:username","showusername");
-                $this->get_route("/name/:username/id/:id","userdetail");
+                $get["/"]="home";
+                $get["/test"]="testing";
+                $get["/name/:username"]= "showusername";
+                $get["/name/:username/id/:id"]="userdetail";
+                
+                $this->get_route($get);
                 
                 $this->get_route("/callback",function(){
                     echo "This is callback";
