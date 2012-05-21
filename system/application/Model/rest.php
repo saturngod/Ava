@@ -11,6 +11,15 @@ class restModel extends Ava_Model {
         $this->io->write(200,array("message"=>"Page"));
     }
 
+    function checklogin()
+    {
+        echo "callfunction<br/>";
+    }
+
+    function showadmin($params)
+    {
+        var_dump($params);
+    }
     function showusername($params)
     {
        $this->load->view("restview",$params);

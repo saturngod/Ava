@@ -14,6 +14,12 @@ class restController extends Ava_Controller {
                 $get["/name/:username"]= "showusername";
                 $get["/name/:username/id/:id"]="userdetail";
                 
+                $get['/admin/:username']="checklogin,showadmin";
+
+                $fun[0]="checklogin";
+                $fun[1]="showadmin";
+                $get['/witharray/:username']=$fun;
+
                 $this->get_route($get);
                 
                 $this->get_route("/callback",function(){

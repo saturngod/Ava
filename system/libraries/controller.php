@@ -241,63 +241,86 @@ class Ava_Controller extends Ava_Base {
 
         if(isset($route[$path]))
         {
-            $already_call=false;
+            
             //without param / , /username
             $function=$route[$path];
-
-            if(is_callable($function))
+            //check it's array or not
+            if (is_array($function))
             {
-                $function();
-                $already_call=true;
-            }
-            else if(is_callable(array($app,$function))) {
-                $app->{$function}();
-                $already_call=true;
+                foreach ($function as $fun) {
+                    $this->callFunction($app,$fun);
+                }
             }
             else {
-                $this->load->notfound_err("FUNCTION :: ".$function." ");
+                $functions = explode(",", $function);
+                foreach ($functions as $fun) {
+                    $this->callFunction($app,$fun);
+                }    
             }
-                
-            if(!$already_call)
-            {
-                $this->load->notfound_err("");
-            }
+            
         }
         else {
             //with param /:id , /:username
              if (count($route)) {
-                $already_call=false;
-                foreach($route as $rule_key => $function) {
-                    
-                    $params = $this->get_param($rule_key,$path);
-                    if($params)
-                    {
-                        if(is_callable(array($app,$function))) {
-                            $app->{$function}($params);
-                            $already_call=true;
-                            break;
-                        }
-                        else if(is_callable($function))
-                        {
-                            $function($params);
-                            $already_call=true;
-                        }
-                        else {
-                            $this->load->notfound_err("FUNCTION :: ".$function." ");
-                        }
-                    }
-                }
-                //if not found , show 404 error
-
-                if(!$already_call)
-                {
-                    $this->load->notfound_err("");
-                }
+                $this->callFunctionWithParam($app,$route,$path);
             }
             else {
                 $this->load->notfound_err("Need to config path in config/config.php. or Path ");
             }
         }
         
+    }
+
+    private function callFunction($app,$function)
+    {
+        if(is_callable($function))
+        {
+            $function();
+        }
+        else if(is_callable(array($app,$function))) {
+            $app->{$function}();
+        }
+        else {
+            $this->load->notfound_err("FUNCTION :: ".$function." ");
+        }
+    }
+
+    private function functionWithParam($app,$function,$params)
+    {
+        if(is_callable(array($app,$function))) {
+                    $app->{$function}($params);
+        }
+        else if(is_callable($function))
+        {
+            $function($params);
+        }
+        else {
+            $this->load->notfound_err("FUNCTION :: ".$function." ");
+        }
+    }
+
+    private function callFunctionWithParam($app,$route,$path)
+    {
+
+        foreach($route as $rule_key => $function) {
+            
+            $params = $this->get_param($rule_key,$path);
+            if($params)
+            {
+                //check it's a arry function list
+                if (is_array($function))
+                {
+                    foreach ($function as $fun) {
+                        $this->functionWithParam($app,$fun,$params);
+                    }
+                }
+                else {
+                    $functions = explode(",", $function);
+                    foreach ($functions as $fun) {
+                        $this->functionWithParam($app,$fun,$params);
+                    }
+                }
+            }
+        }
     }
 }

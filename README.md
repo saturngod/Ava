@@ -8,6 +8,18 @@ Ava Framework is an open source web application framework. It will help you deve
 
 ## ChangeLog
 
+Version 1.1 May 21 2012 [saturngod at gmail dot com]
+
+* support multi function in routing
+	
+		$get['/admin/:username']="checklogin,showadmin";
+
+		$fun[0]="checklogin";
+		$fun[1]="showadmin";
+                
+		$get['/witharray/:username']=$fun;
+
+
 Version 1.0.5 May 14, 2012 [saturngod at gmail dot com]
 
 * support array in routing
