@@ -65,9 +65,10 @@ class Ava_cache {
      */
     function exist($key)
     {
-        if($this->fetch($key)!=false)
-        {
-            return true;
+        $file=$this->getFile($key);
+        //check cache exist or readable
+        if(!file_exists($file) || !is_readable($file)) {
+            return false;
         }
         return false;
     }
@@ -119,6 +120,20 @@ class Ava_cache {
         }
         unlink($file);
     }
+
+    /**
+     * Clear All Cache File
+     */
+    function clear()
+    {
+        foreach (glob($this->cache_path."*") as $filename) {
+            //echo "$filename size " . filesize($filename) . "\n";
+            unlink($filename);
+        }
+
+        touch($this->cache_path."index.html");
+    }
+
 }
 
 
